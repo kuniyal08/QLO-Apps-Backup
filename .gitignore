@@ -1,0 +1,72 @@
+# Cache and temporary files
+/cache/
+/var/cache/
+/var/log/
+/var/sessions/
+
+# Uploaded media (images, downloads)
+/img/
+/upload/
+/download/
+
+# Configuration files with sensitive data
+/config/settings.inc.php
+/config/xml/
+
+# Vendor and third-party libraries
+/vendor/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backups
+*.sql
+*.zip
+*.tar.gz
+
+admin/themes/default/sass/ie.sass
+admin/themes/default/sass/print.sass
+admin/themes/default/sass/screen.sass
+
+admin/themes/default/css/ie.css
+admin/themes/default/css/print.css
+admin/themes/default/css/screen.css
+
+# Translations and emails templates
+
+/translations/**
+!/translations/index.php
+!/translations/en.gzip
+
+!/translations/export/
+!/translations/export/index.php
+
+/mails/*
+!/mails/.htaccess
+!/mails/index.php
+!/mails/en/
+
+/themes/hotel-reservation-theme/cache/*
+!/themes/hotel-reservation-theme/cache/
+!/themes/hotel-reservation-theme/cache/index.php
+
+/themes/hotel-reservation-theme/lang/*
+!/themes/hotel-reservation-theme/lang/index.php
+!/themes/hotel-reservation-theme/lang/en.php
+
+/themes/hotel-reservation-theme/modules/*/translations/*.php
+!/themes/hotel-reservation-theme/modules/*/translations/index.php
+
+/themes/hotel-reservation-theme/mails/*
+!/themes/hotel-reservation-theme/mails/index.php
+!/themes/hotel-reservation-theme/mails/en/
+
+/themes/hotel-reservation-theme/modules/*/mails/*
+!/themes/hotel-reservation-theme/modules/*/mails/index.php
+!/themes/hotel-reservation-theme/modules/*/mails/en
+
+# MISC
+
+**sitemap.xml
+robots.txt

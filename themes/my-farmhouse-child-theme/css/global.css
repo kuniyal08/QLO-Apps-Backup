@@ -9187,3 +9187,5 @@ div a.our_properties_link{
   color: #fff;
   font-size: 17px;
   font-weight: 400;}
+
+@import url("custom.css");

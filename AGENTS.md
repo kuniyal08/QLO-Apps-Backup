@@ -191,7 +191,43 @@ After making changes:
 - Clear caches if modifying templates or overrides
 - Add PHPDoc to new methods
 
+## Environment & Tooling Constraints — Notify + Advise
+
+- **Always notify the user about environment/tooling constraints** that affect how a task can be executed in this workspace (e.g., "no root/sudo available", "Docker Engine cannot be installed", "port X is taken", "extension Y missing"). Do not silently pick a workaround.
+- **Ask the user** when a constraint changes the recommended approach, instead of merely informing them and proceeding.
+- When a choice has tradeoffs, **lay out the advantages and disadvantages** of each option before acting (e.g., Docker Engine needs root/`docker` group vs rootless Podman; build-from-image vs bind-mounted source; seeding from a DB dump vs clean installer).
+- If a user-selected tool cannot be used here, **recommend and explain the closest compatible alternative** (e.g., Docker-compatible Podman), and confirm before relying on it.
+- Note: Docker Engine requires root (or membership in the `docker` group, which is root-equivalent). Podman is rootless by default.
+
+
+## Local Dev Stack — Editing Code Live
+
+- The Docker image bakes the source (`COPY . /var/www/html`); host edits are invisible until the image is rebuilt, so use the dev override for iterative work:
+  ```bash
+  podman-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+  ```
+  `docker-compose.dev.yml` bind-mounts `themes/`, `controllers/`, and `cache/` from the host. It is a local-only dev artifact (not for production).
+- **SELinux trap (rootless Podman, Enforcing):** `podman-compose 1.6` drops the `:Z` relabel when it *recreates* a container, so named volumes (img/upload/download/secrets) keep the old MCS pair and the new container gets a new one — the entrypoint then fails with `cp: cannot stat '/var/www/html/img/.'` and the container crash-loops. If this happens:
+  ```bash
+  MCS=$(podman inspect <container> --format '{{.ProcessLabel}}')  # e.g. s0:c110,c112
+  for v in images uploads downloads secrets; do
+    podman unshare chcon -R -t container_file_t -l "$MCS" "$(podman volume inspect qloapps_$v --format '{{.Mountpoint}}')"
+  done
+  podman start <container>
+  ```
+  (`podman unshare` is required — the volume files are owned by the container-mapped UID and plain `chcon` fails with EPERM.) `podman stop/start` keeps the MCS pair; `podman-compose up` recreate changes it again.
+- The entrypoint seeds media from `/usr/local/share/qloapps-media` into empty volumes on first boot and regenerates `config/settings.inc.php` from env each start; cookie keys persist in the `secrets` volume.
+
 ## Safety Rules
+
+## Git Workflow
+
+- Work from a descriptive feature branch. Never commit directly to `main` or `master`.
+- Commit each isolated, verified unit of work promptly.
+- Keep commits atomic: one logical change per commit; do not combine refactors and bug fixes.
+- Run relevant local validation before staging. Never commit syntax errors, broken code, or failing tests.
+- Use Conventional Commits messages in imperative mood, for example `feat(theme): add property discovery cards`.
+
 
 **Agents must not:**
 - Delete files unless explicitly instructed

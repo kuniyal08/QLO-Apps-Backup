@@ -27,15 +27,19 @@
     {capture name=path}{l s='My account'}{/capture}
 
     {block name='my_account_heading'}
-        <h1 class="page-heading">{l s='My account'}</h1>
+        <header class="journey-page-intro account-journey-intro">
+            <span class="journey-kicker">{l s='Guest dashboard'}</span>
+            <h1 class="page-heading">{l s='My account'}</h1>
+            <p>{l s='Manage your stays, personal details, invoices and booking requests in one place.'}</p>
+        </header>
         {if isset($account_created)}
             <p class="alert alert-success">
                 {l s='Your account has been created.'}
             </p>
         {/if}
-        <p class="info-account">{l s='Welcome to your account. Here you can manage all of your personal information and orders.'}</p>
+        <p class="info-account">{l s='Choose an option below to manage your booking information.'}</p>
     {/block}
-    <div class="row addresses-lists">
+    <div class="row addresses-lists account-journey-actions">
         <div class="col-xs-12 col-sm-6 col-lg-4">
             {block name='my_account_tabs'}
                 <ul class="myaccount-link-list">

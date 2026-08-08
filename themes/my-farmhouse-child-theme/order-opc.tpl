@@ -33,6 +33,11 @@
 	<section id="wrapper">
 		<div class="container">
 			<section id="content">
+				<header class="journey-page-intro checkout-journey-intro">
+					<span class="journey-kicker">{l s='Secure stay checkout'}</span>
+					<h1>{l s='Complete your booking'}</h1>
+					<p>{l s='Review your stay, add guest details and choose a payment method. Your rooms are not confirmed until payment is complete.'}</p>
+				</header>
 				<div class="row">
 					{if $PS_CATALOG_MODE}
 						{capture name=path}{l s='Your booking cart'}{/capture}

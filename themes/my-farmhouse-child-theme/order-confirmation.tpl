@@ -26,7 +26,11 @@
 {block name='order_confirmation'}
 	{capture name=path}{l s='Order confirmation'}{/capture}
 	{block name='order_confirmation_heading'}
-		<h1 class="page-heading">{l s='Booking confirmation'} : <span class="bold">{$order->reference}</span></h1>
+		<header class="journey-page-intro confirmation-journey-intro">
+			<span class="journey-kicker">{l s='Your stay is reserved'}</span>
+			<h1 class="page-heading">{l s='Booking confirmation'} <span class="bold">{$order->reference|escape:'html':'UTF-8'}</span></h1>
+			<p>{l s='Keep this reference handy. We have sent your booking details to your email address.'}</p>
+		</header>
 	{/block}
 
 	{assign var='current_step' value='payment'}

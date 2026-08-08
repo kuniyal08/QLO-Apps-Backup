@@ -31,7 +31,11 @@
 		{/if}
 	{/capture}
 	{block name='authentication_heading'}
-		<h1 class="page-heading">{if !isset($email_create)}{l s='Authentication'}{else}{l s='Create an account'}{/if}</h1>
+		<header class="journey-page-intro account-journey-intro">
+			<span class="journey-kicker">{l s='Your guest account'}</span>
+			<h1 class="page-heading">{if !isset($email_create)}{l s='Sign in or create an account'}{else}{l s='Create an account'}{/if}</h1>
+			<p>{l s='Use one account to keep booking details, invoices and stay updates together.'}</p>
+		</header>
 	{/block}
 	{if isset($back) && preg_match("/^http/", $back)}{assign var='current_step' value='login'}{block name='order_steps'}{include file="$tpl_dir./order-steps.tpl"}{/block}{/if}
 	{block name='errors'}

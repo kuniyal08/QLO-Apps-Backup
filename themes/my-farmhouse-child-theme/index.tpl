@@ -23,6 +23,47 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
+{block name='fh_home_hero'}
+	<div class="fh-hero">
+		<div class="fh-hero__media" style="background-image:url('{$link->getMediaLink("`$smarty.const._PS_IMG_`{Configuration::get('WK_HOTEL_HEADER_IMAGE')}")}');"></div>
+		<div class="fh-hero__content fh-container">
+			{block name='fh_home_hero_copy'}
+				{if Configuration::get('WK_TITLE_HEADER_BLOCK')}
+					<h1 class="fh-hero__title">{Configuration::get('WK_TITLE_HEADER_BLOCK')|escape:'htmlall':'UTF-8'}</h1>
+				{/if}
+				{if Configuration::get('WK_CONTENT_HEADER_BLOCK')}
+					<p class="fh-hero__subtitle">{Configuration::get('WK_CONTENT_HEADER_BLOCK')|escape:'htmlall':'UTF-8'}</p>
+				{/if}
+			{/block}
+		</div>
+	</div>
+{/block}
+
+{block name='fh_home_trust'}
+	<div class="fh-trust">
+		<div class="fh-container">
+			<ul class="fh-trust__list">
+				<li class="fh-trust__item">
+					<i class="icon-home" aria-hidden="true"></i>
+					<span>{l s='Authentic rural stays'}</span>
+				</li>
+				<li class="fh-trust__item">
+					<i class="icon-leaf" aria-hidden="true"></i>
+					<span>{l s='Farmhouses, stays & cultural homes'}</span>
+				</li>
+				<li class="fh-trust__item">
+					<i class="icon-tag" aria-hidden="true"></i>
+					<span>{l s='Direct booking, no hidden fees'}</span>
+				</li>
+				<li class="fh-trust__item">
+					<i class="icon-phone" aria-hidden="true"></i>
+					<span>{l s='Local support, 24x7'}</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+{/block}
+
 {block name='displayHomeTabContent'}
 	{if isset($HOOK_HOME_TAB_CONTENT) && $HOOK_HOME_TAB_CONTENT|trim}
 		{block name='displayHomeTab'}

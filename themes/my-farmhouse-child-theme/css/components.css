@@ -170,12 +170,13 @@ select.form-control {
    -------------------------------------------------------------------------- */
 .header-container {
   background: transparent;
-}
-
-.fh-header-sticky {
   position: sticky;
   top: 0;
   z-index: 5000;
+}
+
+.fh-header-sticky {
+  position: static;
 }
 
 .fh-header {
@@ -393,11 +394,13 @@ header #nav-main nav > div {
 
 .menu_cont_right {
   transform: translate(105%);
-  transition: transform .25s ease;
+  visibility: hidden;
+  transition: transform .25s ease, visibility .25s ease;
 }
 
 .menu_cont_left {
   transform: translate(0);
+  visibility: visible;
   transition: transform .25s ease;
   overflow-y: scroll;
 }
@@ -410,11 +413,13 @@ header #nav-main nav > div {
 [dir='rtl'] #menu_cont.menu_cont_right {
   left: 0;
   transform: translate(-105%);
+  visibility: hidden;
 }
 
 [dir='rtl'] #menu_cont.menu_cont_left {
   left: 0;
   transform: translate(0);
+  visibility: visible;
 }
 
 [dir='rtl'] #menu_cont .close_navbar.pull-right {
@@ -450,10 +455,25 @@ header #nav-main nav > div {
 }
 
 #index .header-rmsearch-container {
+  position: relative;
+  bottom: auto;
   background-image: none;
+  z-index: 20;
+}
+
+#index .header-rmsearch-wrapper {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+#index .header-rmsearch-primary {
+  display: block;
+  vertical-align: baseline;
 }
 
 #index .header-rmsearch-inner-wrapper {
+  margin: 0;
   padding: 0;
 }
 

@@ -56,6 +56,12 @@
 				{/if}
 			{/foreach}
 		{/if}
+		{if isset($js_defer) && !$js_defer && isset($js_files) && isset($js_def)}
+			{$js_def}
+			{foreach from=$js_files item=js_uri}
+			<script type="text/javascript" src="{$js_uri|escape:'html':'UTF-8'}"></script>
+			{/foreach}
+		{/if}
 		{block name='displayHeader'}
 			{$HOOK_HEADER}
 		{/block}
@@ -113,11 +119,15 @@
 							</div>
 						{/block}
 						{block name='header_top'}
-							<div class="header-top">
+								<div class="header-top">
 								<div class="fh-container fh-header__inner">
+									{assign var='fh_logo_url' value=$logo_url}
+									{if !file_exists("{$smarty.const._PS_ROOT_DIR_}/img/{Configuration::get('PS_LOGO')}") && file_exists("{$smarty.const._PS_ROOT_DIR_}/img/farmhouse-up-logo-1776420896.jpg")}
+										{assign var='fh_logo_url' value="{$smarty.const._PS_IMG_}farmhouse-up-logo-1776420896.jpg"}
+									{/if}
 									<div id="header_logo" class="fh-header__logo">
 										<a href="{if isset($force_ssl) && $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}" title="{$shop_name|escape:'html':'UTF-8'}">
-											<img class="logo img-responsive" src="{$logo_url}" alt="{$shop_name|escape:'html':'UTF-8'}"/>
+											<img class="logo img-responsive" src="{$fh_logo_url}" alt="{$shop_name|escape:'html':'UTF-8'}"/>
 										</a>
 									</div>
 									<div class="fh-header__menu">
@@ -139,11 +149,14 @@
 							{hook h='displaySearchHotelPanel'}
 						{/block}
 					</header>
-					{block name='displayAfterHookTop'}
-						{hook h='displayAfterHookTop'}
-					{/block}
-				</div>
+				{block name='displayAfterHeaderHotelDesc'}
+					{hook h='displayAfterHeaderHotelDesc'}
+				{/block}
 			</div>
+			</div>
+			{block name='displayAfterHookTop'}
+				{hook h='displayAfterHookTop'}
+			{/block}
 			<div class="columns-container">
 				<div id="columns" class="container">
 					{if $show_breadcrump}

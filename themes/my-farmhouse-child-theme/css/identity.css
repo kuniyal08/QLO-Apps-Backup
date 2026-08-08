@@ -1,0 +1,77 @@
+
+/* ==========================================================================
+   Farmhouse identity — overlay layer
+   ========================================================================== */
+
+#center_column .page-heading,
+#center_column .page-subheading {
+  font-family: var(--fh-font-display);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 600;
+  color: var(--fh-ink);
+}
+
+#center_column .box {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-1);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+#center_column .info-title {
+  font-size: 15px;
+  color: var(--fh-text);
+}
+
+#center_column .required {
+  font-size: 13px;
+  color: var(--fh-muted);
+}
+
+#center_column form.std fieldset {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+#center_column form.std .form-control,
+#center_column form.std input[type="text"],
+#center_column form.std input[type="email"],
+#center_column form.std input[type="password"],
+#center_column form.std select {
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-sm);
+  box-shadow: none;
+  font-size: 14px;
+  padding: 10px 12px;
+  height: auto;
+}
+
+#center_column form.std label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fh-text);
+}
+
+#center_column form.std .gender-line label {
+  display: block;
+}
+
+#center_column form.std .submit {
+  background: var(--fh-primary);
+  border: 1px solid var(--fh-primary);
+  border-radius: var(--fh-radius-pill);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 11px 26px;
+}
+
+#center_column form.std .submit:hover {
+  background: var(--fh-primary-hover);
+  border-color: var(--fh-primary-hover);
+  color: #fff;
+}

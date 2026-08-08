@@ -1273,3 +1273,55 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Guest tracking
+   -------------------------------------------------------------------------- */
+#center_column form#guestTracking.std {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-1);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+#center_column form#guestTracking.std fieldset.description_box {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+#center_column form#guestTracking.std h2 {
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--fh-ink);
+}
+
+#center_column form#guestTracking.std .form-group input[type="text"],
+#center_column form#guestTracking.std .form-group input[type="email"] {
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-sm);
+  box-shadow: none;
+  font-size: 14px;
+  padding: 10px 12px;
+  height: auto;
+}
+
+#center_column form#guestTracking.std .form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fh-text);
+}
+
+#center_column form#guestTracking.std p button,
+#center_column form#guestTracking.std button[type="submit"] {
+  background: var(--fh-primary);
+  border: 1px solid var(--fh-primary);
+  border-radius: var(--fh-radius-pill);
+  color: #fff;
+  font-weight: 600;
+  padding: 11px 26px;
+}

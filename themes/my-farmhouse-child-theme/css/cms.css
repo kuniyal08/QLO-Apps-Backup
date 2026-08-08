@@ -121,3 +121,52 @@
           background: #e7e7e7; }
 
 /*# sourceMappingURL=cms.css.map */
+
+/* ==========================================================================
+   Farmhouse CMS pages — overlay layer
+   ========================================================================== */
+
+#center_column .rte {
+  font-size: 15px;
+  line-height: 26px;
+  color: var(--fh-text);
+}
+
+#center_column .rte h2,
+#center_column .rte .page-heading {
+  font-family: var(--fh-font-display);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 600;
+  color: var(--fh-ink);
+  border: none;
+  margin-bottom: 14px;
+}
+
+#center_column .rte .page-subheading {
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--fh-ink);
+  margin: 22px 0 8px;
+}
+
+#center_column .rte p {
+  line-height: 26px;
+  margin-bottom: 12px;
+}
+
+#center_column .rte ul {
+  padding-left: 22px;
+}
+
+#center_column .rte li {
+  margin-bottom: 6px;
+}
+
+#center_column .rte a {
+  color: var(--fh-primary);
+}
+
+#center_column .rte hr {
+  border-color: var(--fh-border);
+}

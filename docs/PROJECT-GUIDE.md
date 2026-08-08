@@ -101,8 +101,11 @@ The child theme has a `modules/` directory mirroring these — override template
 ### CSS/JS loading
 
 - `FrontController::setMedia()` (classes/controller/FrontController.php:1145) loads `_THEME_CSS_DIR_.'global.css'` and `_THEME_JS_DIR_.'global.js'` automatically.
-- **Current pattern:** `css/custom.css` (M3 tokens) + `css/material.css` (M3 components) are loaded via explicit `<link>` tags at the end of `<head>` in `header.tpl` (after the `$css_files` loop → they override theme + module CSS). The old `@import url("custom.css");` tail of `global.css` is a **no-op — browsers ignore trailing `@import`** (observed: `custom.css` was not even requested). Prefer `<link>` over trailing `@import`.
-- `js/material.js` (ripple, scroll state, nav-toggle stopPropagation) loaded from footer via `$smarty.const._THEME_JS_DIR_`.
+- **Farmhouse pattern (supersedes the older M3 `custom.css`/`material.css` pair — those files are deleted):** the override layer is loaded via explicit `<link>` tags at the end of `<head>` in `header.tpl` (after the `$css_files` loop → they override theme + module CSS):
+  1. `css/design-system.css` — design tokens (palette, type scale, elevation, radius), Fraunces/Manrope `@font-face`, global `overflow-x: clip`.
+  2. `css/components.css` — always-loaded components (sticky header shell, search-panel neutralisation, footer, cards, buttons, history table, 404 card).
+  3. Page overlays: `home.css` (index only), `product_list.css` (category/our-properties/product), `product.css` (product only), `order-opc.css` (checkout), `account.css` (account/utility pages, added in `header.tpl` for `authentication|my-account|identity|addresses|address|order-confirmation|order-detail|history|guest-tracking`), plus appended overlays in the stock per-page files (`identity.css`, `addresses.css`, `contact-form.css`, `cms.css`, `stores.css`, `maintenance.css`, `my-account.css`, `order-confirmation.css`, `order-detail.css`).
+- `js/theme.js` (vanilla, `defer`) loaded from `<head>` via `header.tpl` — sticky header shadow, mobile nav drawer. No new jQuery; module JS (`order-opc.js`, `product.js`, `occupancy.js`, `wk-room-search-block.js`) is untouched.
 - Page-specific CSS/JS: add `addCSS()`/`addJS()` in the controller or via the `displayHeader` hook.
 
 ### Module template overrides (how they resolve)
@@ -111,30 +114,32 @@ The child theme has a `modules/` directory mirroring these — override template
 - **Gotcha:** if the hook entry template (e.g. `landingPageSearch.tpl`) `{include file="./searchForm.tpl"}`s a sub-template, the relative path resolves against the *entry* template's own location. Override the **entry template too**, otherwise the module's sub-template is loaded and your override is bypassed.
 - Every id/class/input-name the module JS (`wk-room-search-block.js`) touches must be preserved: `#search_hotel_block_form`, `#search_form_fields_wrapper`, `#hotel_location`, `#location_category_id`, `#id_hotel_button` (`.chosen`), `#daterange_value(_from/_to)`, `#check_in_time`, `#check_out_time`, `#guest_occupancy`, `#search_occupancy_wrapper`, occupancy classes, `#search_room_submit`.
 
-### Current customization status (child theme)
+### Current customization status (child theme) — farmhouse redesign
 
 | Item | Status |
 |------|--------|
-| `css/custom.css` (M3 tokens: palette, shape, elevation, fonts) | Loaded via `<link>` in `header.tpl`; served (HTTP 200) |
-| `css/material.css` (M3 components + page restyles, ~31 KB) | Loaded via `<link>` after `custom.css` |
-| `js/material.js` | Footer, `_THEME_JS_DIR_` |
-| `modules/wkroomsearchblock/.../{searchForm,landingPageSearch}.tpl` | Theme override; M3 labelled fields + icons |
-| `css/global.css` | Parent copy; trailing `@import "custom.css"` is a no-op (keep or remove) |
-| `preview.jpg` | Custom farmhouse image (replaces parent) |
-| `modules/bankwire` & `cheque` translations | Extra en/it/fr files present |
+| `css/design-system.css` (farmhouse tokens: Fraunces/Manrope fonts, warm earth palette, spacing/elevation/radius) | Loaded via `<link>` in `header.tpl`; served (HTTP 200) |
+| `css/components.css` (always-on overlay: sticky header, search panel, cards, footer, history/404) | Loaded via `<link>` after `design-system.css` |
+| Page overlays: `home.css`, `product_list.css`, `product.css`, `order-opc.css`, `account.css` + appended per-page overlays (`identity`, `addresses`, `contact-form`, `cms`, `stores`, `maintenance`, `my-account`, `order-confirmation`, `order-detail`) | Loaded via `<link>` conditionals in `header.tpl` / stock controller `addCSS()` |
+| `fonts/fraunces-*.woff2`, `fonts/manrope-latin-200-800.woff2` | Self-hosted, `font-display: swap` |
+| `js/theme.js` | Vanilla, `defer` in `<head>` |
+| `modules/wkroomsearchblock/.../roomTypePageSearch.tpl` + 4 byte-identical search overrides | Sticky search panel on product page ("Modify Search" toggle) |
+| `header.tpl` / `footer.tpl` / `index.tpl` / `category.tpl` / `product.tpl` | Rebuilt farmhouse shell, hero, sections, room cards, sticky booking widget |
+| `css/product_list.css` (396→900 lines) | Category/our-properties room cards |
+| **Superseded:** `css/custom.css` + `css/material.css` (M3 iteration) + `js/material.js` | Deleted — replaced by the farmhouse layer above |
 
 **Known issues / gotchas (observed on real pages):**
-- `.app-nav > div` forced `.layer_cart_overlay` visible (`display:flex`) — the blockcart overlay lives inside the `displayTop` hook output, which sits in `.app-nav`. Now excluded (`display:none !important`).
-- `#menu_cont` drawer closed instantly on toggle: blocknavigationmenu's document click handler only exempts `.header-top .header-top-menu .nav_toggle`; our toggle is in `.app-nav`, so `material.js` calls `stopPropagation()` on `.nav_toggle`.
-- Module CSS uses `#search_hotel_block_form .header-rmsearch-input { min-height: 55px }` and `#search_hotel_block_form #search_room_submit { min-height: 55px; border-radius: 4px; text-transform: uppercase }` — override with equal-or-higher specificity (`#search_hotel_block_form #search_room_submit`) and `min-height`.
-- `#xs_room_search_form` (fancybox target) is present on **all** sizes — don't scope desktop/mobile rules by that id alone; use the width media query.
-- **Mobile horizontal bleed:** every page overflows 15px on small screens from Bootstrap `.row` negative margins (`.row`/columns at `left:-15; right:390`). Fixed globally with `html, body { overflow-x: clip }` inside the `max-width: 767px` media query (kept drawer + sticky working).
-- **Contact form box:** module CSS `css/contact-form.css` styles `.htl-contact-page .contact-form-box` (padding 30px, radius 4px, old blue shadow) with **higher specificity** than a bare `.contact-form-box` rule — override must match `.htl-contact-page .contact-form-box`.
-- **Checkout summary selectors:** OPC "Rooms & Price Summary" does **not** use `#cart_summary` (that table only appears inside the classic payment block `order-payment-classic.tpl`). The OPC room lines are `.cart_product_line` in `shopping-cart-detail.tpl`; totals are `.cart_total_detail_block` in `cart-total-block.tpl`.
-- **Payment options markup:** payment modules (bankwire/cheque) render `.payment_module` `<a>` links via `#HOOK_PAYMENT`, not `.payment-option` — style `.paiement_block` + `#HOOK_PAYMENT .payment_module`.
-- **Add-to-cart requires occupancy selection:** `ajax-cart.js:getBookingOccupancyDetails()` returns falsy until a `.occupancy_info_block.selected` exists. On category/product, open `.booking_guest_occupancy` dropdown and click `.submit_occupancy_btn` (Done) first; only then `.ajax_add_to_cart_button` / `#add_to_cart` adds the room. In headless tests, use `page.click` (real click) not `el.click()` for drawer toggles — jQuery-delegated handlers bind reliably either way, but drawer state is easiest to assert with real clicks.
-- **Demo DB gaps (fixed 2026-08-06, client-approved):** `qlo_newsletter` was missing → account creation 500'd in `AuthController::processCustomerNewsletter` (blocknewsletter queries the table); recreated with standard PrestaShop schema. `qlo_currency` was empty (config `PS_CURRENCY_DEFAULT=1` pointed at nothing) → all prices rendered `0` and `#HOOK_PAYMENT` said "No currency has been selected."; inserted INR (id=1, sign ₹, rate 1.0).
-- **OPC payment-step reachability:** the payment accordion is lazy — content renders only after proceeding past the summary/guest steps. `proceed_to_payment=1` requires TOS (`#cgv`) checked, and a delivery address (there's a hidden 4th checkout step). With an empty/odd cart, `proceed_to_payment` navigations can drop the cart; don't rely on it for styling a cart (add to cart on the same session right before).
+- **Payment step shows "No payment method is available"** when `qlo_module_currency`/`qlo_currency_shop` are empty: `PaymentModule::getCurrency()` (classes/PaymentModule.php:1732) → `Currency::getPaymentCurrencies()` LEFT JOINs `module_currency`, and `getCurrenciesByIdShop()` LEFT JOINs `currency_shop`. **Fixed 2026-08-08 (client-approved):** `INSERT INTO qlo_currency_shop (id_currency, id_shop, conversion_rate) VALUES (1,1,1.000000)` and `INSERT INTO qlo_module_currency (id_module, id_shop, id_currency) VALUES (10,1,1),(11,1,1)` (bankwire=10, cheque=11).
+- **OPC payment-step reachability:** the payment accordion is lazy — content renders only after proceeding past the summary/guest steps. `HOOK_PAYMENT` also guards on TOS (`#cgv` checked) and a valid delivery address. Automating the flow: summary "Proceed" → guest-info step → `#customer_guest_detail` checkbox → fill `customer_guest_detail_*` fields → click `.submit-guest-details` → TOS checkbox → payment modules appear.
+- **Guest checkout is disabled** (`PS_GUEST_CHECKOUT_ENABLED=0`); order-opc shows login + full create-account forms. Registration is two-step on the auth page (`#email_create` → `#SubmitCreate` → full form → `#submitAccount`).
+- **`.pagenotfound` ambiguity:** `body` carries both `id="pagenotfound"` and `class="pagenotfound"` (header.tpl sets id+class from `$page_name`) — target the inner `div.pagenotfound` with `#center_column .pagenotfound` (or `body > div`), never `document.querySelector('.pagenotfound')` in QA scripts.
+- **`account.css` 404:** `header.tpl` loads `css/account.css` on account pages; the file must exist (added 2026-08-08) or browsers log "Refused to apply style ... MIME type text/html".
+- **Multiple search pills:** `hotelreservationsystem` `displayAfterHookTop` + `headerHotelDescBlock.tpl` recursively call `displayAfterHeaderHotelDesc`, so `#xs_room_search` appears twice (one hidden via `#index .header-desc-container {display:none}`) — use `.first()`.
+- **Modify Search on product page:** the desktop `.modify_roomtype_search_btn` (without `.visible-xs`) toggles the hidden `.fh-search-panel--sticky` (`display:none` in module CSS by design).
+- **`.header-rmsearch-wrapper` is `display:none`** in `wk-roomtype-search.css` — the room-page search panel opens only via Modify Search; do not force it visible.
+- **Datepicker cells** are plain `td` (no `.day` class) inside `.date-picker-wrapper`; use `td:not(.disabled):not(.prev-month):not(.next-month)` in tests.
+- **Order placement in tests** creates real orders (`qlo_orders`, `qlo_htl_booking_detail`) — refs like `PKFXMRHWM`; harmless in dev.
+- **Demo DB gaps (fixed 2026-08-06, client-approved):** `qlo_newsletter` missing → account creation 500'd; recreated with standard schema. `qlo_currency` empty → prices `0`; inserted INR (id=1).
 
 ## Booking Flow (context for styling)
 

@@ -1057,7 +1057,7 @@ class HotelHelper
 
         Configuration::updateValue('WK_TITLE_HEADER_BLOCK', $home_banner_default_title);
         Configuration::updateValue('WK_CONTENT_HEADER_BLOCK', $home_banner_default_content);
-        Configuration::updateValue('WK_HOTEL_HEADER_IMAGE', 'hotel_header_image.jpg');
+        Configuration::updateValue('WK_HOTEL_HEADER_IMAGE', 'hotel_header_image_1776418446.jpg');
         Configuration::updateValue('WK_ALLOW_ADVANCED_PAYMENT', 1);
         Configuration::updateValue('WK_ADVANCED_PAYMENT_GLOBAL_MIN_AMOUNT', 10);
         Configuration::updateValue('WK_ADVANCED_PAYMENT_INC_TAX', 1);

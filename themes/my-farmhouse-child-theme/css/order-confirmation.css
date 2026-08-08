@@ -268,3 +268,138 @@
     font-weight: normal;
     border-radius: 2px;
 }
+/* ==========================================================================
+   Farmhouse order confirmation — overlay layer
+   ========================================================================== */
+
+#center_column .page-heading {
+  font-family: var(--fh-font-display);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 600;
+  font-size: 30px;
+  color: var(--fh-ink);
+  border: none;
+}
+
+#center_column .order-confirmation-column .card {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-1);
+  overflow: hidden;
+}
+
+#center_column .order-confirmation-column .card-header {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--fh-border);
+  padding: 16px 20px;
+}
+
+#center_column .order-confirmation-column .card-header .card-title,
+#center_column .order-confirmation-column .card-header h3 {
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--fh-ink);
+  margin: 0;
+}
+
+#center_column .order-confirmation-column .card-body {
+  padding: 20px;
+  font-size: 14px;
+  color: var(--fh-text);
+}
+
+#center_column .order-confirmation-column .list-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--fh-border);
+  font-size: 14px;
+}
+
+#center_column .order-confirmation-column .list-row .title {
+  color: var(--fh-muted);
+}
+
+#center_column .order-confirmation-column .list-row .value {
+  font-weight: 600;
+  color: var(--fh-ink);
+}
+
+#center_column .order-confirmation-column .info-wrap {
+  font-size: 14px;
+  color: var(--fh-text);
+}
+
+#center_column .order-confirmation-column .hotel-location {
+  color: var(--fh-muted);
+  font-size: 13px;
+}
+
+#center_column .order-confirmation-column .price-info-container .order-price-info {
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  color: var(--fh-primary);
+}
+
+#center_column .order-confirmation-column img.img-room-type {
+  border-radius: var(--fh-radius-sm);
+  border: 1px solid var(--fh-border);
+}
+
+#center_column .order-confirmation-column .description-list p {
+  font-size: 14px;
+  color: var(--fh-text);
+  margin: 0 0 6px;
+}
+
+#center_column .order-confirmation-column .btn,
+#center_column .order-confirmation-column .button-exclusive {
+  border-radius: var(--fh-radius-pill);
+  background: var(--fh-primary);
+  border: 1px solid var(--fh-primary);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 22px;
+}
+
+#center_column .order-confirmation-column .btn:hover,
+#center_column .order-confirmation-column .button-exclusive:hover {
+  background: var(--fh-primary-hover);
+  border-color: var(--fh-primary-hover);
+  color: #fff;
+}
+
+#center_column .order-confirmation-column .alert-success {
+  background: rgba(46, 125, 50, .08);
+  border: 1px solid rgba(46, 125, 50, .3);
+  border-radius: var(--fh-radius-md);
+  color: var(--fh-success);
+  font-size: 14px;
+}
+
+#center_column .order-confirmation-column .panel {
+  background: var(--fh-bg);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-md);
+  box-shadow: none;
+}
+
+/* back to account button */
+#center_column .back_o_msg {
+  font-size: 14px;
+  color: var(--fh-muted);
+}
+
+#center_column .cust_serv_lnk {
+  font-size: 14px;
+}
+
+@media (max-width: 767px) {
+  #center_column .page-heading {
+    font-size: 24px;
+  }
+}

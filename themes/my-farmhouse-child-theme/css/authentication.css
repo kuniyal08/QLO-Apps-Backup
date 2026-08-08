@@ -34,3 +34,97 @@
   max-width: 271px; }
 
 /*# sourceMappingURL=authentication.css.map */
+
+/* ==========================================================================
+   Farmhouse authentication — overlay layer
+   ========================================================================== */
+
+#center_column .page-heading {
+  font-family: var(--fh-font-display);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 600;
+  font-size: 30px;
+  color: var(--fh-ink);
+  border: none;
+  padding-bottom: 8px;
+}
+
+#center_column .page-subheading {
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  font-size: 21px;
+  color: var(--fh-ink);
+}
+
+#center_column .box {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-1);
+  padding: 22px;
+  margin-bottom: 20px;
+}
+
+#center_column form.box .form_content {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+#center_column form.box .form-control,
+#center_column form.box input[type="text"],
+#center_column form.box input[type="email"],
+#center_column form.box input[type="password"] {
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-sm);
+  box-shadow: none;
+  font-size: 14px;
+  padding: 10px 12px;
+  height: auto;
+}
+
+#center_column form.box label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fh-text);
+}
+
+#center_column form.box .submit,
+#center_column form.box #SubmitCreate,
+#center_column form.box #SubmitLogin {
+  background: var(--fh-primary);
+  border: 1px solid var(--fh-primary);
+  border-radius: var(--fh-radius-pill);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 11px 26px;
+}
+
+#center_column form.box .submit:hover,
+#center_column form.box #SubmitCreate:hover,
+#center_column form.box #SubmitLogin:hover {
+  background: var(--fh-primary-hover);
+  border-color: var(--fh-primary-hover);
+  color: #fff;
+}
+
+#center_column form.box .lost_password a {
+  color: var(--fh-primary);
+  font-size: 14px;
+}
+
+#center_column .inline-infos {
+  font-size: 13px;
+  color: var(--fh-muted);
+}
+
+#center_column .gender-line {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 767px) {
+  #center_column .page-heading {
+    font-size: 24px;
+  }
+}

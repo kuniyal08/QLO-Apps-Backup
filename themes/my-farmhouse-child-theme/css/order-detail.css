@@ -1125,3 +1125,151 @@
     text-underline-offset: 3px;
 }
 /* Guest Tracking page styles - end */
+
+/* ==========================================================================
+   Farmhouse order detail (booking) — overlay layer
+   ========================================================================== */
+
+#center_column .page-heading {
+  font-family: var(--fh-font-display);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 600;
+  color: var(--fh-ink);
+  border: none;
+}
+
+#order_detail_container .card,
+#order_detail_container .well {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-1);
+  padding: 20px;
+  margin-bottom: 18px;
+}
+
+#order_detail_container .well-sm,
+#order_detail_container .well-md {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-md);
+  box-shadow: var(--fh-shadow-1);
+  padding: 16px;
+}
+
+#order_detail_container .well-order-date {
+  border-left: 4px solid var(--fh-primary);
+}
+
+#order_detail_container .table-summary,
+#order_detail_container .table {
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-md);
+  overflow: hidden;
+}
+
+#order_detail_container .table thead th {
+  background: var(--fh-bg);
+  border-bottom: 1px solid var(--fh-border);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--fh-muted);
+}
+
+#order_detail_container .table tbody td {
+  border-top: 1px solid var(--fh-border);
+  font-size: 14px;
+  color: var(--fh-text);
+}
+
+#order_detail_container .totalprice {
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  color: var(--fh-primary);
+}
+
+#order_detail_container .nav-tabs {
+  border-bottom: 1px solid var(--fh-border);
+  margin-bottom: 20px;
+}
+
+#order_detail_container .nav-tabs li a {
+  border: none;
+  border-radius: var(--fh-radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fh-muted);
+  padding: 9px 18px;
+  background: transparent;
+}
+
+#order_detail_container .nav-tabs li.active a,
+#order_detail_container .nav-tabs li a:hover {
+  background: var(--fh-bg);
+  color: var(--fh-ink);
+  border: none;
+}
+
+#order_detail_container .rooms-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+}
+
+#order_detail_container .rooms-list .room {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-md);
+  padding: 16px;
+  box-shadow: var(--fh-shadow-1);
+}
+
+#order_detail_container .rooms-list .room .room-name,
+#order_detail_container .rooms-list .room-type-name {
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--fh-ink);
+}
+
+#order_detail_container .refund-policy,
+#order_detail_container .refund-rule-name {
+  font-size: 14px;
+  color: var(--fh-text);
+}
+
+#order_detail_container .refund_element_summary {
+  font-size: 14px;
+  color: var(--fh-muted);
+}
+
+#order_detail_container #submitMessage,
+#order_detail_container .submit .button,
+#order_detail_container button[type="submit"] {
+  background: var(--fh-primary);
+  border: 1px solid var(--fh-primary);
+  border-radius: var(--fh-radius-pill);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 22px;
+}
+
+#order_detail_container #submitMessage:hover,
+#order_detail_container .submit .button:hover {
+  background: var(--fh-primary-hover);
+  border-color: var(--fh-primary-hover);
+}
+
+#order_detail_container .text-muted {
+  color: var(--fh-muted);
+}
+
+@media (max-width: 767px) {
+  #order_detail_container .rooms-list {
+    grid-template-columns: 1fr;
+  }
+}

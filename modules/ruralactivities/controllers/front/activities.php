@@ -19,7 +19,7 @@ class RuralactivitiesActivitiesModuleFrontController extends ModuleFrontControll
     public function setMedia()
     {
         parent::setMedia();
-        $this->addCSS($this->module->_path.'views/css/ruralactivities.css');
+        $this->addCSS($this->module->getPathUri().'views/css/ruralactivities.css');
     }
 
     /**

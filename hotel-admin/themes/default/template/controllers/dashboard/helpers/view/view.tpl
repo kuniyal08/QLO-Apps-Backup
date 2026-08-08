@@ -126,22 +126,10 @@
 				{/if}
                 <div class="col-sm-12">
                     <section class="dash_links widget panel">
-                        <h3><i class="icon-link"></i> {l s="Help Center"}</h3>
+                        <h3><i class="icon-envelope"></i> {l s="Support"}</h3>
                             <dl>
-                                <dt><a href="https://docs.qloapps.com/" class="_blank">{l s="Official Documentation"}</a></dt>
-                                <dd>{l s="QloApps User Guide"}</dd>
-                            </dl>
-                            <dl>
-                                <dt><a href="https://forums.qloapps.com/" class="_blank">{l s="QloApps Forum"}</a></dt>
-                                <dd>{l s="Connect with the QloApps community"}</dd>
-                            </dl>
-                            <dl>
-                                <dt><a href="https://qloapps.com/addons/" class="_blank">{l s="QloApps Addons"}</a></dt>
-                                <dd>{l s="Enhance your store QloApps modules"}</dd>
-                            </dl>
-                            <dl>
-                                <dt><a href="https://qloapps.com/contact/" class="_blank">{l s="Contact Us!"}</a></dt>
-                                <dd>{l s="Contact us for any help"}</dd>
+                                <dt><a href="mailto:stay@myfarmhousehotel.com" class="_blank">{l s="Contact Support"}</a></dt>
+                                <dd>{l s="We are here to help"}</dd>
                             </dl>
                     </section>
                 </div>

@@ -25,9 +25,9 @@
 <div id="login-panel">
 	<div id="login-header">
 		<h1 class="text-center">
-			<img id="logo" src="{$img_dir}qloapps@2x.png" width="123px" alt="PrestaShop" />
+			<img id="logo" src="{$img_dir}logo.png" width="200px" alt="{$shop_name}" />
 		</h1>
-		<div class="text-center">{$qloapps_version}</div>
+		<div class="text-center">Hotel Management Panel</div>
 		<div id="error" class="hide alert alert-danger">
 		{if isset($errors)}
 			<h4>
@@ -49,7 +49,7 @@
 		<div class="alert alert-warning">{$warningSslMessage}</div>
 		{/if}
 	</div>
-	<div id="shop-img"><img src="{$img_dir}qloapps-login@2x.png" alt="{$shop_name}" width="136px" height="136px" /></div>
+	<div id="shop-img"><img src="{$img_dir}logo-login.png" alt="{$shop_name}" width="136px" height="136px" /></div>
 	<div class="flip-container">
 		<div class="flipper">
 			<div class="front panel">
@@ -136,23 +136,7 @@
 	{hook h="displayAdminLogin"}
 	<div id="login-footer">
 		<p class="text-center text-muted">
-			<a href="https://webkul.com" onclick="return !window.open(this.href);">
-				&copy; Webkul&#8482; 2015-{$smarty.now|date_format:"%Y"} - All rights reserved
-			</a>
-		</p>
-		<p class="text-center">
-			<a class="link-social link-twitter _blank" href="https://twitter.com/qloapps" title="Twitter">
-				<i class="icon-twitter"></i>
-			</a>
-			<a class="link-social link-facebook _blank" href="https://www.facebook.com/qloapps" title="Facebook">
-				<i class="icon-facebook"></i>
-			</a>
-			<a class="link-social link-github _blank" href="https://github.com/webkul/hotelcommerce" title="Github">
-				<i class="icon-github"></i>
-			</a>
-			<a class="link-social link-google _blank" href="https://plus.google.com/110221570427070809661" title="Google">
-				<i class="icon-google-plus"></i>
-			</a>
+			&copy; {$smarty.now|date_format:"%Y"} {$shop_name} - All rights reserved
 		</p>
 	</div>
 </div>

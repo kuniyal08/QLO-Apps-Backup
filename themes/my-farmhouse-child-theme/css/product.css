@@ -1771,3 +1771,324 @@ ul.service-product-nav > li:hover {
     display: block;
   }
 }
+/* ==========================================================================
+   Farmhouse product (room type) page — overlay layer
+   Runs after the stock rules above.
+   ========================================================================== */
+
+#product .product_wrapper {
+  padding: 8px 0 48px;
+}
+
+#product .primary_block {
+  margin: 0 -10px;
+}
+
+#product .pb-left-column,
+#product .pb-right-column {
+  padding: 0 10px;
+}
+
+/* --------------------------------------------------------------------------
+   Room name + rating block
+   -------------------------------------------------------------------------- */
+#product .room_type_img_containter {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+#product .hotel_name_block h1 {
+  font-family: var(--fh-font-display);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 42px;
+  color: var(--fh-ink);
+  margin: 8px 0 4px;
+}
+
+#product .hotel_name_block h1 .hotel_name {
+  color: var(--fh-ink);
+}
+
+#product .hotel_name_block #hotel_rating {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--fh-gold);
+  margin-left: 8px;
+  font-size: 15px;
+}
+
+#product .room_hotel_name_block .raty {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 8px;
+}
+
+#product .room_hotel_name_block .num_reviews {
+  font-size: 13px;
+  color: var(--fh-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Image gallery
+   -------------------------------------------------------------------------- */
+#product #image-block-cont {
+  padding: 0 0 0 14px;
+}
+
+#product #image-block {
+  border: none;
+  border-radius: var(--fh-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--fh-shadow-2);
+  background: var(--fh-card);
+}
+
+#product #views_block {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+#product #thumbs_list {
+  padding: 0;
+}
+
+#product #thumbs_list_frame {
+  padding: 0;
+}
+
+#product #thumbs_list_frame li {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 0;
+  background: transparent;
+}
+
+#product #thumbs_list_frame li a {
+  display: block;
+  border: 2px solid transparent;
+  border-radius: var(--fh-radius-sm);
+  overflow: hidden;
+  transition: border-color .2s ease;
+}
+
+#product #thumbs_list_frame li a.shown,
+#product #thumbs_list_frame li a:hover {
+  border-color: var(--fh-primary);
+}
+
+#product #thumbs_list_frame li img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+#product #view_scroll_left,
+#product #view_scroll_right {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Booking form card (right column)
+   -------------------------------------------------------------------------- */
+#product .pb-right-column {
+  position: static;
+}
+
+#product .booking-form.card {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-2);
+  padding: 22px 20px;
+  position: sticky;
+  top: calc(var(--fh-header-h) + 20px);
+  z-index: 100;
+}
+
+#product .booking-form .form-group label.control-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--fh-muted);
+  margin-bottom: 6px;
+}
+
+#product .booking-form .htl_location_block p {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fh-ink);
+  margin: 0;
+}
+
+#product .booking-form .form-group .input-date {
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-sm);
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--fh-ink);
+  background: var(--fh-bg);
+  box-shadow: none;
+}
+
+#product .booking-form .form-group .input-date span {
+  font-size: 14px;
+}
+
+#product .booking-form .separator-hr-mg-10 {
+  border-color: var(--fh-border);
+  margin: 18px 0 14px;
+}
+
+#product .booking-form .total_price_block p,
+#product .booking-form .total_price_block .form-control {
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 32px;
+  color: var(--fh-ink);
+  margin: 0;
+}
+
+#product .booking-form .num_searched_avail_rooms {
+  font-weight: 600;
+  color: var(--fh-ink);
+}
+
+#product .booking-form #add_to_cart .exclusive.book_now_submit {
+  width: 100%;
+  background: var(--fh-primary);
+  border: 1px solid var(--fh-primary);
+  border-radius: var(--fh-radius-pill);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 13px 20px;
+  transition: background-color .2s ease, transform .15s ease;
+}
+
+#product .booking-form #add_to_cart .exclusive.book_now_submit:hover {
+  background: var(--fh-primary-hover);
+  border-color: var(--fh-primary-hover);
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Tabs (Room Information / Refund Policies / Reviews)
+   -------------------------------------------------------------------------- */
+#product .page-product-box {
+  border: none;
+  box-shadow: none;
+  margin-top: 32px;
+}
+
+#product .page-product-box .nav-tabs {
+  border-bottom: 1px solid var(--fh-border);
+  margin-bottom: 22px;
+}
+
+#product .page-product-box .nav-tabs li {
+  margin: 0 6px 0 0;
+}
+
+#product .page-product-box .nav-tabs li a {
+  border: none;
+  border-radius: var(--fh-radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fh-muted);
+  padding: 9px 18px;
+  background: transparent;
+}
+
+#product .page-product-box .nav-tabs li.active a,
+#product .page-product-box .nav-tabs li a:hover {
+  background: var(--fh-bg);
+  color: var(--fh-ink);
+  border: none;
+}
+
+#product .page-product-box .tab-content {
+  font-size: 15px;
+  line-height: 25px;
+  color: var(--fh-text);
+}
+
+#product .page-product-box .tab-content p {
+  line-height: 25px;
+}
+
+/* --------------------------------------------------------------------------
+   Modify-search strip
+   -------------------------------------------------------------------------- */
+#product .header-rmsearch-details-wrapper .search_result_info {
+  font-size: 14px;
+  color: var(--fh-text);
+}
+
+#product .header-rmsearch-details-wrapper .search_result_info img {
+  display: inline;
+  margin: 0 6px;
+  vertical-align: middle;
+}
+
+#product .header-rmsearch-details-wrapper .faded-txt {
+  color: var(--fh-muted);
+}
+
+#product .modify_roomtype_search_btn {
+  background: var(--fh-bg);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-pill);
+  color: var(--fh-ink);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+}
+
+#product .modify_roomtype_search_btn:hover {
+  background: var(--fh-primary);
+  border-color: var(--fh-primary);
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  #product .booking-form.card {
+    position: static;
+  }
+
+  #product .room_type_img_containter {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  #product .hotel_name_block h1 {
+    font-size: 27px;
+    line-height: 34px;
+  }
+
+  #product #image-block-cont {
+    padding: 0;
+  }
+
+  #product #thumbs_list_frame {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #product #thumbs_list_frame li {
+    width: 64px;
+    margin: 0;
+  }
+}

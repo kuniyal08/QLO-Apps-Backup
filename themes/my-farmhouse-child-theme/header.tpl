@@ -27,7 +27,7 @@
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8 ie7"{if isset($language_code) && $language_code} lang="{$language_code|escape:'html':'UTF-8'}"{/if}><![endif]-->
 <!--[if IE 8]><html class="no-js lt-ie9 ie8"{if isset($language_code) && $language_code} lang="{$language_code|escape:'html':'UTF-8'}"{/if}><![endif]-->
 <!--[if gt IE 8]> <html class="no-js ie9"{if isset($language_code) && $language_code} lang="{$language_code|escape:'html':'UTF-8'}"{/if}><![endif]-->
-<html{if isset($language_code) && $language_code} lang="{$language_code|escape:'html':'UTF-8'}"{/if} {if isset($language_is_rtl) && $language_is_rtl}dir="rtl"{/if} style="{if $page_name == 'index'}height: 100%;{/if}">
+<html{if isset($language_code) && $language_code} lang="{$language_code|escape:'html':'UTF-8'}"{/if} {if isset($language_is_rtl) && $language_is_rtl}dir="rtl"{/if}>
 	<head>
 		<meta charset="utf-8" />
 		<title>{$meta_title|escape:'html':'UTF-8'}</title>
@@ -56,89 +56,93 @@
 				{/if}
 			{/foreach}
 		{/if}
-		{if isset($js_defer) && !$js_defer && isset($js_files) && isset($js_def)}
-			{$js_def}
-			{foreach from=$js_files item=js_uri}
-			<script type="text/javascript" src="{$js_uri|escape:'html':'UTF-8'}"></script>
-			{/foreach}
-		{/if}
 		{block name='displayHeader'}
 			{$HOOK_HEADER}
 		{/block}
-		<!-- <link rel="stylesheet" href="http{if Tools::usingSecureMode()}s{/if}://fonts.googleapis.com/css?family=Open+Sans:300,600&amp;subset=latin,latin-ext" type="text/css" media="all" /> -->
+		<!-- Farmhouse design layer — loaded AFTER stock QloApps css -->
+		<link rel="stylesheet" href="{$css_dir|escape:'html':'UTF-8'}design-system.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="{$css_dir|escape:'html':'UTF-8'}components.css" type="text/css" media="all" />
+		{if $page_name == 'index'}
+			<link rel="stylesheet" href="{$css_dir|escape:'html':'UTF-8'}home.css" type="text/css" media="all" />
+		{elseif $page_name == 'category' || $page_name == 'our-properties' || $page_name == 'product'}
+			<link rel="stylesheet" href="{$css_dir|escape:'html':'UTF-8'}product_list.css" type="text/css" media="all" />
+		{/if}
+		{if $page_name == 'product'}
+			<link rel="stylesheet" href="{$css_dir|escape:'html':'UTF-8'}product.css" type="text/css" media="all" />
+		{/if}
+		{if $page_name == 'order-opc' || $page_name == 'order' || $page_name == 'cart'}
+			<link rel="stylesheet" href="{$css_dir|escape:'html':'UTF-8'}order-opc.css" type="text/css" media="all" />
+		{/if}
+		{if $page_name == 'authentication' || $page_name == 'my-account' || $page_name == 'identity' || $page_name == 'addresses' || $page_name == 'address' || $page_name == 'order-confirmation' || $page_name == 'order-detail' || $page_name == 'history' || $page_name == 'guest-tracking'}
+			<link rel="stylesheet" href="{$css_dir|escape:'html':'UTF-8'}account.css" type="text/css" media="all" />
+		{/if}
+		<script type="text/javascript" src="{$js_dir|escape:'html':'UTF-8'}theme.js" defer="defer"></script>
 
 		<!--[if IE 8]>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 		<![endif]-->
-
-		<!-- by webkul -->
-		<!-- <link href='https://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'> -->
-		<!-- <link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'> -->
-		<link href='//fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
 	</head>
-	<body{if isset($page_name)} id="{$page_name|escape:'html':'UTF-8'}"{/if} class="{if isset($page_name)}{$page_name|escape:'html':'UTF-8'}{/if}{if isset($body_classes) && $body_classes|@count} {' '|implode:$body_classes}{/if}{if $hide_left_column} hide-left-column{else} show-left-column{/if}{if $hide_right_column} hide-right-column{else} hide-right-column{/if}{if isset($content_only) && $content_only} content_only{/if} lang_{$lang_iso}" style="{if $page_name == 'index'}height: 100%;{/if}">
+	<body{if isset($page_name)} id="{$page_name|escape:'html':'UTF-8'}"{/if} class="{if isset($page_name)}{$page_name|escape:'html':'UTF-8'}{/if}{if isset($body_classes) && $body_classes|@count} {' '|implode:$body_classes}{/if}{if $hide_left_column} hide-left-column{else} show-left-column{/if}{if $hide_right_column} hide-right-column{else} hide-right-column{/if}{if isset($content_only) && $content_only} content_only{/if} lang_{$lang_iso}">
 	{if !isset($content_only) || !$content_only}
 		{if isset($restricted_country_mode) && $restricted_country_mode}
 			<div id="restricted-country">
 				<p>{l s='You cannot place a new order from your country.'}{if isset($geolocation_country) && $geolocation_country} <span class="bold">{$geolocation_country|escape:'html':'UTF-8'}</span>{/if}</p>
 			</div>
 		{/if}
-		<div id="page" style="{if $page_name == 'index'}height: 100%;{/if}">
-			<div class="header-container" style="{if $page_name == 'index'}height: 100%;{/if}">
-				<header id="header" style='{if $page_name == "index"}background-image:url("{$link->getMediaLink("`$smarty.const._PS_IMG_`{Configuration::get('WK_HOTEL_HEADER_IMAGE')}")}"); height: 100%;{else}background-color:#252525;{/if}' >
-					<div class="banner">
-						<div class="container">
-							<div class="row">
-								{block name='displayBanner'}
-									{hook h="displayBanner"}
-								{/block}
-							</div>
-						</div>
-					</div>
-					{block name='header_nav'}
-						<div id="nav-main">
+		<div id="page">
+			<div class="header-container">
+				<div class="fh-header-sticky" id="fh-header">
+					<header id="header">
+						<div class="banner">
 							<div class="container">
 								<div class="row">
+									{block name='displayBanner'}
+										{hook h="displayBanner"}
+									{/block}
+								</div>
+							</div>
+						</div>
+						{block name='header_nav'}
+							<div id="nav-main" class="fh-utility">
+								<div class="fh-container">
 									{block name='displayNav'}
 										<nav>{hook h="displayNav"}</nav>
 									{/block}
 								</div>
 							</div>
-						</div>
-					{/block}
-					{block name='header_top'}
-						<div class="header-top">
-							<div class="container">
-								<div class="row">
-									<div class="col-xs-12">
-										<div id="header_logo">
-											<a href="{if isset($force_ssl) && $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}" title="{$shop_name|escape:'html':'UTF-8'}">
-												<img class="logo img-responsive" src="{$logo_url}" alt="{$shop_name|escape:'html':'UTF-8'}"/>
-											</a>
-										</div>
+						{/block}
+						{block name='header_top'}
+							<div class="header-top">
+								<div class="fh-container fh-header__inner">
+									<div id="header_logo" class="fh-header__logo">
+										<a href="{if isset($force_ssl) && $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}" title="{$shop_name|escape:'html':'UTF-8'}">
+											<img class="logo img-responsive" src="{$logo_url}" alt="{$shop_name|escape:'html':'UTF-8'}"/>
+										</a>
+									</div>
+									<div class="fh-header__menu">
+										{if isset($WK_DISPLAY_PROPERTIES_LINK_IN_HEADER) && $WK_DISPLAY_PROPERTIES_LINK_IN_HEADER}
+											<div class="header-top-item header-top-item--desktop">
+												<a href="{$link->getPageLink('our-properties')}" class="header-top-link fh-link-our-properties">{l s='Our Properties'}</a>
+											</div>
+										{/if}
 										<div class="header-top-menu">
 											{block name='displayTop'}
 												{if isset($HOOK_TOP)}{$HOOK_TOP}{/if}
 											{/block}
-											{if isset($WK_DISPLAY_PROPERTIES_LINK_IN_HEADER) && $WK_DISPLAY_PROPERTIES_LINK_IN_HEADER}
-												<div>
-													<a href="{$link->getPageLink('our-properties')}" class="our_properties_link">{l s='Our Properties'}</a>
-												</div>
-											{/if}
 										</div>
 									</div>
 								</div>
-								{block name='displaySearchHotelPanel'}
-									{hook h='displaySearchHotelPanel'}
-								{/block}
 							</div>
-						</div>
-					{/block}
+						{/block}
+						{block name='displaySearchHotelPanel'}
+							{hook h='displaySearchHotelPanel'}
+						{/block}
+					</header>
 					{block name='displayAfterHookTop'}
 						{hook h='displayAfterHookTop'}
 					{/block}
-				</header>
+				</div>
 			</div>
 			<div class="columns-container">
 				<div id="columns" class="container">

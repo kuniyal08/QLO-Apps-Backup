@@ -253,6 +253,13 @@ class CategoryControllerCore extends FrontController
                 'ratting_img' => $ratting_img,
             ));
 
+            if ($id_hotel) {
+                $hotelInfo = (new HotelBranchInformation())->hotelBranchInfoById((int)$id_hotel);
+                if ($hotelInfo && isset($hotelInfo['hotel_name'])) {
+                    $this->context->smarty->assign('hotel_name', $hotelInfo['hotel_name']);
+                }
+            }
+
             $action = Tools::toCamelCase(Tools::getValue('action'), true);
             if ($this->ajax && $action == 'Filterresults') {
                 $response = array(

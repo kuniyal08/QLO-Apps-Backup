@@ -1,0 +1,89 @@
+.rural-activities-panel {
+    padding: 28px;
+}
+
+.rural-activities-heading {
+    max-width: 680px;
+    margin-bottom: 20px;
+}
+
+.rural-activities-heading h3 {
+    margin: 0 0 8px;
+}
+
+.rural-activities-heading p {
+    color: #647075;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.rural-activities-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.rural-activity-card {
+    background: #f7f3eb;
+    border: 1px solid #e3ded3;
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.rural-activity-category {
+    color: #a94f33;
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.rural-activity-card h4 {
+    color: #172126;
+    font-size: 18px;
+    margin: 0 0 8px;
+}
+
+.rural-activity-card > p {
+    color: #647075;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.rural-activity-meta {
+    border-top: 1px solid #e3ded3;
+    display: grid;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding-top: 12px;
+}
+
+.rural-activity-meta div {
+    display: grid;
+    gap: 2px;
+}
+
+.rural-activity-meta dt {
+    color: #647075;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.rural-activity-meta dd {
+    color: #172126;
+    font-size: 12px;
+    margin: 0;
+}
+
+@media (max-width: 767px) {
+    .rural-activities-panel {
+        padding: 20px;
+    }
+
+    .rural-activities-grid {
+        grid-template-columns: 1fr;
+    }
+}

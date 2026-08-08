@@ -87,3 +87,162 @@
         grid-template-columns: 1fr;
     }
 }
+
+.rural-activities-page {
+    margin: 0 auto;
+    max-width: 1120px;
+    padding: 22px 0 48px;
+}
+
+.rural-activities-page-header {
+    background: #0e2b36;
+    border-radius: 16px;
+    color: #fff;
+    margin-bottom: 24px;
+    padding: 48px;
+}
+
+.rural-activities-page-header .section-kicker {
+    color: #f6c97f;
+}
+
+.rural-activities-page-header h1 {
+    color: #fff;
+    margin: 0 0 12px;
+}
+
+.rural-activities-page-header p {
+    color: rgba(255, 255, 255, .8);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 700px;
+}
+
+.rural-activities-filter {
+    align-items: end;
+    background: #fff;
+    border: 1px solid #e3ded3;
+    border-radius: 12px;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 16px;
+}
+
+.rural-activities-filter label {
+    color: #647075;
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.rural-activities-filter select {
+    border: 1px solid #cfc8bb;
+    border-radius: 8px;
+    display: block;
+    margin-top: 5px;
+    min-height: 44px;
+    min-width: 280px;
+    padding: 0 12px;
+}
+
+.rural-activities-directory-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.rural-activity-directory-card {
+    background: #fff;
+    border: 1px solid #e3ded3;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(23, 33, 38, .05);
+    padding: 22px;
+}
+
+.rural-activity-directory-card-top {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.rural-activity-property {
+    color: #266353;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.rural-activity-property i {
+    margin-right: 4px;
+}
+
+.rural-activity-directory-card h2 {
+    color: #172126;
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 18px 0 10px;
+}
+
+.rural-activity-directory-card > p {
+    color: #647075;
+    line-height: 1.65;
+    margin: 0;
+}
+
+.rural-activity-directory-meta {
+    border-top: 1px solid #e3ded3;
+    color: #647075;
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+    gap: 6px;
+    margin-top: 18px;
+    padding-top: 12px;
+}
+
+.rural-activity-directory-meta i {
+    color: #a94f33;
+    margin-right: 6px;
+}
+
+.rural-activities-pagination {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+.rural-activities-empty {
+    background: #fff;
+    border: 1px dashed #cfc8bb;
+    border-radius: 12px;
+    padding: 36px;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .rural-activities-page {
+        padding: 12px 0 32px;
+    }
+
+    .rural-activities-page-header {
+        border-radius: 12px;
+        padding: 30px 22px;
+    }
+
+    .rural-activities-filter {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .rural-activities-filter select {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .rural-activities-directory-grid {
+        grid-template-columns: 1fr;
+    }
+}

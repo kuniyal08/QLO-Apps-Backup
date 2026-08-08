@@ -87,4 +87,66 @@ class RuralActivity extends ObjectModel
             LIMIT '.$offset.', '.$perPage
         );
     }
+
+    /**
+     * Get a paginated public activity listing, optionally for one property.
+     *
+     * @param int $idLang Language ID.
+     * @param int $idHotel Optional property ID.
+     * @param int $page One-indexed page number.
+     * @param int $perPage Maximum records to return.
+     *
+     * @return array
+     */
+    public static function getPage($idLang, $idHotel = 0, $page = 1, $perPage = 12)
+    {
+        $idLang = (int) $idLang;
+        $idHotel = (int) $idHotel;
+        $page = max(1, (int) $page);
+        $perPage = min(50, max(1, (int) $perPage));
+        $offset = ($page - 1) * $perPage;
+
+        if (!Validate::isUnsignedId($idLang) || ($idHotel && !Validate::isUnsignedId($idHotel))) {
+            return array();
+        }
+
+        return Db::getInstance()->executeS(
+            'SELECT ra.*, ral.`name`, ral.`category`, ral.`typical_duration`, ral.`season_notes`,
+                ral.`short_description`, hbl.`hotel_name`
+            FROM `'._DB_PREFIX_.'rural_activity` ra
+            INNER JOIN `'._DB_PREFIX_.'rural_activity_lang` ral
+                ON ral.`id_rural_activity` = ra.`id_rural_activity`
+                AND ral.`id_lang` = '.$idLang.'
+            INNER JOIN `'._DB_PREFIX_.'htl_branch_info` hb
+                ON hb.`id` = ra.`id_hotel` AND hb.`active` = 1
+            INNER JOIN `'._DB_PREFIX_.'htl_branch_info_lang` hbl
+                ON hbl.`id` = ra.`id_hotel` AND hbl.`id_lang` = '.$idLang.'
+            WHERE ra.`active` = 1'.($idHotel ? ' AND ra.`id_hotel` = '.$idHotel : '').'
+            ORDER BY ra.`position` ASC, ra.`id_rural_activity` DESC
+            LIMIT '.$offset.', '.$perPage
+        );
+    }
+
+    /**
+     * Count public activities for pagination.
+     *
+     * @param int $idHotel Optional property ID.
+     *
+     * @return int
+     */
+    public static function countActive($idHotel = 0)
+    {
+        $idHotel = (int) $idHotel;
+        if ($idHotel && !Validate::isUnsignedId($idHotel)) {
+            return 0;
+        }
+
+        return (int) Db::getInstance()->getValue(
+            'SELECT COUNT(*)
+            FROM `'._DB_PREFIX_.'rural_activity` ra
+            INNER JOIN `'._DB_PREFIX_.'htl_branch_info` hb
+                ON hb.`id` = ra.`id_hotel` AND hb.`active` = 1
+            WHERE ra.`active` = 1'.($idHotel ? ' AND ra.`id_hotel` = '.$idHotel : '')
+        );
+    }
 }

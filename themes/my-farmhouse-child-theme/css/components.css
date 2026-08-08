@@ -122,6 +122,41 @@
   margin-bottom: 6px;
 }
 
+/* --------------------------------------------------------------------------
+   Farmhouse stroke icon system (inline sprite in header.tpl)
+   -------------------------------------------------------------------------- */
+.fh-ic {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -4px;
+}
+
+.fh-ic--lg {
+  width: 24px;
+  height: 24px;
+}
+
+.fh-ic--sm {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.4;
+}
+
+.fh-ic--star {
+  width: 15px;
+  height: 15px;
+  stroke: var(--fh-gold);
+  fill: var(--fh-gold);
+  margin-right: 2px;
+}
+
 .fh-field .form-control,
 .fh-field input[type='text'],
 .fh-field input[type='date'],

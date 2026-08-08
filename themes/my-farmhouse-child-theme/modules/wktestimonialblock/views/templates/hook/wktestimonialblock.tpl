@@ -20,7 +20,7 @@
                 <div class="fh-container fh-testimonial-grid">
                     {foreach $testimonials_data as $tesimonial}
                         <div class="fh-card fh-testimonial-card">
-                            <div class="fh-testimonial-card__quote"><i class="icon-quote-left" aria-hidden="true"></i></div>
+                            <div class="fh-testimonial-card__quote"><svg class="fh-ic" aria-hidden="true"><use href="#fh-ic-quote"/></svg></div>
                             <p class="fh-testimonial-card__text">{$tesimonial.testimonial_content|escape:'htmlall':'UTF-8'}</p>
                             <div class="fh-testimonial-card__person">
                                 {if $tesimonial.img_url}

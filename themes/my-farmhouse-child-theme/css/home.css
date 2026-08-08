@@ -129,16 +129,16 @@
   color: var(--fh-ink);
 }
 
-.fh-trust__item i {
+.fh-trust__item .fh-ic--circle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 40px;
   height: 40px;
+  padding: 9px;
   border-radius: var(--fh-radius-pill);
   background: var(--fh-bg);
   color: var(--fh-accent);
-  font-size: 18px;
 }
 
 /* --------------------------------------------------------------------------
@@ -286,9 +286,12 @@
 
 .fh-testimonial-card__quote {
   color: var(--fh-gold);
-  font-size: 28px;
-  line-height: 1;
   margin-bottom: 12px;
+}
+
+.fh-testimonial-card__quote .fh-ic {
+  width: 28px;
+  height: 28px;
 }
 
 .fh-testimonial-card__text {

@@ -54,19 +54,19 @@
 		<div class="fh-container">
 			<ul class="fh-trust__list">
 				<li class="fh-trust__item">
-					<i class="icon-home" aria-hidden="true"></i>
+					<svg class="fh-ic fh-ic--circle" aria-hidden="true"><use href="#fh-ic-home"/></svg>
 					<span>{l s='Authentic rural stays'}</span>
 				</li>
 				<li class="fh-trust__item">
-					<i class="icon-leaf" aria-hidden="true"></i>
+					<svg class="fh-ic fh-ic--circle" aria-hidden="true"><use href="#fh-ic-leaf"/></svg>
 					<span>{l s='Farmhouses, stays & cultural homes'}</span>
 				</li>
 				<li class="fh-trust__item">
-					<i class="icon-tag" aria-hidden="true"></i>
+					<svg class="fh-ic fh-ic--circle" aria-hidden="true"><use href="#fh-ic-tag"/></svg>
 					<span>{l s='Direct booking, no hidden fees'}</span>
 				</li>
 				<li class="fh-trust__item">
-					<i class="icon-phone" aria-hidden="true"></i>
+					<svg class="fh-ic fh-ic--circle" aria-hidden="true"><use href="#fh-ic-phone"/></svg>
 					<span>{l s='Local support, 24x7'}</span>
 				</li>
 			</ul>

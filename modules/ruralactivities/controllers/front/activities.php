@@ -39,7 +39,7 @@ class RuralactivitiesActivitiesModuleFrontController extends ModuleFrontControll
         $pageCount = max(1, (int) ceil($total / $this->perPage));
         $page = min($page, $pageCount);
         $idLang = (int) $this->context->language->id;
-        $properties = HotelBranchInformation::hotelBranchesInfo($idLang, 1, 0);
+        $properties = (new HotelBranchInformation())->hotelBranchesInfo($idLang, 1, 0);
 
         $this->context->smarty->assign(array(
             'rural_activities' => RuralActivity::getPage($idLang, $idHotel, $page, $this->perPage),

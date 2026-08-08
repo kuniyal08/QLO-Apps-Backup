@@ -114,7 +114,7 @@ class AdminRuralActivitiesController extends ModuleAdminController
             1,
             1
         ));
-        $hotels = HotelBranchInformation::hotelBranchesInfo((int) $this->context->language->id, 1, 0);
+        $hotels = (new HotelBranchInformation())->hotelBranchesInfo((int) $this->context->language->id, 1, 0);
         $result = array();
 
         foreach ((array) $hotels as $hotel) {

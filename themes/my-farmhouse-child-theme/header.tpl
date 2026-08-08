@@ -66,6 +66,8 @@
 			{$HOOK_HEADER}
 		{/block}
 		<!-- Farmhouse design layer — loaded AFTER stock QloApps css -->
+		<link rel="preload" href="{$css_dir|escape:'html':'UTF-8'}../fonts/fraunces-latin-300-600.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" href="{$css_dir|escape:'html':'UTF-8'}../fonts/manrope-latin-200-800.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 		<link rel="stylesheet" href="{$css_dir|escape:'html':'UTF-8'}design-system.css" type="text/css" media="all" />
 		<link rel="stylesheet" href="{$css_dir|escape:'html':'UTF-8'}components.css" type="text/css" media="all" />
 		{if $page_name == 'index'}

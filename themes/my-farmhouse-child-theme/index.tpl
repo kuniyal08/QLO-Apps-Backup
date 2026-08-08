@@ -24,11 +24,21 @@
 *}
 
 {block name='fh_home_hero'}
+	{assign var=header_img value=Configuration::get('WK_HOTEL_HEADER_IMAGE')}
+	{assign var=header_img_avif value=$header_img|regex_replace:'/\.[^.]*$/':'.avif'}
+	{assign var=header_img_webp value=$header_img|regex_replace:'/\.[^.]*$/':'.webp'}
 	<div class="fh-hero">
-		<div class="fh-hero__media" style="background-image:url('{$link->getMediaLink("`$smarty.const._PS_IMG_`{Configuration::get('WK_HOTEL_HEADER_IMAGE')}")}');"></div>
+		<div class="fh-hero__media" aria-hidden="true">
+			<picture>
+				<source type="image/avif" srcset="{$link->getMediaLink("`$smarty.const._PS_IMG_`$header_img_avif")}">
+				<source type="image/webp" srcset="{$link->getMediaLink("`$smarty.const._PS_IMG_`$header_img_webp")}">
+				<img src="{$link->getMediaLink("`$smarty.const._PS_IMG_`$header_img")}" alt="" width="1200" height="784" fetchpriority="high">
+			</picture>
+		</div>
 		<div class="fh-hero__content fh-container">
 			{block name='fh_home_hero_copy'}
 				{if Configuration::get('WK_TITLE_HEADER_BLOCK')}
+					<span class="fh-hero__eyebrow">{l s='Rural stays & local stories'}</span>
 					<h1 class="fh-hero__title">{Configuration::get('WK_TITLE_HEADER_BLOCK')|escape:'htmlall':'UTF-8'}</h1>
 				{/if}
 				{if Configuration::get('WK_CONTENT_HEADER_BLOCK')}

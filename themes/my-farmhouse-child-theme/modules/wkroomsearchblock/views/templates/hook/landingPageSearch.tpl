@@ -19,6 +19,7 @@
                                     {block name='search_form'}
                                         {include file="./searchForm.tpl"}
                                     {/block}
+                                    <p class="fh-search-trust">{l s='Free cancellation · Direct booking · No hidden fees' mod='wkroomsearchblock'}</p>
                                 </div>
                             </div>
                         </div>

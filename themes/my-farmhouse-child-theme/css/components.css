@@ -431,9 +431,11 @@ header #nav-main nav > div {
    -------------------------------------------------------------------------- */
 .fh-search-panel {
   background: var(--fh-card);
-  border: 1px solid var(--fh-border);
+  border: 0;
   border-radius: var(--fh-radius-lg);
-  box-shadow: var(--fh-shadow-3);
+  box-shadow:
+    0 12px 32px rgba(31, 27, 22, .2),
+    0 2px 8px rgba(31, 27, 22, .08);
 }
 
 .fh-search-panel--hero {
@@ -477,59 +479,118 @@ header #nav-main nav > div {
   padding: 0;
 }
 
-/* search form layout */
+/* Booking-style single bar: segments with hairline dividers, no gaps */
 .fh-search-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
-  padding: 16px;
+  gap: 0;
+  padding: 0;
+}
+
+/* hairline divider between stacked segments (mobile) */
+.fh-search-grid > .fh-search-field + .fh-search-field {
+  border-top: 1px solid rgba(31, 27, 22, .08);
+}
+
+/* segment hover/focus tint (inset, never touches the bar corners) */
+.fh-search-field {
+  position: relative;
+  transition: background-color .15s ease;
+}
+
+.fh-search-field:focus-within,
+.fh-search-field:hover {
+  background: rgba(31, 27, 22, .045);
+}
+
+.fh-search-grid > .fh-search-field:first-child {
+  border-top-left-radius: var(--fh-radius-lg);
+  border-bottom-left-radius: var(--fh-radius-lg);
+}
+
+.fh-search-grid > .fh-search-field--submit:last-child {
+  border-top-right-radius: var(--fh-radius-lg);
+  border-bottom-right-radius: var(--fh-radius-lg);
 }
 
 .fh-search-field__label {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: .04em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--fh-muted);
-  margin-bottom: 6px;
+  margin-bottom: 2px;
+  padding: 0 14px;
 }
 
 .fh-search-field .form-control,
 .fh-search-field .header-rmsearch-input {
-  border: 1px solid var(--fh-border);
-  border-radius: var(--fh-radius-sm);
-  background: var(--fh-bg);
-  min-height: 48px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  min-height: 44px;
   box-shadow: none;
+  padding: 8px 14px;
+  font-size: 16px;
+  color: var(--fh-ink);
 }
 
 .fh-search-field .form-control:focus,
 .fh-search-field .header-rmsearch-input:focus,
 .fh-search-field .header-rmsearch-input.focused {
-  border-color: var(--fh-primary);
-  box-shadow: 0 0 0 2px rgba(47, 74, 60, .18);
+  border-color: transparent;
+  box-shadow: inset 0 0 0 2px var(--fh-primary);
+  border-radius: var(--fh-radius-sm);
 }
 
-/* dates */
+/* dates — two segments (check-in / check-out) inside the dates field */
 .fh-search-dates {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 0;
+}
+
+.fh-search-date {
+  transition: background-color .15s ease;
+  border-radius: var(--fh-radius-md);
+}
+
+.fh-search-date:focus-within,
+.fh-search-date:hover {
+  background: rgba(31, 27, 22, .045);
+}
+
+.fh-search-date + .fh-search-date {
+  border-left: 1px solid rgba(31, 27, 22, .08);
 }
 
 .fh-search-date .input-date {
   display: flex;
   align-items: center;
   cursor: pointer;
+  min-height: 44px;
 }
 
+/* quick dates row — slim strip at the base of the bar */
 .fh-search-quick {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 8px;
+  margin-top: 0;
+  padding: 8px 16px 10px;
+  border-top: 1px solid rgba(31, 27, 22, .08);
+}
+
+/* trust line under the hero search bar */
+.fh-search-trust {
+  margin: 0;
+  padding: 10px 20px 12px;
+  border-top: 1px solid rgba(31, 27, 22, .08);
+  font-size: 12px;
+  color: var(--fh-muted);
+  text-align: center;
 }
 
 .fh-search-quick__label {
@@ -541,16 +602,16 @@ header #nav-main nav > div {
 .fh-chip {
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
-  padding: 4px 14px;
+  min-height: 30px;
+  padding: 3px 12px;
   border: 1px solid var(--fh-border);
   border-radius: var(--fh-radius-pill);
   background: var(--fh-card);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--fh-primary);
   cursor: pointer;
-  transition: background-color .15s ease, border-color .15s ease;
+  transition: background-color .15s ease, border-color .15s ease, transform .15s ease;
 }
 
 .fh-chip:hover,
@@ -648,17 +709,29 @@ header #nav-main nav > div {
   padding: 6px 20px;
 }
 
-/* submit */
+/* submit — pill CTA inset in the bar's right segment */
+.fh-search-field--submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+}
+
 .fh-search-field--submit .btn-primary {
   background: var(--fh-primary);
   border-color: var(--fh-primary);
   border-radius: var(--fh-radius-pill);
-  min-height: 48px;
+  min-height: 46px;
+  padding: 8px 22px;
+  box-shadow: 0 2px 6px rgba(47, 74, 60, .25);
+  transition: background-color .15s ease, box-shadow .15s ease, transform .15s ease;
 }
 
 .fh-search-field--submit .btn-primary:hover {
   background: var(--fh-primary-hover);
   border-color: var(--fh-primary-hover);
+  box-shadow: 0 4px 12px rgba(47, 74, 60, .35);
+  transform: translateY(-1px);
 }
 
 /* fancybox search modal (mobile pill target) */
@@ -685,43 +758,74 @@ header #nav-main nav > div {
 
   .fh-search-field--location,
   .fh-search-field--hotel {
+    grid-row: 1;
     grid-column: 1 / -1;
+    border-top: 0;
   }
 
-  .fh-search-field--dates,
+  .fh-search-field--dates {
+    grid-row: 2;
+    grid-column: 1;
+    border-top: 1px solid rgba(31, 27, 22, .08);
+  }
+
   .fh-search-field--guests {
-    grid-column: span 1;
+    grid-row: 2;
+    grid-column: 2;
+    border-top: 1px solid rgba(31, 27, 22, .08);
+    border-left: 1px solid rgba(31, 27, 22, .08);
+  }
+
+  .fh-search-quick {
+    grid-row: 3;
+    grid-column: 1 / -1;
   }
 
   .fh-search-field--submit {
+    grid-row: 4;
     grid-column: 1 / -1;
+    border-top: 1px solid rgba(31, 27, 22, .08);
+    border-radius: 0 0 var(--fh-radius-lg) var(--fh-radius-lg);
+    padding: 10px 16px;
   }
 }
 
 @media (min-width: 1200px) {
   .fh-search-grid {
     grid-template-columns: repeat(6, 1fr);
-    align-items: end;
+    align-items: stretch;
+  }
+
+  /* segments: hairline dividers instead of gaps */
+  .fh-search-grid > .fh-search-field + .fh-search-field {
+    border-top: 0;
+    border-left: 1px solid rgba(31, 27, 22, .08);
   }
 
   .fh-search-field--location,
   .fh-search-field--hotel {
+    grid-row: 1;
     grid-column: span 2;
   }
 
   .fh-search-field--dates {
+    grid-row: 1;
     grid-column: span 2;
   }
 
   .fh-search-field--guests {
+    grid-row: 1;
     grid-column: span 1;
+    border-left: 1px solid rgba(31, 27, 22, .08);
   }
 
   .fh-search-field--submit {
+    grid-row: 1;
     grid-column: span 1;
   }
 
   .fh-search-quick {
+    grid-row: 2;
     grid-column: 1 / -1;
     margin-top: 0;
   }

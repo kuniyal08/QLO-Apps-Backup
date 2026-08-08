@@ -8,7 +8,7 @@
    -------------------------------------------------------------------------- */
 .fh-hero {
   position: relative;
-  min-height: 480px;
+  min-height: 520px;
   display: flex;
   align-items: flex-end;
   background: var(--fh-ink);
@@ -18,9 +18,13 @@
 .fh-hero__media {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: .9;
+}
+
+.fh-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .fh-hero__content {
@@ -29,23 +33,34 @@
   width: 100%;
   padding: 96px 20px 160px;
   color: #fff;
-  background: linear-gradient(180deg, rgba(31, 27, 22, 0) 0%, rgba(31, 27, 22, .55) 100%);
+  background: linear-gradient(180deg, rgba(31, 27, 22, 0) 25%, rgba(31, 27, 22, .68) 100%);
+}
+
+.fh-hero__eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .85);
+  margin-bottom: 12px;
 }
 
 .fh-hero__title {
   font-family: var(--fh-font-display);
   font-variation-settings: 'opsz' 72;
   font-weight: 600;
-  font-size: 40px;
-  line-height: 48px;
+  font-size: clamp(40px, 5.5vw, 64px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
   color: #fff;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   max-width: 720px;
 }
 
 .fh-hero__subtitle {
-  font-size: 16px;
-  line-height: 26px;
+  font-size: 17px;
+  line-height: 27px;
   color: rgba(255, 255, 255, .92);
   max-width: 560px;
   margin-bottom: 0;
@@ -53,13 +68,13 @@
 
 /* Hero search panel floats over the hero top edge (panel renders in normal
    flow right after the sticky header via displayAfterHookTop; the hero is
-   pulled up so its top slides under the panel) */
+   pulled up so its top slides under the panel — Booking-style overlap) */
 #index .fh-hero {
-  margin-top: -150px;
+  margin-top: -160px;
 }
 
 #index .fh-hero__content {
-  padding-top: 220px;
+  padding-top: 240px;
 }
 
 @media (max-width: 767px) {

@@ -12,9 +12,16 @@
 # Configuration files with sensitive data
 /config/settings.inc.php
 /config/xml/
+.env
+/backups/
 
 # Vendor and third-party libraries
 /vendor/
+
+# Dev/QA artifacts
+/qa-*.png
+/.playwright-mcp/
+/log/
 
 # OS files
 .DS_Store

@@ -1,0 +1,23 @@
+# Build context excludes: VCS, caches, secrets, seed dumps, docs/tests
+.git
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose*.yml
+.env*
+*.md
+docs/
+tests/
+cache/
+var/cache/
+var/log/
+var/sessions/
+config/settings.inc.php
+db/
+*.sql
+*.zip
+*.tar.gz
+.DS_Store
+qa-*.png
+.playwright-mcp/
+log/

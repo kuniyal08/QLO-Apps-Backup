@@ -8,6 +8,9 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+require_once dirname(__FILE__).'/classes/RuralActivitiesDb.php';
+require_once dirname(__FILE__).'/classes/RuralActivity.php';
+
 /**
  * Manages property-linked activities that are not bookable products.
  */

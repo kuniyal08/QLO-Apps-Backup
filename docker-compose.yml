@@ -1,0 +1,73 @@
+# QloApps development/test stack. Works with Docker Compose and Podman Compose.
+# The later Rocky Linux deployment can use the same image with production
+# credentials, HTTPS and backup policies.
+
+name: ${COMPOSE_PROJECT_NAME:-qloapps}
+
+services:
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:-qloapps}
+      MARIADB_USER: ${DB_USER:-qloapps}
+      MARIADB_PASSWORD: ${DB_PASSWD:-qloapps}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-change_me_root}
+    command:
+      # PrestaShop 1.6 forks break with ONLY_FULL_GROUP_BY; match dev sql_mode
+      - --sql-mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+    volumes:
+      - dbdata:/var/lib/mysql:Z
+      # First boot only. :z permits rootless Podman on SELinux hosts.
+      - ./db/init:/docker-entrypoint-initdb.d:ro,z
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh --connect --innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: ${DB_NAME:-qloapps}
+      DB_USER: ${DB_USER:-qloapps}
+      DB_PASSWD: ${DB_PASSWD:-qloapps}
+      DB_PREFIX: ${DB_PREFIX:-qlo_}
+      SHOP_DOMAIN: ${SHOP_DOMAIN:-localhost:8080}
+      # Optional. When omitted, valid keys are generated in the secrets volume.
+      COOKIE_KEY: ${COOKIE_KEY:-}
+      COOKIE_IV: ${COOKIE_IV:-}
+      NEW_COOKIE_KEY: ${NEW_COOKIE_KEY:-}
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    volumes:
+      # Each volume belongs to this service only. :Z keeps recreation safe on
+      # SELinux hosts (Fedora/Rocky/Red Hat) without disabling confinement.
+      - images:/var/www/html/img:Z
+      - uploads:/var/www/html/upload:Z
+      - downloads:/var/www/html/download:Z
+      - secrets:/var/lib/qloapps-secrets:Z
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail --silent --output /dev/null --header \"Host: $${SHOP_DOMAIN}\" http://localhost/index.php"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  dbdata:
+  images:
+  uploads:
+  downloads:
+  secrets:

@@ -1,0 +1,11 @@
+# Rootless Podman development override.
+# podman-compose 1.6 drops :Z on named volumes, leaving stale MCS labels after
+# container recreation. Keep this override out of Docker/Rocky production.
+services:
+  db:
+    security_opt:
+      - label=disable
+
+  web:
+    security_opt:
+      - label=disable

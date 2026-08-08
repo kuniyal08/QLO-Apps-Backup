@@ -1,0 +1,10 @@
+# Local frontend-dev override: bind-mount theme/controller sources so edits
+# are visible without rebuilding the image. NOT for production use.
+name: ${COMPOSE_PROJECT_NAME:-qloapps}
+
+services:
+  web:
+    volumes:
+      - ./themes:/var/www/html/themes:Z
+      - ./controllers:/var/www/html/controllers:Z
+      - ./cache:/var/www/html/cache:Z

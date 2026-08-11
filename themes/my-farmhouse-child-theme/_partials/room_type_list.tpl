@@ -30,7 +30,7 @@
 				<div class="row">
 					{block name='room_type_list_room_image'}
 						<div class="col-sm-4">
-								<a href="{$room_v['product_link']|escape:'htmlall':'UTF-8'}">
+								<a class="fh-listing-img-link" href="{$room_v['product_link']|escape:'htmlall':'UTF-8'}">
 								<img src="{$room_v['image']|escape:'htmlall':'UTF-8'}" class="img-responsive room-type-image">
 								{block name='displayRoomTypeListImageAfter'}
 									{hook h='displayRoomTypeListImageAfter' product=$room_v}

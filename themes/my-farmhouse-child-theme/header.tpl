@@ -129,6 +129,7 @@
 		<symbol id="fh-ic-wifi" viewBox="0 0 24 24"><path d="M2.5 8.5a15 15 0 0 1 19 0"/><path d="M5.5 12a10 10 0 0 1 13 0"/><path d="M8.5 15.5a5 5 0 0 1 7 0"/><circle cx="12" cy="18.5" r="1"/></symbol>
 		<symbol id="fh-ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
 		<symbol id="fh-ic-rupee" viewBox="0 0 24 24"><text x="12" y="16.5" text-anchor="middle" font-size="15" font-weight="600" fill="currentColor" stroke="none">₹</text></symbol>
+		<symbol id="fh-ic-thumb-up" viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></symbol>
 	</svg>
 	{if !isset($content_only) || !$content_only}
 		{if isset($restricted_country_mode) && $restricted_country_mode}

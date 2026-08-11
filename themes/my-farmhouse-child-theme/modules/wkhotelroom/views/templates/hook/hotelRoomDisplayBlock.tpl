@@ -23,10 +23,10 @@
                             {block name='hotel_room_block_room_type_image'}
                                 <a class="fh-card__media" href="{$link->getProductLink($roomDisplay.id_product)|escape:'html':'UTF-8'}">
                                     <img loading="lazy" src="{$roomDisplay.image|escape:'htmlall':'UTF-8'}" alt="{$roomDisplay.name|escape:'htmlall':'UTF-8'}" class="img-responsive width-100">
+                                    {block name='displayHotelRoomsBlockImageAfter'}
+                                        {hook h='displayHotelRoomsBlockImageAfter' room_type=$roomDisplay}
+                                    {/block}
                                 </a>
-                            {/block}
-                            {block name='displayHotelRoomsBlockImageAfter'}
-                                {hook h='displayHotelRoomsBlockImageAfter' room_type=$roomDisplay}
                             {/block}
                             <div class="fh-card__body">
                                 {block name='hotel_room_block_room_type_description'}

@@ -10,6 +10,9 @@
                 {block name='search_form'}
                     {include file="./searchForm.tpl"}
                 {/block}
+                {block name='displayFhRatingStrip'}
+                    {hook h='displayFhHotelRating' id_hotel=$id_hotel}
+                {/block}
             </div>
         </div>
     {/if}

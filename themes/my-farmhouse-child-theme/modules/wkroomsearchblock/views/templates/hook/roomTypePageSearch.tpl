@@ -39,6 +39,9 @@
                     {block name='search_form'}
                         {include file="./searchForm.tpl"}
                     {/block}
+                    {block name='displayFhRatingStrip'}
+                        {hook h='displayFhHotelRating' id_hotel=$search_data.htl_dtl.id}
+                    {/block}
                     <a href="#" class="close_room_serach_wrapper"><img src="{$module_dir}views/img/icon-close.svg"></a>
                 </div>
             </div>

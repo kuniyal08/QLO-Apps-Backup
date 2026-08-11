@@ -1856,14 +1856,25 @@ ul.service-product-nav > li:hover {
 
 #product #thumbs_list {
   padding: 0;
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--fh-border) transparent;
+}
+
+@media (min-width: 768px) {
+  #product #thumbs_list {
+    overflow-y: auto;
+  }
 }
 
 #product #thumbs_list_frame {
   padding: 0;
+  overflow: visible;
 }
 
 #product #thumbs_list_frame li {
-  width: 100%;
+  width: 90px;
+  height: 90px;
   margin-bottom: 10px;
   padding: 0;
   background: transparent;

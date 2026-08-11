@@ -40,6 +40,28 @@
   });
 
   /* ----------------------------------------------------------------------
+     Close any open date range picker when the page scrolls
+     ---------------------------------------------------------------------- */
+  ready(function () {
+    var triggers = doc.querySelectorAll('#daterange_value');
+    if (!triggers.length) return;
+
+    function closeOpenPicker() {
+      var $ = jq();
+      if (!$) return;
+      Array.prototype.forEach.call(doc.querySelectorAll('#daterange_value'), function (t) {
+        var picker = $(t).data('dateRangePicker');
+        if (!picker || typeof picker.close !== 'function') return;
+        var box = picker.getDatePicker ? picker.getDatePicker() : null;
+        if (box && box.is(':visible')) picker.close();
+      });
+    }
+
+    window.addEventListener('scroll', closeOpenPicker, { passive: true, capture: true });
+    doc.addEventListener('touchmove', closeOpenPicker, { passive: true, capture: true });
+  });
+
+  /* ----------------------------------------------------------------------
      Footer accordions (phone only)
      ---------------------------------------------------------------------- */
   ready(function () {

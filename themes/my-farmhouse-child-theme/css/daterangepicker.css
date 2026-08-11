@@ -1,91 +1,164 @@
 /**
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License version 3.0
-* that is bundled with this package in the file LICENSE.md
-* It is also available through the world-wide-web at this URL:
-* https://opensource.org/license/osl-3-0-php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to support@qloapps.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade this module to a newer
-* versions in the future. If you wish to customize this module for your needs
-* please refer to https://store.webkul.com/customisation-guidelines for more information.
-*
-* @author Webkul IN
-* @copyright Since 2010 Webkul
-* @license https://opensource.org/license/osl-3-0-php Open Software License version 3.0
+* Farmhouse theme restyle of the wkroomsearchblock date range picker popup.
+* Overrides jquery.daterangepicker.min.css defaults using the design-system
+* tokens from design-system.css (--fh-*).
 */
 
+.date-picker-wrapper.inline-wrapper,
 .date-picker-wrapper {
-    font-family: Verdana,Arial,sans-serif;
+    position: absolute;
     z-index: 111111;
-    border-radius: 5px;
+    font-family: var(--fh-font-body);
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--fh-text);
     background-color: #fff;
-    color: #777;
-    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 26%);
+    border: 1px solid var(--fh-border);
+    border-radius: var(--fh-radius-md);
+    box-shadow: var(--fh-shadow-3);
+    padding: 14px 16px 16px;
+    margin-top: 28px;
 }
 .date-picker-wrapper.no-shortcuts {
-    padding: 10px;
+    padding: 14px 16px 16px;
 }
-.date-picker-wrapper.top,
-.date-picker-wrapper.bottom {
-    position: absolute;
+.date-picker-wrapper.no-topbar {
+    padding-top: 14px;
 }
-.date-picker-wrapper .month-wrapper{
+
+.date-picker-wrapper .month-wrapper {
     border: none;
     background-color: transparent;
-    border-radius: 0px;
+    border-radius: 0;
     padding: 0;
 }
 
-.date-picker-wrapper .footer, .date-picker-wrapper .dp-clearfix, .date-picker-wrapper .time {
+.date-picker-wrapper .footer,
+.date-picker-wrapper .dp-clearfix,
+.date-picker-wrapper .time,
+.date-picker-wrapper .date-range-length-tip {
     display: none;
 }
-.date-picker-wrapper .month-name {
-    font-size: 16px;
-    font-weight: 400;
-    color: #333;
+
+/* month header */
+.date-picker-wrapper .caption .month-name {
+    font-family: var(--fh-font-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--fh-ink);
     text-transform: capitalize;
+    letter-spacing: .01em;
+    line-height: 1.2;
 }
+.date-picker-wrapper .caption .month-name .month-element {
+    display: inline;
+}
+
+.date-picker-wrapper .month-wrapper table .caption .prev,
+.date-picker-wrapper .month-wrapper table .caption .next {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--fh-border);
+    border-radius: 50%;
+    color: var(--fh-ink);
+    font-size: 14px;
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.date-picker-wrapper .month-wrapper table .caption .prev i,
+.date-picker-wrapper .month-wrapper table .caption .next i {
+    width: auto;
+    height: auto;
+}
+.date-picker-wrapper .month-wrapper table .caption .prev:hover,
+.date-picker-wrapper .month-wrapper table .caption .next:hover {
+    background: var(--fh-primary);
+    border-color: var(--fh-primary);
+    color: #fff;
+}
+
+/* weekday header */
 .date-picker-wrapper .month-wrapper table .week-name {
-    height: 40px;
+    height: auto;
+    padding: 10px 0 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--fh-muted);
 }
-.date-picker-wrapper .month-wrapper table .day.real-today {
-    background-color: unset;
+
+/* day cells */
+.date-picker-wrapper .month-wrapper table tr td {
+    padding: 0;
 }
 .date-picker-wrapper .month-wrapper table tr td .day {
-    padding: 10px 11px;
-    line-height: 18px;
+    padding: 0;
+    margin: 1px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
     font-size: 14px;
-    margin: 0;
-    width: 38px;
-}
-.date-picker-wrapper table .caption .next, .date-picker-wrapper table .caption .prev {
-    font-size: 16px;
-    color: #000;
-    padding: 5px 10px;
-    background-color: #f0f0f0;
-    display: inline-block;
-    border: none;
+    color: var(--fh-ink);
+    text-align: center;
     border-radius: 50%;
+    box-sizing: border-box;
+    transition: background-color .12s ease, color .12s ease, transform .12s ease;
 }
-.date-picker-wrapper table .caption .next i, .date-picker-wrapper table .caption .prev i {
-    width: 6px;
+.date-picker-wrapper .month-wrapper table tr td .day:hover {
+    background-color: rgba(47, 74, 60, .08);
+    transform: scale(1.06);
 }
-.date-picker-wrapper table .caption .next:hover, .date-picker-wrapper table .caption .prev:hover {
-    color: #000;
-    background: #dadada;
+.date-picker-wrapper .month-wrapper table tr td .day.lastMonth,
+.date-picker-wrapper .month-wrapper table tr td .day.nextMonth {
+    color: var(--fh-muted);
 }
-.date-picker-wrapper .month-wrapper table .day.checked {
-    background-color: #E6E6E6;
+.date-picker-wrapper .month-wrapper table tr td .day.disabled,
+.date-picker-wrapper .month-wrapper table tr td .day.invalid {
+    color: #d8d3ca;
+    transform: none;
 }
-.date-picker-wrapper .month-wrapper table .day.toMonth.hovering {
-    background-color: #E6E6E6;
+.date-picker-wrapper .month-wrapper table tr td .day.disabled:hover,
+.date-picker-wrapper .month-wrapper table tr td .day.invalid:hover {
+    background-color: transparent;
+    transform: none;
 }
-.date-picker-wrapper .first-date-selected, .date-picker-wrapper .last-date-selected {
-    background-color: #1292ff !important;
+
+.date-picker-wrapper .month-wrapper table .day.real-today {
+    background-color: transparent;
+    color: var(--fh-primary);
+    font-weight: 700;
+    box-shadow: inset 0 0 0 1.5px var(--fh-primary);
+}
+.date-picker-wrapper .month-wrapper table .day.toMonth.hovering,
+.date-picker-wrapper .month-wrapper table .day.toMonth.checked {
+    background-color: rgba(47, 74, 60, .14);
+    color: var(--fh-ink);
+}
+
+.date-picker-wrapper .first-date-selected,
+.date-picker-wrapper .last-date-selected {
+    background-color: var(--fh-primary) !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    font-weight: 600;
+}
+
+/* smooth entrance (runs when the plugin reveals the panel) */
+@keyframes fh-dp-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+.date-picker-wrapper:not([style*="display: none"]) {
+    animation: fh-dp-in .18s ease;
 }

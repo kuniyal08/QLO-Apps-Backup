@@ -214,7 +214,8 @@ select.form-control {
   position: static;
 }
 
-.fh-header {
+.fh-header,
+header {
   background: rgba(247, 244, 239, .92);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
@@ -222,9 +223,19 @@ select.form-control {
   transition: box-shadow .2s ease, background-color .2s ease;
 }
 
-.fh-header-sticky--scrolled .fh-header {
+.fh-header-sticky--scrolled .fh-header,
+.fh-header-sticky--scrolled header {
   background: rgba(255, 255, 255, .97);
   box-shadow: var(--fh-shadow-1);
+}
+
+/* utility row (contact email/phone) — dark on the light header */
+#nav-main .contact-item a {
+  color: var(--fh-ink);
+}
+
+#nav-main .contact-item a:hover {
+  color: var(--fh-primary);
 }
 
 .fh-header__inner {
@@ -261,7 +272,7 @@ select.form-control {
   align-items: center;
 }
 
-.fh-header__menu .header-top-link {
+header .fh-header__menu .header-top-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -273,7 +284,7 @@ select.form-control {
   border-radius: var(--fh-radius-pill);
 }
 
-.fh-header__menu .header-top-link:hover {
+header .fh-header__menu .header-top-link:hover {
   background: rgba(47, 74, 60, .08);
   color: var(--fh-primary);
   border-bottom: none;
@@ -872,6 +883,74 @@ header #nav-main nav > div {
   font-size: 18px;
   color: var(--fh-ink);
   margin-bottom: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Home hero booking bar — force farmhouse styling over the module's stock
+   rules (#search_hotel_block_form .header-rmsearch-input uses white boxes,
+   height:100% and a blue submit button that fight the design).
+   -------------------------------------------------------------------------- */
+#index #search_hotel_block_form .header-rmsearch-input {
+  height: auto;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--fh-ink);
+  font-size: 16px;
+}
+
+#index #search_hotel_block_form .input-date {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+#index #search_hotel_block_form .chosen-container .chosen-single {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  height: auto;
+  padding: 8px 14px;
+  font-size: 16px;
+  color: var(--fh-ink);
+  line-height: normal;
+}
+
+#index #search_hotel_block_form .chosen-container .chosen-single span {
+  color: var(--fh-ink);
+  margin-right: 12px;
+}
+
+#index #search_hotel_block_form .chosen-container .chosen-single div b {
+  background-position: 0 0;
+}
+
+#index #search_hotel_block_form #search_room_submit {
+  background-color: var(--fh-primary);
+  border: 0;
+  border-radius: var(--fh-radius-pill);
+  width: 100%;
+  min-height: 46px;
+  padding: 8px 22px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: none;
+  box-shadow: 0 2px 6px rgba(47, 74, 60, .25);
+  transition: background-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+
+#index #search_hotel_block_form #search_room_submit:hover {
+  background-color: var(--fh-primary-hover);
+  box-shadow: 0 4px 12px rgba(47, 74, 60, .35);
+  transform: translateY(-1px);
+}
+
+/* popup attached to the hero dates field */
+#index .date-picker-wrapper {
+  box-shadow: var(--fh-shadow-3);
 }
 
 .header-rmsearch-details-wrapper {

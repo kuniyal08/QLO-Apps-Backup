@@ -1,1 +1,1 @@
-probe-git
+probe-git v2

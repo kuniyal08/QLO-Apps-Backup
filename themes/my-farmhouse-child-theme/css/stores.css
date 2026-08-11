@@ -69,3 +69,64 @@
   min-width: 100px; }
 
 /*# sourceMappingURL=stores.css.map */
+
+/* ==========================================================================
+   Farmhouse stores — overlay layer
+   ========================================================================== */
+
+#center_column .page-heading {
+  font-family: var(--fh-font-display);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 600;
+  color: var(--fh-ink);
+  border: none;
+}
+
+#center_column .store-title {
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--fh-ink);
+  margin: 22px 0 8px;
+}
+
+#center_column .store-content {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-md);
+  box-shadow: var(--fh-shadow-1);
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+#center_column .store-content .form-control,
+#center_column .store-content input[type="text"] {
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-sm);
+  box-shadow: none;
+  font-size: 14px;
+  padding: 10px 12px;
+  height: auto;
+}
+
+#center_column .store-content label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fh-text);
+}
+
+#center_column .store-content .btn,
+#center_column .store-content button {
+  background: var(--fh-primary);
+  border: 1px solid var(--fh-primary);
+  border-radius: var(--fh-radius-pill);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 22px;
+}
+
+#center_column #map {
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-md);
+  overflow: hidden;
+}

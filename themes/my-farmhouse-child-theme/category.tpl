@@ -26,6 +26,20 @@
 {block name='category'}
     <div class="row cat_cont">
         <div class="col-sm-12">
+            {block name='category_header'}
+                <div class="fh-category-header">
+                    {if isset($hotel_name) && $hotel_name}
+                        <h1 class="fh-category-header__title">{$hotel_name|escape:'html':'UTF-8'}</h1>
+                    {elseif isset($category) && $category->name}
+                        <h1 class="fh-category-header__title">{$category->name|escape:'html':'UTF-8'}</h1>
+                    {elseif isset($return_category_name)}
+                        <h1 class="fh-category-header__title">{$return_category_name|escape:'html':'UTF-8'}</h1>
+                    {/if}
+                    {if isset($description_short) && $description_short}
+                        <p class="fh-category-header__desc">{$description_short|escape:'html':'UTF-8'}</p>
+                    {/if}
+                </div>
+            {/block}
             {block name='category_top_left'}
                 <div class="row margin-lr-0 catSortBlock">
                     <div class="col-sm-2 sortBlockHeading">

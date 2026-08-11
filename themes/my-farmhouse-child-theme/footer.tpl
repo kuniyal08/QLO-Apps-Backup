@@ -35,18 +35,60 @@
 			</div><!-- .columns-container -->
 			{block name='displayFooter'}
 				{if isset($HOOK_FOOTER)}
-					{block name='displayFooterBefore'}
-						{hook h='displayFooterBefore'}
-					{/block}
-					<!-- Footer -->
 					<div class="footer-container">
-						<footer id="footer"  class="container">
-							<div class="row margin-btm-50">{$HOOK_FOOTER}</div>
+						{block name='displayFooterBefore'}
+							<div class="fh-footer-pre">
+								{hook h='displayFooterBefore'}
+							</div>
+						{/block}
+						<!-- Footer -->
+						<footer id="footer">
+							<div class="fh-container">
+								<div class="row fh-footer-explore">
+									<div class="col-xs-12">
+										{block name='displayFooterExploreSectionHook'}
+											{hook h='displayFooterExploreSectionHook'}
+										{/block}
+									</div>
+								</div>
+								<div class="row fh-footer-columns">
+									<div class="col-xs-12 col-sm-3 fh-footer-social">
+										{block name='displayFooterMostLeftBlock'}
+											{hook h='displayFooterMostLeftBlock'}
+										{/block}
+									</div>
+									<div class="col-xs-12 col-sm-9 fh-footer-hook">
+										{block name='displayFooterAggregate'}
+											{$HOOK_FOOTER}
+										{/block}
+									</div>
+								</div>
+								{block name='displayFooterNotificationHook'}
+									<div class="row fh-footer-notification">
+										<div class="col-xs-12">
+											{hook h='displayFooterNotificationHook'}
+										</div>
+									</div>
+								{/block}
+								{block name='displayFooterPaymentInfo'}
+									<div class="row fh-footer-payment">
+										<div class="col-xs-12">
+											{hook h='displayFooterPaymentInfo'}
+										</div>
+									</div>
+								{/block}
+								{block name='displayFooterAfter'}
+									{hook h='displayFooterAfter'}
+								{/block}
+								{block name='displayFooterBottonHook'}
+									{hook h='displayFooterBottonHook'}
+								{/block}
+							</div>
 						</footer>
 						{block name='displayAfterDefautlFooterHook'}
 							{hook h="displayAfterDefautlFooterHook"}
 						{/block}
-					</div><!-- #footer -->
+					</div><!-- .footer-container -->
 				{/if}
 			{/block}
 		</div><!-- #page -->

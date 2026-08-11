@@ -274,3 +274,81 @@
   outline: none;
   color: #427fed;
 }
+
+/* ==========================================================================
+   Farmhouse contact — overlay layer
+   ========================================================================== */
+
+#center_column .htl-contact-page {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-1);
+  padding: 28px 24px;
+}
+
+#center_column .contact-header {
+  font-family: var(--fh-font-display);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 40px;
+  color: var(--fh-ink);
+  margin-bottom: 8px;
+}
+
+#center_column .contact-desc {
+  font-size: 15px;
+  color: var(--fh-muted);
+  margin-bottom: 26px;
+}
+
+#center_column .htl-contact-page .col-sm-6 {
+  font-size: 14px;
+  color: var(--fh-text);
+}
+
+#center_column .htl-contact-page .form-control,
+#center_column .htl-contact-page input[type="text"],
+#center_column .htl-contact-page input[type="email"],
+#center_column .htl-contact-page input[type="tel"],
+#center_column .htl-contact-page textarea,
+#center_column .htl-contact-page select {
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-sm);
+  box-shadow: none;
+  font-size: 14px;
+  padding: 10px 12px;
+  height: auto;
+}
+
+#center_column .htl-contact-page label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fh-text);
+}
+
+#center_column .htl-contact-page .btn,
+#center_column .htl-contact-page button[type="submit"] {
+  background: var(--fh-primary);
+  border: 1px solid var(--fh-primary);
+  border-radius: var(--fh-radius-pill);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 11px 26px;
+}
+
+#center_column .htl-contact-page .btn:hover,
+#center_column .htl-contact-page button[type="submit"]:hover {
+  background: var(--fh-primary-hover);
+  border-color: var(--fh-primary-hover);
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  #center_column .contact-header {
+    font-size: 25px;
+    line-height: 32px;
+  }
+}

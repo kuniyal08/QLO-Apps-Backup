@@ -75,7 +75,7 @@
 									<div class="hotel_name_block">
 										<h1><span class="hotel_name">{$product->name}
 											{* Block for booking products *}
-											{if isset($id_hotel) && $id_hotel}&nbsp;-&nbsp;{$hotel_name}{/if}</span>{if isset($hotel_rating) && $hotel_rating}<div id="hotel_rating">{for $i=0; $i < $hotel_rating; $i++}<i class="icon-star"></i>{/for}</div>{/if}
+											{if isset($id_hotel) && $id_hotel}&nbsp;-&nbsp;{$hotel_name}{/if}</span>{if isset($hotel_rating) && $hotel_rating}<div id="hotel_rating">{for $i=0; $i < $hotel_rating; $i++}<svg class="fh-ic fh-ic--star" aria-hidden="true"><use href="#fh-ic-star"/></svg>{/for}</div>{/if}
 										</h1>
 										{block name='displayRoomTypeDetailRoomTypeNameBlock'}
 											{hook h='displayRoomTypeDetailRoomTypeNameBlock' id_product=$product->id}

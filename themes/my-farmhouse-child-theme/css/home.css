@@ -1,0 +1,370 @@
+/* ==========================================================================
+   Farmhouse homepage (index.tpl) — hero, trust strip, section grids
+   Loaded after design-system.css + components.css on the home page only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+.fh-hero {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: flex-end;
+  background: var(--fh-ink);
+  overflow: hidden;
+}
+
+.fh-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.fh-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.fh-hero__content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  padding: 96px 20px 160px;
+  color: #fff;
+  background: linear-gradient(180deg, rgba(31, 27, 22, 0) 25%, rgba(31, 27, 22, .68) 100%);
+}
+
+.fh-hero__eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .85);
+  margin-bottom: 12px;
+}
+
+.fh-hero__title {
+  font-family: var(--fh-font-display);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 600;
+  font-size: clamp(40px, 5.5vw, 64px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: #fff;
+  margin-bottom: 10px;
+  max-width: 720px;
+}
+
+.fh-hero__subtitle {
+  font-size: 17px;
+  line-height: 27px;
+  color: rgba(255, 255, 255, .92);
+  max-width: 560px;
+  margin-bottom: 0;
+}
+
+/* Hero search panel floats over the hero top edge (panel renders in normal
+   flow right after the sticky header via displayAfterHookTop; the hero is
+   pulled up so its top slides under the panel — Booking-style overlap) */
+#index .fh-hero {
+  margin-top: -160px;
+}
+
+#index .fh-hero__content {
+  padding-top: 240px;
+}
+
+@media (max-width: 767px) {
+  #index .fh-hero {
+    margin-top: 0;
+  }
+
+  #index .fh-hero__content {
+    padding-top: 140px;
+  }
+}
+
+#index .fh-header-sticky {
+  background: transparent;
+}
+
+/* The hotelreservationsystem welcome block ("Welcome To <name>") is rendered
+   via displayAfterHookTop and duplicates our hero copy — hide it. */
+#index .header-desc-container {
+  display: none !important;
+}
+
+#index .fh-header-sticky .fh-header {
+  background: rgba(247, 244, 239, .9);
+}
+
+/* --------------------------------------------------------------------------
+   Trust strip
+   -------------------------------------------------------------------------- */
+.fh-trust {
+  background: var(--fh-card);
+  border-top: 1px solid var(--fh-border);
+  border-bottom: 1px solid var(--fh-border);
+  padding: 20px 0;
+}
+
+.fh-trust__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fh-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fh-ink);
+}
+
+.fh-trust__item .fh-ic--circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 9px;
+  border-radius: var(--fh-radius-pill);
+  background: var(--fh-bg);
+  color: var(--fh-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Home blocks
+   -------------------------------------------------------------------------- */
+.fh-home-block {
+  background: var(--fh-card);
+}
+
+.fh-home-block--tint {
+  background: var(--fh-bg);
+}
+
+/* --------------------------------------------------------------------------
+   Interiors grid
+   -------------------------------------------------------------------------- */
+.fh-interior-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.fh-interior-grid__item { position: relative; }
+
+.fh-interior-grid__link {
+  display: block;
+  position: relative;
+  border-radius: var(--fh-radius-md);
+  overflow: hidden;
+  box-shadow: var(--fh-shadow-1);
+}
+
+.fh-interior-grid__link img {
+  width: 100%;
+  display: block;
+  transition: transform .3s ease;
+}
+
+.fh-interior-grid__link:hover img {
+  transform: scale(1.03);
+}
+
+.fh-interior-grid__label {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 6px 12px;
+  border-radius: var(--fh-radius-pill);
+  background: rgba(31, 27, 22, .7);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Amenities grid
+   -------------------------------------------------------------------------- */
+.fh-amenity-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.fh-amenity-card__desc {
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--fh-text);
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Room cards grid
+   -------------------------------------------------------------------------- */
+.fh-room-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.fh-room-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.fh-room-card .fh-card__media img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.fh-room-card .fh-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.fh-room-card .fh-card__body .fh-btn {
+  margin-top: auto;
+}
+
+.fh-card__price {
+  margin-top: 0;
+}
+
+.fh-card__price-current {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--fh-ink);
+}
+
+.fh-card__price .room_type_old_price {
+  text-decoration: line-through;
+  color: var(--fh-muted);
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.fh-card__price-unit {
+  font-size: 13px;
+  color: var(--fh-muted);
+}
+
+.fh-room-card__desc {
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--fh-text);
+  margin: 10px 0 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Testimonials
+   -------------------------------------------------------------------------- */
+.fh-testimonial-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.fh-testimonial-card {
+  padding: 24px;
+}
+
+.fh-testimonial-card__quote {
+  color: var(--fh-gold);
+  margin-bottom: 12px;
+}
+
+.fh-testimonial-card__quote .fh-ic {
+  width: 28px;
+  height: 28px;
+}
+
+.fh-testimonial-card__text {
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--fh-text);
+  font-style: italic;
+}
+
+.fh-testimonial-card__person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.fh-testimonial-card__img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.fh-testimonial-card__name {
+  font-weight: 700;
+  color: var(--fh-ink);
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+.fh-testimonial-card__desig {
+  font-size: 13px;
+  color: var(--fh-muted);
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .fh-hero {
+    min-height: 560px;
+  }
+
+  .fh-hero__title {
+    font-size: 48px;
+    line-height: 60px;
+  }
+
+  .fh-trust__list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .fh-interior-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .fh-amenity-grid,
+  .fh-room-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fh-testimonial-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .fh-room-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .fh-amenity-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

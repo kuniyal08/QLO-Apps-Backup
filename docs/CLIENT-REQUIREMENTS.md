@@ -130,6 +130,28 @@ Running log of the client's needs. Section 1 is the consolidated platform spec (
 
 ## 3. Redesign implementation log (single-hotel phase)
 
+### Farmhouse redesign (2026-08-08, replaces the M3 iteration)
+
+The M3 material iteration (`css/custom.css`, `css/material.css`, `js/material.js`) was **superseded and deleted**. The active design system is the farmhouse layer in `themes/my-farmhouse-child-theme/`:
+
+| Area | Delivered / acceptance criteria | Files |
+|------|--------------------------------|-------|
+| Brand & type | Revived farmhouse identity: deep forest green `#2F4A3C` primary, terracotta accent `#C46A3B`, cream paper `#F7F4EF`; self-hosted **Fraunces** display font (opsz 72) + Manrope/system body; all local, no CDNs | `css/design-system.css`, `fonts/*.woff2` |
+| CSS architecture | Stock `global.css` + page CSS kept as functional base (Bootstrap 3/JS compat); farmhouse override layer loaded after it in `header.tpl` | `design-system.css`, `components.css`, page overlays |
+| Header / footer | Sticky translucent header (110px) with logo, nav, cart; rebuilt footer with full hook surface (explore links, columns, notification, payment, copyright) | `header.tpl`, `footer.tpl`, `components.css` |
+| Homepage | Full-bleed hero with overlapping search panel (pulled up `-150px`), trust strip, interior/amenity/room grids, testimonials | `index.tpl`, `home.css`, module template overrides |
+| Search bar | White elevated panel, sticky under header on category/room pages; exact field contract preserved (`hotel_location`, `location_category_id`, `check_in_date`, `check_out_date`, `adult_count`, `child_count`, `number_of_rooms`, `search_hotel_btn`); mobile fancybox pill works | `modules/wkroomsearchblock/.../searchForm.tpl` + 5 overrides |
+| Room listing | Booking.com-style cards (4 per grid, aspect-ratio images, primary price, pill CTA) | `category.tpl`, `product_list.css` (396→900 lines) |
+| Room detail | Sticky booking widget right column (dates, occupancy, total, Book Now pill), Fraunces title + rating, rounded gallery with thumbnail strip, pill tabs; mobile stacks + sticky card relaxes to static | `product.css` overlay, `roomTypePageSearch.tpl` (Modify Search panel) |
+| Checkout | One-page accordion cards (Rooms & Price Summary / Guest Information / Payment Information), room-row cards, totals sidebar card, voucher block, payment module options | `order-opc.css` overlay |
+| Account & utility | my-account link cards (grid), booking detail tabs/tables, order confirmation card, auth box forms, contact card, CMS typography, stores, 404 card, guest tracking | `account.css` + per-page overlays (`my-account`, `order-confirmation`, `order-detail`, `identity`, `addresses`, `contact-form`, `cms`, `stores`, `maintenance`) |
+| Mobile | No horizontal overflow at 375/768/1440 (verified with Playwright DOM checks on home/category/product/checkout/account/auth/history/contact); touch-friendly pill controls | QA harness `/tmp/opencode/*.js` |
+| Functional verification | **Full guest journey placed 2 real orders** (refs `PKFXMRHWM`, `KQLTSTCFV`): register → search → Book Now → checkout summary → guest info → TOS → bankwire payment → confirmation | — |
+| DB repair (client-approved) | Payment step showed "No payment method is available": `qlo_currency_shop` and `qlo_module_currency` were empty → inserted INR/shop rows (`currency_shop` 1/1/1.000000; `module_currency` bankwire 10 + cheque 11) | `qlo_currency_shop`, `qlo_module_currency` |
+| Deploy/QA invariants | Search form contract, all homepage hooks, sticky header height, no console errors (account.css 404 fixed by adding the file) | — |
+
+Committed on `feature/rural-marketplace-alpha` (2026-08-08): `33917a7` (category), `f563454` (product), `d473176` (checkout), `256df1f` + `d1c0af2` (account pages + account.css), `94a1901` (utility pages).
+
 ### De-branding (removed all QloApps / Webkul / "Hotel Prime" references)
 
 Complete. Verified zero visible matches on every front + admin page.
@@ -195,3 +217,4 @@ Complete. Verified zero visible matches on every front + admin page.
 | 2026-08-06 | Phase C: M3 checkout (accordion cards, room-summary lines as cards, totals card, `.room_duration_block`), M3 `#layer_cart` add-to-cart confirmation (16px + elevation-3, outlined Continue / Filled Proceed), auth/account/identity/address `.box` cards, contact form card + Filled button, payment-block/`.payment_module` option styles, global mobile `overflow-x: clip` fix; **DB fixes approved by client**: created missing `qlo_newsletter` table (blocknewsletter 500'd registration), inserted missing default currency INR id=1 (no prices rendered / payment failed) | `css/material.css`, `qlo_newsletter`, `qlo_currency` |
 | 2026-08-07 | Recorded expanded scope: 250 rural-UP properties, home-page Activities tab, mobile-first, caretaker SMS/email and Razorpay (UPI/RuPay); opened QloApps-vs-custom decision | `docs/CLIENT-REQUIREMENTS.md` |
 | 2026-08-07 | Client selected QloApps; activities clarified as informational-only content (no activity inventory/cart/booking). Implemented and verified Apache + PHP 8.3 + MariaDB 10.11 Compose development stack; Rocky Linux VPS deployment deferred until later | `Dockerfile`, `docker-compose*.yml`, `docker/`, `scripts/backup.sh`, `docs/DEPLOYMENT-REDHAT.md` |
+| 2026-08-08 | **Farmhouse redesign** (replaces M3): design-system.css tokens + Fraunces/Manrope self-hosted fonts; rebuilt header/footer shell; homepage hero + trust strip + section grids; search bar restyle (5 module overrides); category/our-properties room cards; room detail with sticky booking widget; one-page checkout restyle; account/confirmation/detail/auth/contact/cms/stores/404/guest-tracking overlays; account.css added (fixed header.tpl 404). Verified no overflow 375/768/1440, no console errors; full guest journey placed 2 real orders. **DB repair (client-approved):** `qlo_currency_shop` + `qlo_module_currency` (bankwire/cheque) rows so payment methods render | `themes/my-farmhouse-child-theme/` (design-system.css, components.css, home.css, product_list.css, product.css, order-opc.css, account.css + per-page overlays, header/footer/index/category/product .tpl, module search overrides, fonts), `qlo_currency_shop`, `qlo_module_currency` |

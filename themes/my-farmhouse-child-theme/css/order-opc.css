@@ -709,3 +709,301 @@
 	cursor: pointer;
 	background-color: #379bf0;
 	color: #fff;}
+
+/* ==========================================================================
+   Farmhouse checkout (order-opc) — overlay layer
+   Runs after the stock rules above.
+   ========================================================================== */
+
+#order-opc, #center_column #wrapper {
+  background: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Accordion step cards
+   -------------------------------------------------------------------------- */
+#oprder-opc-accordion .card {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-1);
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+#oprder-opc-accordion .card-header {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+#oprder-opc-accordion .accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 18px 22px;
+  margin: 0;
+  font-family: var(--fh-font-display);
+  font-variation-settings: 'opsz' 72;
+  font-weight: 600;
+  font-size: 21px;
+  color: var(--fh-ink);
+  border-bottom: 1px solid var(--fh-border);
+}
+
+#oprder-opc-accordion .accordion-header .accordion-left-arrow {
+  font-size: 22px;
+  color: var(--fh-muted);
+  line-height: 1;
+}
+
+#oprder-opc-accordion .opc-collapse .card-body {
+  padding: 22px;
+}
+
+/* step number badge */
+#oprder-opc-accordion .accordion-header span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   Rooms & price summary step — room row
+   -------------------------------------------------------------------------- */
+#oprder-opc-accordion .cart_section_title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--fh-muted);
+  margin: 6px 0 14px;
+}
+
+#oprder-opc-accordion .cart_product_line {
+  background: var(--fh-bg);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-md);
+  padding: 14px 12px;
+  margin: 0 0 12px;
+}
+
+#oprder-opc-accordion .cart_product_line .product-img-block img {
+  border-radius: var(--fh-radius-sm);
+  border: 1px solid var(--fh-border);
+}
+
+#oprder-opc-accordion .cart_product_line .room_remove_block a,
+#oprder-opc-accordion .cart_product_line .product-xs-remove {
+  font-size: 13px;
+  color: var(--fh-muted);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+#oprder-opc-accordion .cart_product_line .room_remove_block a:hover,
+#oprder-opc-accordion .cart_product_line .product-xs-remove:hover {
+  color: var(--fh-error);
+  background: transparent;
+}
+
+#oprder-opc-accordion .product-name a {
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--fh-ink);
+}
+
+#oprder-opc-accordion .order-detail-content .hotel_room_detail {
+  font-size: 14px;
+  color: var(--fh-text);
+}
+
+#oprder-opc-accordion .order-detail-content .price {
+  font-weight: 700;
+  color: var(--fh-ink);
+}
+
+/* --------------------------------------------------------------------------
+   Cart summary (right column)
+   -------------------------------------------------------------------------- */
+#center_column .col-md-4 .card {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-2);
+  padding: 22px;
+}
+
+#center_column .col-md-4 .card p {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--fh-text);
+  margin: 0 0 10px;
+}
+
+#center_column .col-md-4 .card p span:first-child {
+  color: var(--fh-text);
+}
+
+#center_column .col-md-4 .card p.cart_total_tax span,
+#center_column .col-md-4 .card p.total_discount_block span {
+  color: var(--fh-muted);
+}
+
+#center_column .col-md-4 .card p .cart_total_values {
+  font-weight: 600;
+  color: var(--fh-ink);
+}
+
+#center_column .col-md-4 .card p.cart_final_total_block {
+  font-family: var(--fh-font-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--fh-ink);
+  border-top: 1px solid var(--fh-border);
+  padding-top: 14px;
+  margin-top: 6px;
+}
+
+#center_column .col-md-4 .card p.cart_final_total_block .cart_total_values {
+  color: var(--fh-primary);
+}
+
+#center_column .col-md-4 .card hr {
+  border-color: var(--fh-border);
+}
+
+/* voucher block */
+#center_column .col-md-4 .card.cart_voucher_detail_block .cart_voucher_head {
+  font-family: var(--fh-font-display);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--fh-ink);
+}
+
+#center_column .col-md-4 .card.cart_voucher_detail_block .form-control {
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-sm);
+  box-shadow: none;
+  font-size: 14px;
+}
+
+#center_column .col-md-4 .card .submit.button-medium {
+  background: var(--fh-primary);
+  border: 1px solid var(--fh-primary);
+  border-radius: var(--fh-radius-pill);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 20px;
+}
+
+#center_column .col-md-4 .card .submit.button-medium:hover {
+  background: var(--fh-primary-hover);
+  border-color: var(--fh-primary-hover);
+}
+
+/* --------------------------------------------------------------------------
+   Guest information step
+   -------------------------------------------------------------------------- */
+#oprder-opc-accordion #collapse-guest-info .form-control,
+#oprder-opc-accordion #collapse-guest-info select,
+#oprder-opc-accordion #collapse-guest-info input[type="text"] {
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-sm);
+  box-shadow: none;
+  font-size: 14px;
+  padding: 10px 12px;
+  height: auto;
+}
+
+#oprder-opc-accordion #collapse-guest-info label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fh-text);
+}
+
+#oprder-opc-accordion #collapse-guest-info .gender-line label {
+  display: block;
+}
+
+#oprder-opc-accordion .checkbox label {
+  font-size: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   Payment step
+   -------------------------------------------------------------------------- */
+#oprder-opc-accordion #collapse-order-payment .payment_module {
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-md);
+  background: var(--fh-card);
+  margin-bottom: 10px;
+}
+
+#oprder-opc-accordion #collapse-order-payment .payment_module a {
+  color: var(--fh-ink);
+  padding: 14px 16px;
+  font-size: 14px;
+}
+
+#oprder-opc-accordion #collapse-order-payment .payment_module a:hover {
+  background: var(--fh-bg);
+}
+
+#oprder-opc-accordion #collapse-order-payment .payment_module img {
+  margin-right: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   Proceed buttons
+   -------------------------------------------------------------------------- */
+#oprder-opc-accordion .cart_navigation .button,
+#oprder-opc-accordion #HOOK_SHOPPING_CART_EXTRA .button,
+#oprder-opc-accordion button[name="submitGuestDetails"],
+#oprder-opc-accordion .opc-customer-detail button[type="submit"],
+#oprder-opc-accordion button[name="processAddress"],
+#oprder-opc-accordion button[name="submitCarrier"] {
+  background: var(--fh-primary);
+  border: 1px solid var(--fh-primary);
+  border-radius: var(--fh-radius-pill);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 24px;
+}
+
+#oprder-opc-accordion .cart_navigation .button:hover,
+#oprder-opc-accordion button[name="submitGuestDetails"]:hover {
+  background: var(--fh-primary-hover);
+  border-color: var(--fh-primary-hover);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  #center_column .col-md-4 .card {
+    margin-top: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  #oprder-opc-accordion .accordion-header {
+    font-size: 18px;
+    padding: 15px 16px;
+  }
+
+  #oprder-opc-accordion .opc-collapse .card-body {
+    padding: 16px;
+  }
+
+  #oprder-opc-accordion .cart_product_line .col-sm-2.product-img-block {
+    display: none;
+  }
+}

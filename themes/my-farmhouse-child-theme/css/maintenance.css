@@ -310,3 +310,32 @@ button[type='button'].cancel-login {
     padding-right: 0; } }
 
 /*# sourceMappingURL=maintenance.css.map */
+/* ==========================================================================
+   Farmhouse maintenance — overlay layer
+   ========================================================================== */
+
+#maintenance {
+  background: var(--fh-bg);
+}
+
+#maintenance .containter {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-lg);
+  box-shadow: var(--fh-shadow-2);
+  padding: 32px 24px;
+  margin-top: 60px;
+  font-size: 15px;
+  color: var(--fh-text);
+  line-height: 25px;
+}
+
+#maintenance .btn.btn-primary,
+#maintenance .btn {
+  background: var(--fh-primary);
+  border: 1px solid var(--fh-primary);
+  border-radius: var(--fh-radius-pill);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 22px;
+}

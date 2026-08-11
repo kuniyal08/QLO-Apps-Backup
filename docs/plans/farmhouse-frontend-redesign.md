@@ -1,7 +1,7 @@
 ---
 plan name: farmhouse-frontend-redesign
 plan description: Modern hotel frontend transformation
-plan status: active
+plan status: done
 ---
 
 ## Idea

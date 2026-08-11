@@ -217,8 +217,6 @@ select.form-control {
 .fh-header,
 header {
   background: rgba(247, 244, 239, .92);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--fh-border);
   transition: box-shadow .2s ease, background-color .2s ease;
 }
@@ -912,11 +910,12 @@ header #nav-main nav > div {
   background: transparent;
   border: 0;
   box-shadow: none;
-  height: auto;
+  height: 44px;
+  min-height: 44px;
   padding: 8px 14px;
   font-size: 16px;
   color: var(--fh-ink);
-  line-height: normal;
+  line-height: 44px;
 }
 
 #index #search_hotel_block_form .chosen-container .chosen-single span {

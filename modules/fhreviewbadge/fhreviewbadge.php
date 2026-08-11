@@ -105,6 +105,9 @@ class FhReviewBadge extends Module
     {
         $idHotel = isset($params['id_hotel']) ? (int) $params['id_hotel'] : 0;
         if (!$idHotel) {
+            $idHotel = $this->getHotelIdFromRequest();
+        }
+        if (!$idHotel) {
             return '';
         }
 
@@ -116,6 +119,26 @@ class FhReviewBadge extends Module
         ));
 
         return $this->display(__FILE__, 'rating-strip.tpl');
+    }
+
+    /**
+     * Resolves the hotel id from the current request when the hook receives none.
+     *
+     * @return int
+     */
+    protected function getHotelIdFromRequest()
+    {
+        if ($idCategory = (int) Tools::getValue('id_category')) {
+            if ($idHotel = HotelBranchInformation::getHotelIdByIdCategory($idCategory)) {
+                return (int) $idHotel;
+            }
+        }
+
+        if ($idProduct = (int) Tools::getValue('id_product')) {
+            return $this->getHotelIdByProduct($idProduct);
+        }
+
+        return 0;
     }
 
     /**

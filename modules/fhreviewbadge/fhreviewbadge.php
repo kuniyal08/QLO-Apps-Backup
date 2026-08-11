@@ -22,6 +22,10 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+if (!class_exists('QhrHotelReview', false)) {
+    require_once _PS_MODULE_DIR_ . 'qlohotelreview/classes/QhrHotelReview.php';
+}
+
 class FhReviewBadge extends Module
 {
     /** @var string[] Hooks registered by this module */

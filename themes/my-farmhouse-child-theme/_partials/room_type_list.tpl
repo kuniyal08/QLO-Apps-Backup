@@ -30,8 +30,10 @@
 				<div class="row">
 					{block name='room_type_list_room_image'}
 						<div class="col-sm-4">
-								<a class="fh-listing-img-link" href="{$room_v['product_link']|escape:'htmlall':'UTF-8'}">
-								<img src="{$room_v['image']|escape:'htmlall':'UTF-8'}" class="img-responsive room-type-image">
+								<a class="fh-listing-img-link fh-listing-cover" href="{$room_v['product_link']|escape:'htmlall':'UTF-8'}" title="{$room_v['name']|escape:'htmlall':'UTF-8'}">
+								{cycle name='fh_listing_tint' values='fh-mono--1,fh-mono--2,fh-mono--3,fh-mono--4,fh-mono--5,fh-mono--6' assign='fh_tint'}
+								<div class="fh-mono {$fh_tint}" aria-hidden="true">{$room_v['name']|substr:0:1}</div>
+								<span class="fh-listing-cover__name">{$room_v['name']|escape:'htmlall':'UTF-8'}</span>
 								{block name='displayRoomTypeListImageAfter'}
 									{hook h='displayRoomTypeListImageAfter' product=$room_v}
 								{/block}

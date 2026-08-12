@@ -1,7 +1,8 @@
 # Competitor Research: Premium Hotel-Booking Frontends
 
-> Companion research for plan `premium-home-pass` (specs `premium-search-hero`, `premium-trust-conversion`).
-> Last reviewed: 2026-08-08. Purpose: evidence base for the farmhouse redesign's premium pass.
+> Companion research for plans `premium-home-pass` (specs `premium-search-hero`, `premium-trust-conversion`)
+> and `rural-discovery-platform` (spec `farmstay-discovery`).
+> Last reviewed: 2026-08-12. Purpose: evidence base for the farmhouse redesign and the rural discovery platform.
 
 ## 1. The industry-standard search schema (four fields)
 
@@ -94,4 +95,31 @@ All major OTAs converge on the same search schema — location → date range �
 - Listing sort/filter bar (Baymard's "most heavily optimized surface") — deferred.
 - Wishlist/save, recently-viewed, personalized recommendations.
 - OG/meta + Hotel/Room structured data; logged-in greeting.
-- Activities/experiences surface (deferred per client).
+
+## 10. Airbnb's design language system (clean-modern evidence base)
+
+Airbnb's public DLS is the reference for the client-confirmed "clean modern" direction:
+
+- **Restraint is the system:** ONE typeface (Airbnb Cereal — a grotesque with weight-only hierarchy, no serif display); ONE accent color (Rausch red #FF385C) reserved almost exclusively for primary actions and the brand mark; everything else is ink/neutrals.
+- **Geometry:** soft rounded corners everywhere — 8px buttons, 12–20px cards, pill search bar and category chips, circular avatars/buttons; depth comes from photography + whitespace, NOT heavy shadows (Airbnb cards are effectively shadowless with hairline borders).
+- **Spacing:** 4/8px grid base; generous vertical rhythm; large left/right gutters.
+- **Categories pattern:** the horizontal icon-chip strip (types of stays / experiences) replaced filter-first discovery — one tap into a curated subset, great for inventory with strong differentiation (fits our region/activity discovery).
+- **Trust infrastructure:** verified reviews with multi-dimensional ratings, total-price transparency ("$x total"), free-cancellation framing per listing.
+- **The DLS's own caveat:** the system "assumes high-quality photography exists"; without it, visual hierarchy collapses. Our response: typography-first surfaces (color-block + monogram placeholders) carry cards instead of photos.
+
+**Sources:** airbnb.design (design system essays); medium.com/airbnb-design/design-systems (DLS write-ups); casework on Airbnb search/browse patterns (ixd.prattsi.org/2021/09/design-critique-airbnb-website/).
+
+## 11. UP government context — the platform's positioning advantage
+
+- **UP Farm Stay investment drive (Sept 2025):** UP Tourism invited investment in farm stays with >= 2 lettable rooms, a reception area, and *rural activities* — agri-farming, horticulture, fishponds, dairy, animal husbandry, farm tours. Capital-subsidy support and single-window clearances announced; aligned with the government's agri-tourism / "reverse migration" push.
+- **B&B / Homestay Policy 2025:** registration-based approval under the UP tourism portal (up-tourismportal.in), small-operator friendly — the model for many of our government/developed properties.
+- **Scale:** UP hosted ~65 crore tourist visits in 2024; thematic tourism tracks include rural, wildlife/nature-eco, adventure, heritage — regions like Bundelkhand, Awadh, Braj, Purvanchal, Rohilkhand and the Kashi region each carry distinct stay-and-do identities.
+- **Design consequence:** the site presents as the booking face of a real government initiative — trust-led, editorial voice, "stay + do" (farmstay + local activity) framing, government-property friendly. Region and activity discovery are therefore first-class navigation, not blog content.
+
+**Sources:** UP tourism portal announcements 2025 (farm stay investment drive, B&B/Homestay Policy 2025); press coverage of UP tourism figures 2024/2025.
+
+## 12. Adaptation: typography-first + hybrid imagery (supersedes the media pass)
+
+- **Client decision (2026-08-12):** clean modern, refined farmhouse palette (forest green #2F4A3C on cream #F7F4EF), and **hybrid imagery** — real royalty-free photos (Unsplash/Pexels, self-hosted in the theme) for hero + region/blog/editorial surfaces ONLY (clearly decorative), and designed monogram/color-block SVG placeholders for property cards (no photo may imply a specific stay exists).
+- This supersedes the curated-hero-photo work item of plan `premium-home-pass` (its icon-system and trust/conversion items remain).
+- Card design therefore leads with typography: Fraunces display for names, monogram tiles, hairline borders, one accent (forest green) for primary actions — the Airbnb model adapted to a photography-less inventory.

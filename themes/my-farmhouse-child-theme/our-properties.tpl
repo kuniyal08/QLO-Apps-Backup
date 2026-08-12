@@ -62,7 +62,11 @@
 						<div class="{if $hotelsInfo|count != 1}col-md-6 col-xs-12{else}col-md-6 col-md-offset-3{/if} margin-btm-30">
 							<div class="hotel-address-container">
 								<div class="col-xs-5">
-									<img class="htl-img" style="width:100%" src="{$hotel['image_url']}">
+									<div class="fh-listing-cover">
+										{cycle name='fh_prop_tint' values='fh-mono--1,fh-mono--2,fh-mono--3,fh-mono--4,fh-mono--5,fh-mono--6' assign='fh_prop_tint'}
+										<div class="fh-mono {$fh_prop_tint}" aria-hidden="true">{$hotel['hotel_name']|substr:0:1}</div>
+										<span class="fh-listing-cover__name">{$hotel['hotel_name']|escape:'html':'UTF-8'}</span>
+									</div>
 								</div>
 								<div class="col-xs-7">
 									<p class="hotel-name"><span>{$hotel['hotel_name']}</span></p>

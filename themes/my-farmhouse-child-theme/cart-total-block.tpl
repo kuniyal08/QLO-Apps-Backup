@@ -21,10 +21,10 @@
 *}
 
 
-<div class="col-sm-12 card cart_total_detail_block">
+<div class="col-sm-12 card cart_total_detail_block fh-cart-total">
     {if $total_rooms_wt + $total_extra_demands_wt + $total_additional_services_wt + $total_additional_services_auto_add_wt}
-        <p>
-            <span>
+        <p class="fh-cart-total__row">
+            <span class="fh-cart-total__label">
                 {l s='Total rooms cost'}
                 {if $display_tax_label}
                     {if $use_taxes && $priceDisplay == 0}
@@ -34,7 +34,7 @@
                     {/if}
                 {/if}
             </span>
-            <span class="cart_total_values">
+            <span class="cart_total_values fh-cart-total__value">
                 {if $use_taxes && $priceDisplay == 0}
                     {assign var='total_rooms_cost' value=($total_rooms_wt + $total_extra_demands_wt + $total_additional_services_wt + $total_additional_services_auto_add_wt)}
                 {else}
@@ -45,8 +45,8 @@
         </p>
     {/if}
     {if $total_standalone_service_products}
-        <p>
-            <span>
+        <p class="fh-cart-total__row">
+            <span class="fh-cart-total__label">
                 {l s='Total products'}
                 {if $display_tax_label}
                     {if $use_taxes && $priceDisplay == 0}
@@ -56,7 +56,7 @@
                     {/if}
                 {/if}
             </span>
-            <span class="cart_total_values">
+            <span class="cart_total_values fh-cart-total__value">
                 {if $use_taxes && $priceDisplay == 0}
                     {displayPrice price=$total_standalone_service_products_wt}
                 {else}
@@ -66,8 +66,8 @@
         </p>
     {/if}
     {if $convenience_fee_wt}
-        <p>
-            <span>
+        <p class="fh-cart-total__row">
+            <span class="fh-cart-total__label">
                 {l s='Convenience Fees'}
                 {if $display_tax_label}
                     {if $use_taxes && $priceDisplay == 0}
@@ -77,7 +77,7 @@
                     {/if}
                 {/if}
             </span>
-            <span class="cart_total_values">
+            <span class="cart_total_values fh-cart-total__value">
             {if $use_taxes && $priceDisplay == 0}
                 {displayPrice price=$convenience_fee_wt}
             {else}
@@ -90,13 +90,13 @@
         {hook h='displayBeforeCartTotalTax'}
     {/block}
     {if $show_taxes}
-        <p class="cart_total_tax">
-            <span>{l s='Total tax'}</span>
-            <span class="cart_total_values">{displayPrice price=($total_tax_without_discount)}</span>
+        <p class="cart_total_tax fh-cart-total__row fh-cart-total__row--muted">
+            <span class="fh-cart-total__label">{l s='Total tax'}</span>
+            <span class="cart_total_values fh-cart-total__value">{displayPrice price=($total_tax_without_discount)}</span>
         </p>
     {/if}
-    <p class="total_discount_block {if $total_discounts == 0}unvisible{/if}">
-        <span>
+    <p class="total_discount_block fh-cart-total__row fh-cart-total__row--muted {if $total_discounts == 0}unvisible{/if}">
+        <span class="fh-cart-total__label">
             {if $display_tax_label}
                 {if $use_taxes && $priceDisplay == 0}
                     {l s='Total Discount (tax incl)'}
@@ -107,7 +107,7 @@
                 {l s='Total Discount'}
             {/if}
         </span>
-        <span class="cart_total_values">
+        <span class="cart_total_values fh-cart-total__value">
             {if $use_taxes && $priceDisplay == 0}
                 {assign var='total_discounts_negative' value=$total_discounts * -1}
             {else}
@@ -116,13 +116,13 @@
             {displayPrice price=$total_discounts_negative}
         </span>
     </p>
-        <hr>
-        <p {if !isset($is_advance_payment) || !$is_advance_payment}class="cart_final_total_block"{/if}>
-            <span class="strong">{l s='Total'}</span>
+        <hr class="fh-cart-total__hr">
+        <p class="fh-cart-total__row fh-cart-total__row--total {if !isset($is_advance_payment) || !$is_advance_payment}cart_final_total_block{/if}">
+            <span class="strong fh-cart-total__label">{l s='Total'}</span>
             {block name='displayCartTotalPriceLabelTotal'}
                 {hook h="displayCartTotalPriceLabel" type='total'}
             {/block}
-        <span class="cart_total_values {if isset($is_advance_payment) && $is_advance_payment} strong{/if}">
+        <span class="cart_total_values fh-cart-total__value fh-cart-total__value--total {if isset($is_advance_payment) && $is_advance_payment} strong{/if}">
                 {if $use_taxes}
                     {displayPrice price=$total_price}
                 {else}
@@ -131,17 +131,17 @@
             </span>
         </p>
         {if isset($is_advance_payment) && $is_advance_payment}
-            <hr>
-            <p>
-                <span>{l s='Due Amount'}</span>
-                <span class="cart_total_values">{displayPrice price=$dueAmount}</span>
+            <hr class="fh-cart-total__hr">
+            <p class="fh-cart-total__row">
+                <span class="fh-cart-total__label">{l s='Due Amount'}</span>
+                <span class="cart_total_values fh-cart-total__value">{displayPrice price=$dueAmount}</span>
             </p>
-            <p class="cart_final_total_block">
-                <span class="strong">{l s='Partially Payable Total'}</span>
+            <p class="cart_final_total_block fh-cart-total__row fh-cart-total__row--total">
+                <span class="strong fh-cart-total__label">{l s='Partially Payable Total'}</span>
                 {block name='displayCartTotalPriceLabelPartial'}
                     {hook h="displayCartTotalPriceLabel" type='partial'}
                 {/block}
-                <span class="cart_total_values">{displayPrice price=$advPaymentAmount}</span>
+                <span class="cart_total_values fh-cart-total__value fh-cart-total__value--total">{displayPrice price=$advPaymentAmount}</span>
             </p>
         {/if}
 </div>

@@ -81,7 +81,7 @@
 		{if $page_name == 'order-opc' || $page_name == 'order' || $page_name == 'cart'}
 			<link rel="stylesheet" href="{$css_dir|escape:'html':'UTF-8'}order-opc.css" type="text/css" media="all" />
 		{/if}
-		{if $page_name == 'authentication' || $page_name == 'my-account' || $page_name == 'identity' || $page_name == 'addresses' || $page_name == 'address' || $page_name == 'order-confirmation' || $page_name == 'order-detail' || $page_name == 'history' || $page_name == 'guest-tracking'}
+		{if $page_name == 'authentication' || $page_name == 'my-account' || $page_name == 'identity' || $page_name == 'addresses' || $page_name == 'address' || $page_name == 'order-confirmation' || $page_name == 'order-detail' || $page_name == 'history' || $page_name == 'guest-tracking' || $page_name == 'contact' || $page_name == 'cms' || $page_name == 'sitemap' || $page_name == 'stores' || $page_name == 'pagenotfound' || $page_name == 'maintenance'}
 			<link rel="stylesheet" href="{$css_dir|escape:'html':'UTF-8'}account.css" type="text/css" media="all" />
 		{/if}
 		<script type="text/javascript" src="{$js_dir|escape:'html':'UTF-8'}theme.js" defer="defer"></script>
@@ -118,6 +118,7 @@
 		<symbol id="fh-ic-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
 		<symbol id="fh-ic-trash" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M6 7l1 13h10l1-13"/><path d="M10 11v6M14 11v6"/></symbol>
 		<symbol id="fh-ic-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="15.5" r="1"/></symbol>
+		<symbol id="fh-ic-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
 		<symbol id="fh-ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></symbol>
 		<symbol id="fh-ic-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><path d="M12 7.5v.01"/></symbol>
 		<symbol id="fh-ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></symbol>

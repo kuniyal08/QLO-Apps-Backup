@@ -69,7 +69,7 @@
 				<!-- left infos-->
 				{block name='product_left_column'}
 					<div class="pb-left-column col-xs-12 col-sm-8 col-md-8">
-						<div class="room_type_img_containter card">
+						<div class="room_type_img_containter card {if $product->booking_product}fh-room-hero{/if}">
 							<div class="room_hotel_name_block {if isset($language_is_rtl) && $language_is_rtl}rtl{/if}">
 								{block name='product_name'}
 									<div class="hotel_name_block">
@@ -183,9 +183,21 @@
 												<!-- end thumbnails -->
 											{/if}
 										</div>
-									{/block}
+{/block}
+							{if $product->booking_product}
+								{assign var='fhRoomInitial' value=$product->name|strip_tags|substr:0:1}
+								{assign var='fhRoomTint' value=$product->name|count_characters}
+								{assign var='fhRoomTint' value=$fhRoomTint % 6 + 1}
+								<div class="fh-room-hero__cover fh-mono fh-mono--{$fhRoomTint}">
+									<span class="fh-room-hero__initial">{$fhRoomInitial|escape:'html':'UTF-8'}</span>
+									{if isset($images) && $images|@count > 0}
+										<span class="fh-room-hero__photo-chip">{l s='%d photos' sprintf=[$images|@count]}</span>
+									{/if}
 								</div>
-								{if isset($images) && count($images) > 1}
+							{/if}
+						</div>
+
+						{if isset($images) && count($images) > 1}
 									<p class="resetimg clear no-print">
 										<span id="wrapResetImages" style="display: none;">
 											<a href="{$link->getProductLink($product)|escape:'html':'UTF-8'}" data-id="resetImages">

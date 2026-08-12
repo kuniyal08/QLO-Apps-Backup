@@ -1,18 +1,17 @@
-
 {if isset($advance_payment_active)}
-	<div class="opc_advance_payment_block">
-		<p class="block-small-header">{l s='PAYMENT TYPES'}</p>
+	<div class="opc_advance_payment_block fh-check-cont">
+		<p class="block-small-header fh-eyebrow">{l s='PAYMENT TYPES'}</p>
 		<div class="row adv_payment_type_form">
 		{block name='order_opc_advanced_payment_option_form'}
 				<form method="POST" action="{$link->getPageLink('order-opc')|escape:'html':'UTF-8'}" id="advanced-payment">
 					<div class="col-sm-12 col-xs-12">
-						<label>
+						<label class="fh-check fh-check--radio">
 							<input type="radio" value="1" name="payment_type" class="payment_type" {if !isset($is_advance_payment)}checked="checked"{/if}>
 							<span>{l s='Full Payment'}</span>
 						</label>
 					</div>
 					<div class="col-sm-12 col-xs-12">
-						<label>
+						<label class="fh-check fh-check--radio">
 							<input type="radio" value="2" name="payment_type" class="payment_type" {if isset($is_advance_payment)}checked="checked"{/if}>
 							<span>{l s='Partial Payment'}</span>
 						</label>
@@ -37,7 +36,7 @@
 					</div>
 					<div class="col-sm-12 col-xs-12 margin-top-10">
 						{block name='order_opc_advanced_payment_option_submit'}
-							<button class="opc-button-small opc-btn-primary" name="submitAdvPayment" type="submit">
+							<button class="opc-button-small opc-btn-primary fh-btn fh-btn--primary fh-btn--sm" name="submitAdvPayment" type="submit">
 								<span>{l s='OK'}</span>
 							</button>
 						{/block}

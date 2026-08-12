@@ -1300,3 +1300,28 @@
     border-bottom: 1px solid var(--fh-border);
     padding-bottom: .4rem;
 }
+
+/* Generic checkout card (also used outside the step accordion: cart rows, partials) */
+.fh-oc-card {
+    background: #fff;
+    border: 1px solid var(--fh-border);
+    border-radius: var(--fh-radius-lg);
+    box-shadow: 0 1px 0 rgba(31, 27, 22, .05);
+    overflow: hidden;
+}
+.fh-oc-card__head {
+    background: transparent;
+    border-bottom: 1px solid var(--fh-border);
+    padding: .95rem 1.25rem;
+}
+.fh-oc-card__title {
+    font-family: var(--fh-font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--fh-ink);
+    margin: 0;
+}
+.fh-oc-card__body {
+    background: var(--fh-bg);
+    padding: 1.25rem;
+}

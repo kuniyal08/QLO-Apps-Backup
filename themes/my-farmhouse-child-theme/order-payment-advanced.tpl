@@ -48,64 +48,70 @@
 {capture name=path}{l s='Your shopping cart'}{/capture}
 
 {if $productNumber == 0}
-<p class="alert alert-warning">{l s='Your shopping cart is empty.'}</p>
+<p class="alert alert-warning fh-alert fh-alert--warn">{l s='Your shopping cart is empty.'}</p>
 {elseif $PS_CATALOG_MODE}
-<p class="alert alert-warning">{l s='This store has not accepted your new order.'}</p>
+<p class="alert alert-warning fh-alert fh-alert--warn">{l s='This store has not accepted your new order.'}</p>
 {else}
-    <p id="emptyCartWarning" class="alert alert-warning unvisible">{l s='Your shopping cart is empty.'}</p>
-    <h2>{l s='Payment Options'}</h2>
-    <!-- HOOK_ADVANCED_PAYMENT -->
-    {block name='advancedPaymentOptions'}
-        <div id="HOOK_ADVANCED_PAYMENT">
-            <div class="row">
-            <!-- Should get a collection of "PaymentOption" object -->
-            {assign var='adv_payment_empty' value=true}
-            {foreach from=$HOOK_ADVANCED_PAYMENT item=pay_option key=key}
-                {if $pay_option}
-                    {assign var='adv_payment_empty' value=false}
-                {/if}
-            {/foreach}
-            {if $HOOK_ADVANCED_PAYMENT && !$adv_payment_empty}
-                {foreach $HOOK_ADVANCED_PAYMENT as $advanced_payment_opt_list}
-                    {foreach $advanced_payment_opt_list as $paymentOption}
-                        <div class="col-xs-12 col-md-6">
-                            <p class="payment_module pointer-box">
-                                <a class="payment_module_adv">
-                                    <img class="payment_option_logo" src="{$paymentOption->getLogo()}"/>
-                                    <span class="payment_option_cta">
-                                        {$paymentOption->getCallToActionText()}
-                                    </span>
-                                    <span class="pull-right payment_option_selected">
-                                        <i class="icon-check"></i>
-                                    </span>
-                                </a>
-
-                            </p>
-                            <div class="payment_option_form">
-                                {if $paymentOption->getForm()}
-                                    {$paymentOption->getForm()}
-                                {else}
-                                    <form method="{if $paymentOption->getMethod()}{$paymentOption->getMethod()}{else}POST{/if}" action="{$paymentOption->getAction()}">
-                                        {if $paymentOption->getInputs()}
-                                            {foreach from=$paymentOption->getInputs() item=value key=name}
-                                                <input type="hidden" name="{$name}" value="{$value}">
-                                            {/foreach}
-                                        {/if}
-                                    </form>
-                                {/if}
-                            </div>
-                        </div>
-                    {/foreach}
-                {/foreach}
-            </div>
-            {else}
-            <div class="col-xs-12 col-md-12">
-                <p class="alert alert-warning ">{l s='Unable to find any available payment option for your cart. Please contact us if the problem persists'}</p>
-            </div>
-            {/if}
+    <p id="emptyCartWarning" class="alert alert-warning unvisible fh-alert fh-alert--warn">{l s='Your shopping cart is empty.'}</p>
+    <div class="fh-oc-card">
+        <div class="fh-oc-card__head">
+            <h2 class="fh-oc-card__title">{l s='Payment Options'}</h2>
         </div>
-    {/block}
-    <!-- end HOOK_ADVANCED_PAYMENT -->
+        <div class="fh-oc-card__body">
+            <!-- HOOK_ADVANCED_PAYMENT -->
+            {block name='advancedPaymentOptions'}
+                <div id="HOOK_ADVANCED_PAYMENT">
+                    <div class="row">
+                    <!-- Should get a collection of "PaymentOption" object -->
+                    {assign var='adv_payment_empty' value=true}
+                    {foreach from=$HOOK_ADVANCED_PAYMENT item=pay_option key=key}
+                        {if $pay_option}
+                            {assign var='adv_payment_empty' value=false}
+                        {/if}
+                    {/foreach}
+                    {if $HOOK_ADVANCED_PAYMENT && !$adv_payment_empty}
+                        {foreach $HOOK_ADVANCED_PAYMENT as $advanced_payment_opt_list}
+                            {foreach $advanced_payment_opt_list as $paymentOption}
+                                <div class="col-xs-12 col-md-6">
+                                    <p class="payment_module pointer-box fh-card">
+                                        <a class="payment_module_adv">
+                                            <img class="payment_option_logo" src="{$paymentOption->getLogo()}"/>
+                                            <span class="payment_option_cta">
+                                                {$paymentOption->getCallToActionText()}
+                                            </span>
+                                            <span class="pull-right payment_option_selected">
+                                                <i class="icon-check"></i>
+                                            </span>
+                                        </a>
+
+                                    </p>
+                                    <div class="payment_option_form">
+                                        {if $paymentOption->getForm()}
+                                            {$paymentOption->getForm()}
+                                        {else}
+                                            <form method="{if $paymentOption->getMethod()}{$paymentOption->getMethod()}{else}POST{/if}" action="{$paymentOption->getAction()}">
+                                                {if $paymentOption->getInputs()}
+                                                    {foreach from=$paymentOption->getInputs() item=value key=name}
+                                                        <input type="hidden" name="{$name}" value="{$value}">
+                                                    {/foreach}
+                                                {/if}
+                                            </form>
+                                        {/if}
+                                    </div>
+                                </div>
+                            {/foreach}
+                        {/foreach}
+                    </div>
+                    {else}
+                    <div class="col-xs-12 col-md-12">
+                        <p class="alert alert-warning fh-alert fh-alert--warn">{l s='Unable to find any available payment option for your cart. Please contact us if the problem persists'}</p>
+                    </div>
+                    {/if}
+                </div>
+            {/block}
+            <!-- end HOOK_ADVANCED_PAYMENT -->
+        </div>
+    </div>
 
     {if $opc}
         <!-- Carrier -->
@@ -135,13 +141,19 @@
             {else}
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
-                        <h2>{l s='Terms and Conditions'}</h2>
-                        <div class="box">
-                            <p class="checkbox">
-                                <input type="checkbox" name="cgv" id="cgv" value="1" {if $checkedTOS}checked="checked"{/if} />
-                                <label for="cgv">{l s='I agree to the terms of service and will adhere to them unconditionally.'}</label>
-                                <a href="{$link_conditions|escape:'html':'UTF-8'}" class="iframe" rel="nofollow">{l s='(Read the Terms of Service)'}</a>
-                            </p>
+                        <div class="fh-oc-card">
+                            <div class="fh-oc-card__head">
+                                <h2 class="fh-oc-card__title">{l s='Terms and Conditions'}</h2>
+                            </div>
+                            <div class="fh-oc-card__body">
+                                <div class="box fh-check-cont">
+                                    <p class="checkbox fh-check">
+                                        <input type="checkbox" name="cgv" id="cgv" value="1" {if $checkedTOS}checked="checked"{/if} />
+                                        <label for="cgv">{l s='I agree to the terms of service and will adhere to them unconditionally.'}</label>
+                                        <a href="{$link_conditions|escape:'html':'UTF-8'}" class="iframe fh-check-cont__link" rel="nofollow">{l s='(Read the Terms of Service)'}</a>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

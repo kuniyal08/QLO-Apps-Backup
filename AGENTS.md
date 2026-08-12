@@ -209,13 +209,13 @@ After making changes:
   `docker-compose.dev.yml` bind-mounts `themes/`, `controllers/`, and `cache/` from the host. It is a local-only dev artifact (not for production).
 - **SELinux trap (rootless Podman, Enforcing):** `podman-compose 1.6` drops the `:Z` relabel when it *recreates* a container, so named volumes (img/upload/download/secrets) keep the old MCS pair and the new container gets a new one — the entrypoint then fails with `cp: cannot stat '/var/www/html/img/.'` and the container crash-loops. If this happens:
   ```bash
-  MCS=$(podman inspect <container> --format '{{.ProcessLabel}}')  # e.g. s0:c110,c112
+  LEVEL=$(podman inspect <container> --format '{{.ProcessLabel}}' | sed 's/.*:s0/s0/')  # e.g. s0:c191,c466 — LEVEL only, the full ProcessLabel string fails chcon with "Invalid argument"
   for v in images uploads downloads secrets; do
-    podman unshare chcon -R -t container_file_t -l "$MCS" "$(podman volume inspect qloapps_$v --format '{{.Mountpoint}}')"
+    podman unshare chcon -R -t container_file_t -l "$LEVEL" "$(readlink -f "$(podman volume inspect qloapps_$v --format '{{.Mountpoint}}')")"  # readlink -f: mountpoint paths are symlinks
   done
   podman start <container>
   ```
-  (`podman unshare` is required — the volume files are owned by the container-mapped UID and plain `chcon` fails with EPERM.) `podman stop/start` keeps the MCS pair; `podman-compose up` recreate changes it again.
+  (`podman unshare` is required — the volume files are owned by the container-mapped UID and plain `chcon` fails with EPERM.) `podman stop/start` keeps the MCS pair; `podman-compose up` recreate changes it again. Note: `podman-compose up -d` does NOT roll out a rebuilt image — pass `--force-recreate`.
 - The entrypoint seeds media from `/usr/local/share/qloapps-media` into empty volumes on first boot and regenerates `config/settings.inc.php` from env each start; cookie keys persist in the `secrets` volume.
 
 ## Safety Rules

@@ -2171,3 +2171,68 @@ header #nav-main nav > div {
 .dropdown-toggle.btn-default {
   border-radius: 999px;
 }
+
+/* Alerts */
+.fh-alert {
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.fh-alert a {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.fh-alert--success {
+  background: rgba(47, 74, 60, .08);
+  border-color: rgba(47, 74, 60, .25);
+  color: #2f4a3c;
+}
+
+.fh-alert--warn {
+  background: rgba(196, 141, 71, .1);
+  border-color: rgba(196, 141, 71, .35);
+  color: #8a5a22;
+}
+
+.fh-alert--info {
+  background: rgba(70, 94, 120, .08);
+  border-color: rgba(70, 94, 120, .25);
+  color: #3c5570;
+}
+
+/* Danger ghost button */
+.fh-btn--danger {
+  color: #a3452f;
+  border-color: rgba(163, 69, 47, .35);
+}
+
+.fh-btn--danger:hover,
+.fh-btn--danger:focus {
+  background: rgba(163, 69, 47, .08);
+  border-color: #a3452f;
+  color: #a3452f;
+}
+
+/* Plain list */
+.fh-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+}
+
+.fh-list li {
+  padding: 6px 0;
+  font-size: 14px;
+  color: #6e675c;
+}
+
+/* Radio-style check row (genders, invoice picker) */
+.fh-check--radio {
+  display: inline-flex;
+  margin-right: 18px;
+}

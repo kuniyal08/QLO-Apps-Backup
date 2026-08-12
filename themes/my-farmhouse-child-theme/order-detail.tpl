@@ -42,8 +42,10 @@
         </span>
     {/capture}
 
+    <div class="fh-account">
     {block name='order_detail_heading'}
-        <h1 class="page-heading bottom-indent">
+        <p class="fh-eyebrow">{l s='Your stay'}</p>
+        <h1 class="fh-account__title">
             {l s='Booking Details'}
         </h1>
     {/block}
@@ -54,13 +56,10 @@
 
     {if isset($order) && $order}
         {block name='order_detail_subheading'}
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="well well-md well-order-date">
-                        {l s='Booking Reference ' sprintf=$order->getUniqReference()}<strong>{$order->getUniqReference()}</strong>{l s=' - placed on'}
-                        <span title="{dateFormat date=$order->date_add full=1}">{dateFormat date=$order->date_add}</span>
-                    </div>
-                </div>
+            <div class="fh-order-ref">
+                <span class="fh-order-ref__label">{l s='Booking reference'}</span>
+                <span class="fh-order-ref__code">{$order->getUniqReference()}</span>
+                <span class="fh-order-ref__date">{l s='Placed on'} <span title="{dateFormat date=$order->date_add full=1}">{dateFormat date=$order->date_add}</span></span>
             </div>
         {/block}
 
@@ -1124,6 +1123,7 @@
             <div id="popup-view-extra-services" class="popup-view-extra-services" style="display: none;"></div>
         {/block}
     {/if}
+    </div>
 
     {block name='order_detail_js_vars'}
         {strip}

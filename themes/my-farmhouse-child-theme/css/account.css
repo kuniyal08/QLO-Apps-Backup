@@ -151,3 +151,387 @@
     font-size: 24px;
   }
 }
+
+/* --------------------------------------------------------------------------
+   fh-account shell
+   -------------------------------------------------------------------------- */
+.fh-account {
+  max-width: 1000px;
+}
+
+.fh-account__title {
+  font-family: var(--fh-font-display);
+  font-variation-settings: 'opsz' 72;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.1;
+  color: var(--fh-ink);
+  margin: 4px 0 10px;
+}
+
+.fh-account__copy {
+  font-size: 15px;
+  color: #6e675c;
+  margin: 0 0 22px;
+}
+
+.fh-account__back {
+  margin-top: 28px;
+}
+
+.fh-account__form-card {
+  padding: 28px;
+  max-width: 720px;
+}
+
+/* --------------------------------------------------------------------------
+   My account tiles
+   -------------------------------------------------------------------------- */
+.fh-account__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+}
+
+.fh-account__tile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 18px;
+  text-decoration: none;
+  color: var(--fh-ink);
+}
+
+.fh-account__tile:hover {
+  color: var(--fh-ink);
+}
+
+.fh-account__tile-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border-radius: 50%;
+  background: rgba(47, 74, 60, .08);
+  color: var(--fh-primary);
+  font-size: 20px;
+}
+
+.fh-account__tile-title {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.fh-account__tile-arrow {
+  margin-left: auto;
+  width: 18px;
+  height: 18px;
+  color: var(--fh-muted);
+  transition: transform .15s ease;
+}
+
+.fh-account__tile:hover .fh-account__tile-arrow {
+  transform: translateX(3px);
+  color: var(--fh-primary);
+}
+
+.fh-account__empty {
+  list-style: none;
+}
+
+/* --------------------------------------------------------------------------
+   Addresses
+   -------------------------------------------------------------------------- */
+.fh-address-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.fh-address-card {
+  padding: 22px;
+}
+
+.fh-address-card__alias {
+  font-family: var(--fh-font-display);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--fh-ink);
+  margin: 0 0 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--fh-border);
+}
+
+.fh-address-card__body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--fh-text);
+}
+
+.fh-address-card__body p {
+  margin: 0;
+}
+
+.fh-address-card__body p.address_title {
+  display: none;
+}
+
+.fh-address-card__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--fh-border);
+}
+
+.fh-address-formatted {
+  font-size: 14px;
+  color: var(--fh-text);
+  margin-bottom: 18px;
+}
+
+.fh-address-formatted p {
+  margin: 0;
+}
+
+.fh-address-formatted .address_title {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Booking reference bar (order-detail)
+   -------------------------------------------------------------------------- */
+.fh-order-ref {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-md);
+  box-shadow: var(--fh-shadow-1);
+  padding: 14px 20px;
+  margin-bottom: 24px;
+}
+
+.fh-order-ref__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--fh-muted);
+}
+
+.fh-order-ref__code {
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--fh-primary);
+  letter-spacing: .04em;
+}
+
+.fh-order-ref__date {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--fh-muted);
+}
+
+/* --------------------------------------------------------------------------
+   order-detail internal cards (QloApps .card markup, restyled)
+   -------------------------------------------------------------------------- */
+#order-detail #order_detail_container .card {
+  background: var(--fh-card);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-md);
+  box-shadow: var(--fh-shadow-1);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+#order-detail #order_detail_container .card-header {
+  background: var(--fh-bg);
+  border-bottom: 1px solid var(--fh-border);
+  padding: 14px 20px;
+  font-family: var(--fh-font-display);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--fh-ink);
+}
+
+#order-detail #order_detail_container .card-body {
+  padding: 20px;
+}
+
+#order-detail #order_detail_container .card-text,
+#order-detail #order_detail_container .card-subtitle,
+#order-detail #order_detail_container .text-muted {
+  font-size: 14px;
+  color: var(--fh-muted);
+}
+
+#order-detail #order_detail_container .description-list dt {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--fh-ink);
+}
+
+#order-detail #order_detail_container .description-list dd {
+  font-size: 14px;
+  color: var(--fh-text);
+}
+
+#order-detail .detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--fh-border);
+  font-size: 14px;
+}
+
+#order-detail .detail-row:last-child {
+  border-bottom: none;
+}
+
+#order-detail .detail-row .title {
+  color: var(--fh-muted);
+}
+
+#order-detail .detail-row .value {
+  color: var(--fh-ink);
+  font-weight: 600;
+  text-align: right;
+}
+
+#order-detail .table-summary td {
+  padding: 8px 4px;
+  border-top: 1px dashed var(--fh-border);
+  font-size: 14px;
+  color: var(--fh-text);
+}
+
+#order-detail .table-summary tr:first-child td {
+  border-top: none;
+}
+
+#order-detail .table-summary tr.totalprice td {
+  font-weight: 700;
+  color: var(--fh-ink);
+}
+
+#order-detail .table-summary .price {
+  color: var(--fh-ink);
+}
+
+#order-detail .hotel-address {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fh-text);
+}
+
+#order-detail .hotel-location-map {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--fh-border);
+  margin-top: 14px;
+}
+
+#order-detail .refund-policy {
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--fh-border);
+}
+
+#order-detail .refund-policy:last-child {
+  border-bottom: none;
+}
+
+#order-detail .refund-rule-name {
+  font-weight: 700;
+  color: var(--fh-ink);
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+#order-detail .refund-rule-description {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+#order-detail .alert-info-light {
+  background: rgba(70, 94, 120, .08);
+  border-color: rgba(70, 94, 120, .25);
+  color: #3c5570;
+  border-radius: 12px;
+}
+
+#order-detail .well-order-date,
+#order-detail .well {
+  background: var(--fh-bg);
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-md);
+  box-shadow: none;
+}
+
+#order-detail .booking-actions-wrap .btn {
+  border-radius: var(--fh-radius-pill);
+  font-size: 13px;
+}
+
+#order-detail .messages-list {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fh-text);
+}
+
+/* --------------------------------------------------------------------------
+   Order history table chrome
+   -------------------------------------------------------------------------- */
+.fh-table-wrap {
+  padding: 0;
+  overflow: hidden;
+}
+
+.fh-table {
+  margin: 0;
+}
+
+.fh-table__ref {
+  font-weight: 700;
+  color: var(--fh-primary);
+}
+
+.fh-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: var(--fh-radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--fh-primary);
+}
+
+@media (max-width: 767px) {
+  .fh-account__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fh-address-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fh-account__form-card {
+    padding: 20px;
+  }
+
+  .fh-order-ref__date {
+    margin-left: 0;
+    width: 100%;
+  }
+}

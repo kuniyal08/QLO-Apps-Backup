@@ -50,6 +50,7 @@ RUN mkdir -p \
         /usr/local/share/qloapps-media/download \
         /var/www/html/cache/smarty/compile \
         /var/www/html/cache/smarty/cache \
+        /var/www/html/log \
         /var/www/html/var/logs \
         /var/www/html/var/cache \
         /var/www/html/var/sessions \

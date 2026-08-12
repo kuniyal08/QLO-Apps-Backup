@@ -21,11 +21,11 @@
 *}
 
 {block name='order_extra_services'}
-    <div class="card">
-        <div class="card-header">
-            {l s='Extra Services'}
+    <div class="card fh-card fh-oc-card">
+        <div class="card-header fh-oc-card__head">
+            <span class="fh-eyebrow">{l s='Extra Services'}</span>
         </div>
-        <div class="card-body">
+        <div class="card-body fh-oc-card__body">
             {if (isset($extraDemands) && $extraDemands) || (isset($additionalServices) && $additionalServices)}
                 {block name='order_extra_services_tabs'}
                     <ul class="nav nav-tabs">
@@ -41,27 +41,27 @@
                     <div class="tab-content">
                         {block name='order_extra_services_tab_content'}
                             {if isset($additionalServices) && $additionalServices}
-                                <div id="room_type_service_product_desc" class="tab-pane {if isset($additionalServices) && $additionalServices}active{/if}">
+                                <div id="room_type_service_product_desc" class="tab-pane fh-stack {if isset($additionalServices) && $additionalServices}active{/if}">
                                     {assign var=roomCount value=1}
                                     {foreach $additionalServices as $key => $roomAdditionalService}
-                                        <div class="room_demands">
-                                            <div class="demand_header">
+                                        <div class="room_demands fh-card fh-card__body">
+                                            <div class="demand_header fh-card__title">
                                                 {l s='Room'} {$roomCount|string_format:'%02d'}&nbsp;
-                                                <span>({if {$roomAdditionalService['adults']} <= 9}0{$roomAdditionalService['adults']}{else}{$roomAdditionalService['adults']}{/if} {if $roomAdditionalService['adults'] > 1}{l s='Adults'}{else}{l s='Adult'}{/if}{if $roomAdditionalService['children'] > 0}, {if {$roomAdditionalService['children']} <= 9}0{$roomAdditionalService['children']}{else}{$roomAdditionalService['children']}{/if} {if $roomAdditionalService['children'] > 1}{l s='Children'}{else}{l s='Child'}{/if}{/if})</span>
+                                                <span class="fh-text-muted">({if {$roomAdditionalService['adults']} <= 9}0{$roomAdditionalService['adults']}{else}{$roomAdditionalService['adults']}{/if} {if $roomAdditionalService['adults'] > 1}{l s='Adults'}{else}{l s='Adult'}{/if}{if $roomAdditionalService['children'] > 0}, {if {$roomAdditionalService['children']} <= 9}0{$roomAdditionalService['children']}{else}{$roomAdditionalService['children']}{/if} {if $roomAdditionalService['children'] > 1}{l s='Children'}{else}{l s='Child'}{/if}{/if})</span>
                                             </div>
-                                            <div class="room_demand_detail">
+                                            <div class="room_demand_detail fh-stack">
                                                 {foreach $roomAdditionalService['additional_services'] as $additionalService}
-                                                    <div class="room_demand_block">
+                                                    <div class="room_demand_block fh-cart-total__row">
                                                         <div class="">
                                                             <div class="">
                                                                 {$additionalService['name']|escape:'html':'UTF-8'}
                                                                 {if $additionalService['allow_multiple_quantity']}
-                                                                    <span class="quantity">{l s='(Quantity: %s)' sprintf=[$additionalService['quantity']|string_format:'%02d']}</span>
+                                                                    <span class="quantity fh-text-muted">{l s='(Quantity: %s)' sprintf=[$additionalService['quantity']|string_format:'%02d']}</span>
                                                                 {/if}
                                                             </div>
                                                         </div>
                                                         <div class="">
-                                                            <span>
+                                                            <span class="fh-cart-total__value">
                                                                 {if $useTax}
                                                                     {displayPrice price=$additionalService['total_price_tax_incl']|escape:'html':'UTF-8' currency=$objOrder->id_currency}
                                                                 {else}
@@ -81,20 +81,20 @@
 
                         {block name='order_extra_demands_tab_content'}
                             {if isset($extraDemands) && $extraDemands}
-                                <div id="room_type_demands_desc" class="tab-pane {if !isset($additionalServices) || !$additionalServices}active{/if}">
+                                <div id="room_type_demands_desc" class="tab-pane fh-stack {if !isset($additionalServices) || !$additionalServices}active{/if}">
                                     {assign var=roomCount value=1}
                                     {foreach $extraDemands as $roomDemand}
-                                        <div class="room_demands">
-                                            <div class="demand_header">
+                                        <div class="room_demands fh-card fh-card__body">
+                                            <div class="demand_header fh-card__title">
                                                 {l s='Room'} {$roomCount|string_format:'%02d'}&nbsp;
-                                                <span>({if {$roomDemand['adults']} <= 9}0{$roomDemand['adults']}{else}{$roomDemand['adults']}{/if} {if $roomDemand['adults'] > 1}{l s='Adults'}{else}{l s='Adult'}{/if}{if $roomDemand['children'] > 0}, {if {$roomDemand['children']} <= 9}0{$roomDemand['children']}{else}{$roomDemand['children']}{/if} {if $roomDemand['children'] > 1}{l s='Children'}{else}{l s='Child'}{/if}{/if})</span>
+                                                <span class="fh-text-muted">({if {$roomDemand['adults']} <= 9}0{$roomDemand['adults']}{else}{$roomDemand['adults']}{/if} {if $roomDemand['adults'] > 1}{l s='Adults'}{else}{l s='Adult'}{/if}{if $roomDemand['children'] > 0}, {if {$roomDemand['children']} <= 9}0{$roomDemand['children']}{else}{$roomDemand['children']}{/if} {if $roomDemand['children'] > 1}{l s='Children'}{else}{l s='Child'}{/if}{/if})</span>
                                             </div>
-                                            <div class="room_demand_detail">
+                                            <div class="room_demand_detail fh-stack">
                                                 {foreach $roomDemand['extra_demands'] as $demand}
-                                                    <div class="room_demand_block">
+                                                    <div class="room_demand_block fh-cart-total__row">
                                                         <div class="">{$demand['name']|escape:'html':'UTF-8'}</div>
                                                         <div class="">
-                                                            <span>
+                                                            <span class="fh-cart-total__value">
                                                                 {if $useTax}
                                                                     {displayPrice price="{$demand['total_price_tax_incl']|escape:'html':'UTF-8'}" currency=$objOrder->id_currency}
                                                                 {else}

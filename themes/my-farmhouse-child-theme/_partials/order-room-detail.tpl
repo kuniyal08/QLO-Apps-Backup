@@ -20,7 +20,7 @@
 * @license https://opensource.org/license/osl-3-0-php Open Software License version 3.0
 *}
 
-<div class="product-detail" data-id-product="{$data_v.id_product}" data-date-diff="{$rm_k}">
+<div class="product-detail fh-card" data-id-product="{$data_v.id_product}" data-date-diff="{$rm_k}">
     <div class="row">
         {block name='order_room_detail_room_image'}
             <div class="col-xs-3 col-sm-2">
@@ -40,7 +40,7 @@
                         {if $rm_v['count_refunded'] > 0 || $rm_v['count_cancelled'] > 0}
                             <div class="num-refunded-rooms">
                                 {if $rm_v['count_cancelled'] > 0}
-                                    <span class="badge badge-danger">
+                                    <span class="badge badge-danger fh-badge">
                                         {if $rm_v['count_cancelled'] > 1}
                                             {$rm_v['count_cancelled']} {l s='Rooms Cancelled'}
                                         {else}
@@ -49,7 +49,7 @@
                                     </span>
                                 {/if}
                                 {if $rm_v['count_refunded'] > 0}
-                                    <span class="badge badge-danger">
+                                    <span class="badge badge-danger fh-badge">
                                         {if $rm_v['count_refunded'] > 1}
                                             {$rm_v['count_refunded']} {l s='Rooms Refunded'}
                                         {else}
@@ -67,13 +67,13 @@
                                     {assign var="is_full_date" value=($show_full_date && ($rm_v['data_form']|date_format:'%D' == $rm_v['data_to']|date_format:'%D'))}
                                     <div class="col-xs-12 col-md-6">
                                         <div class="row">
-                                            <dt class="col-xs-5">{l s='Check-in'}</dt>
+                                            <dt class="col-xs-5 fh-text-muted">{l s='Check-in'}</dt>
                                             <dd class="col-xs-7">{dateFormat date=$rm_v.data_form full=$is_full_date}</dd>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-md-6">
                                         <div class="row">
-                                            <dt class="col-xs-5">{l s='Check-out'}</dt>
+                                            <dt class="col-xs-5 fh-text-muted">{l s='Check-out'}</dt>
                                             <dd class="col-xs-7">{dateFormat date=$rm_v.data_to full=$is_full_date}</dd>
                                         </div>
                                     </div>
@@ -82,13 +82,13 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-md-6">
                                         <div class="row">
-                                            <dt class="col-xs-5">{l s='Rooms'}</dt>
+                                            <dt class="col-xs-5 fh-text-muted">{l s='Rooms'}</dt>
                                             <dd class="col-xs-7">{$rm_v.num_rm|string_format:'%02d'}</dd>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-md-6">
                                         <div class="row">
-                                            <dt class="col-xs-5">{l s='Guests'}</dt>
+                                            <dt class="col-xs-5 fh-text-muted">{l s='Guests'}</dt>
                                             <dd class="col-xs-7">
                                                 {$rm_v.adults|string_format:'%02d'} {if $rm_v.adults > 1}{l s='Adults'}{else}{l s='Adult'}{/if}{if $rm_v.children}, {$rm_v.children|string_format:'%02d'} {if $rm_v.children > 1}{l s='Children'}{else}{l s='Child'}{/if}{/if}
                                             </dd>
@@ -99,10 +99,10 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-md-6">
                                         <div class="row">
-                                            <dt class="col-xs-5">{l s='Extra Services'}</dt>
+                                            <dt class="col-xs-5 fh-text-muted">{l s='Extra Services'}</dt>
                                             <dd class="col-xs-7">
                                                 {if (isset($rm_v.extra_demands) && $rm_v.extra_demands) || isset($rm_v.additional_services) && $rm_v.additional_services}
-                                                    <a data-date_from="{$rm_v.data_form}" data-date_to="{$rm_v.data_to}" data-id_product="{$data_v.id_product}" data-id_order="{$order->id}" data-action="{$link->getPageLink({$page_name})}" class="btn-view-extra-services" href="#rooms_type_extra_services_form">
+                                                    <a data-date_from="{$rm_v.data_form}" data-date_to="{$rm_v.data_to}" data-id_product="{$data_v.id_product}" data-id_order="{$order->id}" data-action="{$link->getPageLink({$page_name})}" class="btn-view-extra-services fh-link" href="#rooms_type_extra_services_form">
                                                     {/if}
                                                     {if $group_use_tax}
                                                         {displayWtPriceWithCurrency price=($rm_v.extra_demands_price_ti + $rm_v.additional_services_price_ti)  currency=$currency}
@@ -117,7 +117,7 @@
                                     </div>
                                     <div class="col-xs-12 col-md-6">
                                         <div class="row">
-                                            <dt class="col-xs-5">{l s='Total Price'}</dt>
+                                            <dt class="col-xs-5 fh-text-muted">{l s='Total Price'}</dt>
                                             <dd class="col-xs-7">
                                                 {if $group_use_tax}
                                                     {displayWtPriceWithCurrency price=($rm_v.amount_tax_incl + $rm_v.extra_demands_price_ti + $rm_v.additional_services_price_ti + $rm_v.additional_services_price_auto_add_ti) currency=$currency}
@@ -128,7 +128,7 @@
                                                     <span class="order-price-info">
                                                         <img src="{$img_dir}icon/icon-info.svg" />
                                                     </span>
-                                                    <div class="price-info-container" style="display: none;">
+                                                    <div class="price-info-container fh-card" style="display: none;">
                                                         <div class="price-info-tooltip-cont">
                                                             <div class="list-row">
                                                                 <div>

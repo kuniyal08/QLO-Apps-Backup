@@ -20,7 +20,7 @@
 * @license https://opensource.org/license/osl-3-0-php Open Software License version 3.0
 *}
 
-<div class="product-detail" data-id-product="{$product.id_product}">
+<div class="product-detail fh-card" data-id-product="{$product.id_product}">
     <div class="row">
         {block name='order_hotel_product_image'}
             <div class="col-xs-3 col-sm-2">
@@ -40,11 +40,11 @@
                         {if $product['is_refunded'] || $product['is_cancelled']}
                             <div class="num-refunded-rooms">
                                 {if $product['is_cancelled']}
-                                    <span class="badge badge-danger">
+                                    <span class="badge badge-danger fh-badge">
                                         {l s='Cancelled'}
                                     </span>
                                 {else}
-                                    <span class="badge badge-danger">
+                                    <span class="badge badge-danger fh-badge">
                                         {l s='Refunded'}
                                     </span>
                                 {/if}
@@ -58,14 +58,14 @@
                                     {if $product.allow_multiple_quantity}
                                         <div class="col-xs-12 col-md-6">
                                             <div class="row">
-                                                <dt class="col-xs-5">{l s='Quantity'}</dt>
+                                                <dt class="col-xs-5 fh-text-muted">{l s='Quantity'}</dt>
                                                 <dd class="col-xs-7">{$product.quantity}</dd>
                                             </div>
                                         </div>
                                     {/if}
                                     <div class="col-xs-12 col-md-6">
                                         <div class="row">
-                                            <dt class="col-xs-5">{l s='Unit Price'}</dt>
+                                            <dt class="col-xs-5 fh-text-muted">{l s='Unit Price'}</dt>
                                             <dd class="col-xs-7">
                                                 {if $group_use_tax}
                                                     {displayWtPriceWithCurrency price=$product.unit_price_tax_incl  currency=$currency}
@@ -83,7 +83,7 @@
                                     {/if}
                                     <div class="col-xs-12 col-md-6">
                                         <div class="row">
-                                            <dt class="col-xs-5">{l s='Total Pricing'}</dt>
+                                            <dt class="col-xs-5 fh-text-muted">{l s='Total Pricing'}</dt>
                                             <dd class="col-xs-7">
                                                 {if $group_use_tax}
                                                     {displayWtPriceWithCurrency price=$product.total_price_tax_incl  currency=$currency}

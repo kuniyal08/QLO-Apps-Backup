@@ -1,9 +1,9 @@
-<div id="opc_new_account" class="opc-main-block">
+<div id="opc_new_account" class="opc-main-block fh-oc-newacc">
 	<div id="opc_new_account-overlay" class="opc-overlay" style="display: none;"></div>
 	{block name='order_opc_new_account_login_form'}
 		<form action="{$link->getPageLink('authentication', true, NULL, "back=order-opc")|escape:'html':'UTF-8'}" method="post" id="login_form">
 			<fieldset>
-				<div class="already_registered_block">
+				<div class="already_registered_block fh-oc-newacc__intro">
 					<p>
 						{l s='Already have an account?'} <a href="{$link->getPageLink('authentication', true)|escape:'html':'UTF-8'}" id="openLoginFormBlock"> {l s='Login now'}</a> {l s='to make checkout process faster and time saving.'}
 					</p>
@@ -12,16 +12,16 @@
 				<div id="login_form_content" style="display:none;">
 					<p class="text-secondary"><a href="#" id="idAccountChoice"> {l s='Return'}</a> {l s='to other checkout options.'}</p>
 					<!-- Error return block -->
-					<div id="opc_login_errors" class="alert alert-danger" style="display:none;"></div>
+					<div id="opc_login_errors" class="alert alert-danger fh-alert fh-alert--error" style="display:none;"></div>
 					<!-- END Error return block -->
 					<div class="row">
-						<div class="form-group col-sm-6">
+						<div class="form-group fh-field col-sm-6">
 							<label for="login_email">{l s='Email address'}</label>
 							<input type="email" class="form-control validate" id="login_email" name="email" data-validate="isEmail" />
 						</div>
 					</div>
 					<div class="row">
-						<div class="form-group col-sm-6">
+						<div class="form-group fh-field col-sm-6">
 							<label for="login_passwd">{l s='Password'}</label>
 							<input class="form-control validate" type="password" id="login_passwd" name="login_passwd" data-validate="isPasswd" />
 						</div>
@@ -34,7 +34,7 @@
 					{block name='order_opc_new_account_login_submit'}
 						<p class="submit">
 							{if isset($back)}<input type="hidden" class="hidden" name="back" value="{$back|escape:'html':'UTF-8'}" />{/if}
-							<button type="submit" id="SubmitLogin" name="SubmitLogin" class="button btn btn-default button-medium pull-right"><span>{l s='Sign in'}</span></button>
+							<button type="submit" id="SubmitLogin" name="SubmitLogin" class="button btn btn-default button-medium pull-right fh-btn fh-btn--primary"><span>{l s='Sign in'}</span></button>
 						</p>
 					{/block}
 					{block name='displayLoginFormBottom'}
@@ -48,12 +48,12 @@
 		<form action="{$link->getPageLink('authentication', true)|escape:'html':'UTF-8'}" method="post" id="new_account_form" class="std" autocomplete="on" autofill="on">
 			<div id="opc_account_choice" class="row">
 				<div class="col-xs-12">
-					<div class="opc-button">
+					<div class="opc-button fh-oc-newacc__choice">
 						<span>
-							<button type="submit" class="opc-button-small opc-btn-primary" id="opc_guestCheckout"><span>{l s='Guest checkout'}</span></button>
+							<button type="submit" class="opc-button-small opc-btn-primary fh-btn fh-btn--primary" id="opc_guestCheckout"><span>{l s='Guest checkout'}</span></button>
 						</span>
 						<span>
-							<button type="submit" class="opc-button-small opc-btn-default" id="opc_createAccount"><span>{l s='Create an account'}</span></button>
+							<button type="submit" class="opc-button-small opc-btn-default fh-btn" id="opc_createAccount"><span>{l s='Create an account'}</span></button>
 						</span>
 					</div>
 				</div>
@@ -62,13 +62,13 @@
 				{block name='displayCustomerAccountFormTop'}
 					{$HOOK_CREATE_ACCOUNT_TOP}
 				{/block}
-				<div style="display: none;" id="opc_account_saved" class="alert alert-success">
+				<div style="display: none;" id="opc_account_saved" class="alert alert-success fh-alert fh-alert--success">
 					{l s='Account information saved successfully.'}
 				</div>
 				<!-- Error return block -->
-				<div id="opc_account_errors" class="alert alert-danger" style="display:none;"></div>
+				<div id="opc_account_errors" class="alert alert-danger fh-alert fh-alert--error" style="display:none;"></div>
 				<!-- END Error return block -->
-				<div style="display: none; margin-top: 15px;" id="opc_account_saved" class="alert alert-success">
+				<div style="display: none; margin-top: 15px;" id="opc_account_saved" class="alert alert-success fh-alert fh-alert--success">
 					{l s='Account information saved successfully.'}
 				</div>
 				<!-- Account -->
@@ -151,27 +151,27 @@
 						</div>
 					{/if}
 					{if isset($newsletter) && $newsletter}
-						<div class="checkbox">
-							<label for="newsletter">
-							<input type="checkbox" name="newsletter" id="newsletter" value="1"{if isset($guestInformations) && isset($guestInformations.newsletter) && $guestInformations.newsletter} checked="checked"{/if} autocomplete="off"/>
-							{l s='Sign up for our newsletter!'}</label>
+<div class="checkbox fh-check">
+						<label for="newsletter">
+						<input type="checkbox" name="newsletter" id="newsletter" value="1"{if isset($guestInformations) && isset($guestInformations.newsletter) && $guestInformations.newsletter} checked="checked"{/if} autocomplete="off"/>
+						{l s='Sign up for our newsletter!'}</label>
 							{if array_key_exists('newsletter', $field_required)}
 								<sup> *</sup>
 							{/if}
 						</div>
 					{/if}
 					{if isset($optin) && $optin}
-						<div class="checkbox">
-							<label for="optin">
-							<input type="checkbox" name="optin" id="optin" value="1"{if isset($guestInformations) && isset($guestInformations.optin) && $guestInformations.optin} checked="checked"{/if} autocomplete="off"/>
-							{l s='Receive special offers from our partners!'}</label>
+<div class="checkbox fh-check">
+						<label for="optin">
+						<input type="checkbox" name="optin" id="optin" value="1"{if isset($guestInformations) && isset($guestInformations.optin) && $guestInformations.optin} checked="checked"{/if} autocomplete="off"/>
+						{l s='Receive special offers from our partners!'}</label>
 							{if array_key_exists('optin', $field_required)}
 								<sup> *</sup>
 							{/if}
 						</div>
 					{/if}
 
-					<p class="block-small-header margin-top-20 margin-btm-10">{l s='RESIDENTIAL ADDRESS'}</p>
+					<p class="block-small-header margin-top-20 margin-btm-10 fh-field-head">{l s='RESIDENTIAL ADDRESS'}</p>
 					{$stateExist = false}
 					{$postCodeExist = false}
 					{$dniExist = false}
@@ -404,7 +404,7 @@
 				{/block}
 				{block name='order_opc_new_account_submit'}
 					<div class="submit opc-add-save clearfix">
-						<button type="submit" name="submitAccount" id="submitAccount" class="btn btn-default button button-medium pull-right"><span>{l s='Save'}<i class="icon-chevron-right right"></i></span></button>
+						<button type="submit" name="submitAccount" id="submitAccount" class="btn btn-default button button-medium pull-right fh-btn fh-btn--primary"><span>{l s='Save'}<i class="icon-chevron-right right"></i></span></button>
 					</div>
 				{/block}
 			<!-- END Account -->

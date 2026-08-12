@@ -1,37 +1,3 @@
-{*
-* Farmhouse: homepage region preview strip (displayHome).
-* Informational discovery content - never bookable.
-*}
-
-{block name='fh_home_activities'}
-{if isset($fh_activities_home) && $fh_activities_home|@count && isset($fh_activities_home_url) && $fh_activities_home_url}
-	<section class="fh-home-activities fh-section">
-		<div class="fh-container">
-			<header class="fh-section-head">
-				<p class="fh-eyebrow">{l s='Things to do' mod='fhregions'}</p>
-				<h2 class="fh-section-head__title">{l s='Make each day an adventure' mod='fhregions'}</h2>
-				<p class="fh-section-head__sub">{l s='Local experiences shared by the farmstays themselves - food, crafts, farms and wetlands.' mod='fhregions'}</p>
-			</header>
-
-			<ul class="fh-chip-row fh-home-activities__chips">
-				{foreach $fh_activities_home as $activity}
-					<li>
-						<a class="fh-chip fh-chip--ghost fh-activity-chip" href="{$fh_activities_home_url|escape:'html':'UTF-8'}" title="{$activity.name|escape:'html':'UTF-8'}">
-							{if $activity.category}<em class="fh-activity-chip__category">{$activity.category|escape:'html':'UTF-8'}</em>{/if}
-							<span>{$activity.name|escape:'html':'UTF-8'}</span>
-						</a>
-					</li>
-				{/foreach}
-			</ul>
-
-			<p class="fh-section-foot">
-				<a class="fh-btn fh-btn--ghost" href="{$fh_activities_home_url|escape:'html':'UTF-8'}">{l s='All activities' mod='fhregions'}<svg class="fh-ic" aria-hidden="true"><use href="#fh-ic-arrow-right"/></svg></a>
-			</p>
-		</div>
-	</section>
-{/if}
-{/block}
-
 {block name='fh_home_regions'}
 {if isset($fh_regions_home) && $fh_regions_home|@count}
 	<section class="fh-home-regions fh-section">
@@ -72,3 +38,33 @@
 	</section>
 {/if}
 {/block}
+
+{block name='fh_home_activities'}
+{if isset($fh_activities_home) && $fh_activities_home|@count && isset($fh_activities_home_url) && $fh_activities_home_url}
+	<section class="fh-home-activities fh-section">
+		<div class="fh-container">
+			<header class="fh-section-head">
+				<p class="fh-eyebrow">{l s='Things to do' mod='fhregions'}</p>
+				<h2 class="fh-section-head__title">{l s='Make each day an adventure' mod='fhregions'}</h2>
+				<p class="fh-section-head__sub">{l s='Local experiences shared by the farmstays themselves - food, crafts, farms and wetlands.' mod='fhregions'}</p>
+			</header>
+
+			<ul class="fh-chip-row fh-home-activities__chips">
+				{foreach $fh_activities_home as $activity}
+					<li>
+						<a class="fh-chip fh-chip--ghost fh-activity-chip" href="{$fh_activities_home_url|escape:'html':'UTF-8'}" title="{$activity.name|escape:'html':'UTF-8'}">
+							{if $activity.category}<em class="fh-activity-chip__category">{$activity.category|escape:'html':'UTF-8'}</em>{/if}
+							<span>{$activity.name|escape:'html':'UTF-8'}</span>
+						</a>
+					</li>
+				{/foreach}
+			</ul>
+
+			<p class="fh-section-foot">
+				<a class="fh-btn fh-btn--ghost" href="{$fh_activities_home_url|escape:'html':'UTF-8'}">{l s='All activities' mod='fhregions'}<svg class="fh-ic" aria-hidden="true"><use href="#fh-ic-arrow-right"/></svg></a>
+			</p>
+		</div>
+	</section>
+{/if}
+{/block}
+

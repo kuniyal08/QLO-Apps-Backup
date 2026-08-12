@@ -74,6 +74,12 @@
 	</div>
 {/block}
 
+{block name='displayHome'}
+	{if isset($HOOK_HOME) && $HOOK_HOME|trim}
+		{$HOOK_HOME}
+	{/if}
+{/block}
+
 {block name='displayHomeTabContent'}
 	{if isset($HOOK_HOME_TAB_CONTENT) && $HOOK_HOME_TAB_CONTENT|trim}
 		{block name='displayHomeTab'}
@@ -84,10 +90,5 @@
 			{/if}
 		{/block}
 		<div class="tab-content">{$HOOK_HOME_TAB_CONTENT}</div>
-	{/if}
-{/block}
-{block name='displayHome'}
-	{if isset($HOOK_HOME) && $HOOK_HOME|trim}
-		<div class="clearfix">{$HOOK_HOME}</div>
 	{/if}
 {/block}

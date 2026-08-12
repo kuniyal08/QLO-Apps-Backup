@@ -158,10 +158,16 @@
                                         </div>
                                         <hr class="separator-hr-mg-10 form-group">
                                     {/if}
-                                {/block}
-                                {block name='booking_form_actions'}
-                                    <div id="booking_action_block">
-                                        <div class="row">
+								{/block}
+								{block name='booking_form_actions'}
+									<div id="booking_action_block">
+										{if isset($isHotelRefundable) && $isHotelRefundable}
+											<p class="fh-refund-pill">
+												<svg class="fh-ic" aria-hidden="true"><use href="#fh-ic-check"/></svg>
+												<span>{l s='Free cancellation'}</span>
+											</p>
+										{/if}
+										<div class="row">
                                             {block name='booking_form_total_price'}
                                                 <div class="total_price_block col-xs-7 form-group">
                                                     <label class="control-label">{l s='Total'}</label>
@@ -173,12 +179,16 @@
                                                         {/if}
                                                         {convertPrice price=$total_price|floatval}
                                                     </p>
+                                                    {if isset($num_days) && $num_days > 0 && $rooms_price}
+                                                        {assign var='fhPerNight' value=$rooms_price / $num_days}
+                                                        <p class="fh-per-night">{convertPrice price=$fhPerNight|floatval} <span class="fh-per-night__unit">{l s='/ night'}</span></p>
+                                                    {/if}
                                                 </div>
                                             {/block}
                                             {block name='booking_form_available_quantity'}
                                                 {if $total_available_rooms <= $warning_count}
                                                     <div class="col-xs-5 form-group text-right num_quantity_alert">
-                                                        <span class="num_searched_avail_rooms">
+<span class="num_searched_avail_rooms fh-scarcity">
                                                             {$total_available_rooms|escape:'html':'UTF-8'}
                                                         </span>
                                                         {if $total_available_rooms > 1} {l s='rooms left!'} {else} {l s='room left!'} {/if}

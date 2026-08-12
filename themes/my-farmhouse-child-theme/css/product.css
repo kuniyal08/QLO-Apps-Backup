@@ -2103,3 +2103,91 @@ ul.service-product-nav > li:hover {
     margin: 0;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Type-led room hero (typography-first monogram cover for booking products;
+   photo gallery kept in DOM for the preserved JS contracts, hidden visually)
+   -------------------------------------------------------------------------- */
+#product .room_type_img_containter.fh-room-hero > .row {
+  display: none;
+}
+
+#product .fh-room-hero__cover {
+  position: relative;
+  border: 1px solid var(--fh-border);
+  border-radius: var(--fh-radius-lg);
+  overflow: hidden;
+}
+
+#product .fh-room-hero__cover .fh-room-hero__photo-chip {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 16px;
+  border: 1px solid rgba(47, 74, 60, .18);
+  border-radius: var(--fh-radius-pill);
+  background: rgba(247, 244, 239, .92);
+  color: var(--fh-ink);
+  font-family: var(--fh-font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+/* --------------------------------------------------------------------------
+   Booking widget polish
+   -------------------------------------------------------------------------- */
+#product .booking-form .fh-per-night {
+  font-family: var(--fh-font-body);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--fh-muted);
+  margin: 2px 0 0;
+}
+
+#product .booking-form .fh-per-night__unit {
+  color: var(--fh-muted);
+}
+
+#product .booking-form .fh-refund-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(47, 74, 60, .08);
+  border: 1px dashed var(--fh-primary);
+  border-radius: var(--fh-radius-sm);
+  color: var(--fh-primary);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  margin: 0 0 14px;
+}
+
+#product .booking-form .fh-refund-pill .fh-ic {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+#product .booking-form .fh-scarcity {
+  display: inline-block;
+  min-height: 36px;
+  line-height: 1.5;
+  padding: 7px 14px;
+  background: rgba(196, 106, 59, .14);
+  border-radius: var(--fh-radius-pill);
+  color: #8E3A1E;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  #product .fh-room-hero__cover .fh-room-hero__photo-chip {
+    right: 10px;
+    bottom: 10px;
+  }
+}

@@ -51,13 +51,13 @@
 										{/block}
 									</div>
 								</div>
-								<div class="row fh-footer-columns">
-									<div class="col-xs-12 col-sm-3 fh-footer-social">
+								<div class="row fh-footer-grid">
+									<div class="fh-footer-grid__brand">
 										{block name='displayFooterMostLeftBlock'}
 											{hook h='displayFooterMostLeftBlock'}
 										{/block}
 									</div>
-									<div class="col-xs-12 col-sm-9 fh-footer-hook">
+									<div class="fh-footer-grid__main fh-footer-hook">
 										{block name='displayFooterAggregate'}
 											{$HOOK_FOOTER}
 										{/block}

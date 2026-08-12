@@ -1,238 +1,184 @@
 {*
-* 2007-2017 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2017 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
+* Farmhouse: premium contact — info card + form card + hotel branches.
+* Preserves the contact dropdown contract (contact_type_ul / id_contact),
+* GDPR + displayContactFormFieldsAfter hooks, honeypot and all JS vars.
 *}
 
 {block name='contact_form'}
-	{if isset($smarty.get.confirm)}
-		<p class="alert alert-success">{l s='Your message has been successfully sent to our team.'}</p>
-	{/if}
-	{block name='errors'}
-		{include file="$tpl_dir./errors.tpl"}
-	{/block}
-	<div class="margin-top-50 htl-contact-page">
-		<div class="row">
-			<p class="contact-header col-sm-offset-2 col-sm-8">{l s='Contact Us'}</p>
-			<p class="contact-desc col-sm-offset-2 col-sm-8">{l s='Reach out to us for any inquiries or assistance. We\'re here to help make your experience with us exceptional.'}</p>
-		</div>
-		<div class="row margin-top-50">
+	<div class="fh-account fh-contact">
+		{if isset($smarty.get.confirm)}
+			<div class="fh-alert fh-alert--success">{l s='Your message has been successfully sent to our team.'}</div>
+		{/if}
+		{block name='errors'}
+			{include file="$tpl_dir./errors.tpl"}
+		{/block}
+		<p class="fh-eyebrow">{l s='We\'d love to hear from you'}</p>
+		<h1 class="fh-account__title">{l s='Contact Us'}</h1>
+		<p class="fh-account__copy">{l s='Reach out to us for any inquiries or assistance. We\'re here to help make your experience with us exceptional.'}</p>
+
+		<div class="fh-contact__grid">
 			{if (isset($gblHtlAddress) && $gblHtlAddress) && (isset($gblHtlPhone) && $gblHtlPhone) && (isset($gblHtlEmail) && $gblHtlEmail)}
-				<div class="col-sm-6">
-					{block name='contact_form_info'}
-						<div class="htl-global-address-div col-md-8 col-sm-12">
-							{if isset($gblHtlPhone) && $gblHtlPhone }
-								<div>
-									<p class="global-address-header"><i class="icon-building"></i> {l s='Main Branch'}</p>
-									<p class="global-address-value">
-										{$gblHtlAddress}
-									</p>
-								</div>
-							{/if}
-							{if isset($gblHtlPhone) && $gblHtlPhone}
-								<div>
-									<p class="global-address-header"><i class="icon-phone"></i> {l s='Phone'}</p>
-									<p class="global-address-value">
-										{$gblHtlPhone}
-									</p>
-								</div>
-							{/if}
-							{if isset($gblHtlEmail) && $gblHtlEmail}
-								<div>
-									<p class="global-address-header"><i class="icon-envelope"></i> {l s='Mail Us'}</p>
-									<p class="global-address-value">
-										{$gblHtlEmail}
-									</p>
-								</div>
-							{/if}
-							{if isset($gblHtlRegistrationNumber) && $gblHtlRegistrationNumber}
-								<div>
-									<p class="global-address-header"><i class="icon-book"></i> {l s='Registration number'}</p>
-									<p class="global-address-value">
-										{$gblHtlRegistrationNumber}
-									</p>
-								</div>
-							{/if}
-							{if isset($gblHtlFax) && $gblHtlFax}
-								<div>
-									<p class="global-address-header"><i class="icon-fax"></i> {l s='Fax'}</p>
-									<p class="global-address-value">
-										{$gblHtlFax}
-									</p>
-								</div>
-							{/if}
-						</div>
-					{/block}
-				</div>
+				{block name='contact_form_info'}
+					<aside class="fh-card fh-contact__info">
+						<p class="fh-auth__card-title">{l s='Main Branch'}</p>
+						{if isset($gblHtlAddress) && $gblHtlAddress }
+							<div class="fh-contact__row">
+								<p class="fh-contact__label"><svg class="fh-ic" aria-hidden="true"><use href="#fh-ic-pin"/></svg>{l s='Address'}</p>
+								<p class="fh-contact__value">{$gblHtlAddress}</p>
+							</div>
+						{/if}
+						{if isset($gblHtlPhone) && $gblHtlPhone}
+							<div class="fh-contact__row">
+								<p class="fh-contact__label"><svg class="fh-ic" aria-hidden="true"><use href="#fh-ic-phone"/></svg>{l s='Phone'}</p>
+								<p class="fh-contact__value"><a href="tel:{$gblHtlPhone}">{$gblHtlPhone}</a></p>
+							</div>
+						{/if}
+						{if isset($gblHtlEmail) && $gblHtlEmail}
+							<div class="fh-contact__row">
+								<p class="fh-contact__label"><svg class="fh-ic" aria-hidden="true"><use href="#fh-ic-mail"/></svg>{l s='Mail Us'}</p>
+								<p class="fh-contact__value"><a href="mailto:{$gblHtlEmail}">{$gblHtlEmail}</a></p>
+							</div>
+						{/if}
+						{if isset($gblHtlRegistrationNumber) && $gblHtlRegistrationNumber}
+							<div class="fh-contact__row">
+								<p class="fh-contact__label">{l s='Registration number'}</p>
+								<p class="fh-contact__value">{$gblHtlRegistrationNumber}</p>
+							</div>
+						{/if}
+						{if isset($gblHtlFax) && $gblHtlFax}
+							<div class="fh-contact__row">
+								<p class="fh-contact__label">{l s='Fax'}</p>
+								<p class="fh-contact__value">{$gblHtlFax}</p>
+							</div>
+						{/if}
+					</aside>
+				{/block}
 			{/if}
-			<div class="col-sm-6 {if !(isset($gblHtlAddress) && $gblHtlAddress) && !(isset($gblHtlPhone) && $gblHtlPhone) && !(isset($gblHtlEmail) && $gblHtlEmail)} col-sm-offset-3 {/if}">
-				{block name='contact_form_content'}
-				{if isset($customerThread.token)}
-					<form action="{$link->getPageLink('contact', null, null, array('token' => $customerThread.token))}" method="post" class="contact-form-box" enctype="multipart/form-data">
-				{else}
-					<form action="{$link->getPageLink('contact')}" method="post" class="contact-form-box" enctype="multipart/form-data">
-				{/if}
-					{if isset($displayContactName) && $displayContactName}
-						<div class="form-group row">
-							<div class="col-sm-12">
-								<label for="user_name" class="control-label">
+			{block name='contact_form_content'}
+				<section class="fh-card fh-account__form-card">
+					{if isset($customerThread.token)}
+						<form action="{$link->getPageLink('contact', null, null, array('token' => $customerThread.token))}" method="post" class="fh-form" enctype="multipart/form-data">
+					{else}
+						<form action="{$link->getPageLink('contact')}" method="post" class="fh-form" enctype="multipart/form-data">
+					{/if}
+						{if isset($displayContactName) && $displayContactName}
+							<div class="fh-field form-group">
+								<label for="user_name" class="fh-field__label">
 									{l s='Name'}{if isset($contactNameRequired) && $contactNameRequired}*{/if}
 								</label>
-								<input class="form-control contact_input" type="text" id="user_name" name="user_name" value="{if isset($smarty.post.user_name)}{$smarty.post.user_name}{elseif isset($customerThread.user_name)}{$customerThread.user_name|escape:'html':'UTF-8'}{elseif isset($customerName)}{$customerName}{/if}" {if isset($customerThread.user_name)} readonly{/if}/>
+								<input class="fh-field__input contact_input" type="text" id="user_name" name="user_name" value="{if isset($smarty.post.user_name)}{$smarty.post.user_name}{elseif isset($customerThread.user_name)}{$customerThread.user_name|escape:'html':'UTF-8'}{elseif isset($customerName)}{$customerName}{/if}" {if isset($customerThread.user_name)} readonly{/if}/>
 							</div>
+						{/if}
+						<div class="fh-field form-group">
+							<label for="email" class="fh-field__label">
+								{l s='Email'}*
+							</label>
+							{if isset($customerThread.email)}
+								<input class="fh-field__input contact_input" type="email" id="email" name="from" value="{$customerThread.email|escape:'html':'UTF-8'}" readonly="readonly" />
+							{else}
+								<input class="fh-field__input contact_input validate" type="email" id="email" name="from" data-validate="isEmail" value="{if isset($smarty.post.email)}{$smarty.post.email}{else}{$email|escape:'html':'UTF-8'}{/if}" />
+							{/if}
 						</div>
-					{/if}
-						<div class="form-group row">
-							<div class="col-sm-12">
-								<label for="Email" class="control-label">
-									{l s='Email'}*
-								</label>
-								{if isset($customerThread.email)}
-									<input class="form-control contact_input" type="email" id="email" name="from" value="{if isset($customerThread.email)}{$customerThread.email|escape:'html':'UTF-8'}" readonly="readonly"{/if} />
-								{else}
-									<input class="form-control contact_input validate" type="email" id="email" name="from" data-validate="isEmail" value="{if isset($smarty.post.email)}{$smarty.post.email}{else}{$email|escape:'html':'UTF-8'}{/if}" />
-								{/if}
-							</div>
-						</div>
-					{if isset($displayContactPhone) && $displayContactPhone}
-						<div class="form-group row">
-							<div class="col-sm-12">
-								<label for="phone" class="control-label">
+						{if isset($displayContactPhone) && $displayContactPhone}
+							<div class="fh-field form-group">
+								<label for="phone" class="fh-field__label">
 									{l s='Phone'}{if isset($contactPhoneRequired) && $contactPhoneRequired}*{/if}
 								</label>
-								<input class="form-control contact_input" type="text" id="phone" name="phone" value="{if isset($smarty.post.phone)}{$smarty.post.phone}{else if isset($customerThread.phone)}{$customerThread.phone|escape:'html':'UTF-8'}{elseif isset($customerPhone)}{$customerPhone}{/if}" {if isset($customerThread.phone)}readonly="readonly"{/if}/>
+								<input class="fh-field__input contact_input" type="text" id="phone" name="phone" value="{if isset($smarty.post.phone)}{$smarty.post.phone}{else if isset($customerThread.phone)}{$customerThread.phone|escape:'html':'UTF-8'}{elseif isset($customerPhone)}{$customerPhone}{/if}" {if isset($customerThread.phone)}readonly="readonly"{/if}/>
 							</div>
-						</div>
-					{/if}
-						<div class="form-group row">
-							<div class="col-sm-12">
-								<label for="subject" class="control-label">
-									{l s='Title'}*
-								</label>
-								<input class="form-control contact_input" type="text" id="subject" name="subject" value="{if isset($smarty.post.subject)}{$smarty.post.subject}{else if isset($customerThread.subject)}{$customerThread.subject|escape:'html':'UTF-8'}{/if}" {if isset($customerThread.subject)}readonly="readonly"{/if}/>
-							</div>
+						{/if}
+						<div class="fh-field form-group">
+							<label for="subject" class="fh-field__label">
+								{l s='Title'}*
+							</label>
+							<input class="fh-field__input contact_input" type="text" id="subject" name="subject" value="{if isset($smarty.post.subject)}{$smarty.post.subject}{else if isset($customerThread.subject)}{$customerThread.subject|escape:'html':'UTF-8'}{/if}" {if isset($customerThread.subject)}readonly="readonly"{/if}/>
 						</div>
 						{if !isset($customerThread.id_contact) && isset($allowContactSelection) && $allowContactSelection}
-							<div class="form-group row">
-								<div class="col-sm-12">
-									<label for="message" class="control-label">
-										{l s='Send To'}*
-									</label>
-									<div class="dropdown">
-										<button class="form-control contact_type_input" type="button" data-toggle="dropdown">
-											<span id="contact_type" class="pull-left">{l s='Choose'}</span>
-											<input type="hidden" id="id_contact" name="id_contact" value="0">
-											<span class="arrow_span">
-												<i class="icon icon-angle-down"></i>
-											</span>
-										</button>
-										<ul class="dropdown-menu contact_type_ul">
-											{foreach from=$contacts item=contact}
-												<li  value="{$contact.id_contact|intval}"{if isset($smarty.request.id_contact) && $smarty.request.id_contact == $contact.id_contact} selected="selected"{/if}>{$contact.name|escape:'html':'UTF-8'}
-												</li>
+							<div class="fh-field form-group">
+								<label for="message" class="fh-field__label">
+									{l s='Send To'}*
+								</label>
+								<div class="dropdown">
+									<button class="fh-field__input fh-contact__dropdown contact_type_input" type="button" data-toggle="dropdown">
+										<span id="contact_type" class="fh-contact__dropdown-label">{l s='Choose'}</span>
+										<input type="hidden" id="id_contact" name="id_contact" value="0">
+										<span class="fh-contact__dropdown-arrow" aria-hidden="true">
+											<svg class="fh-ic"><use href="#fh-ic-chevron-down"/></svg>
+										</span>
+									</button>
+									<ul class="dropdown-menu contact_type_ul fh-contact__menu">
+										{foreach from=$contacts item=contact}
+											<li value="{$contact.id_contact|intval}"{if isset($smarty.request.id_contact) && $smarty.request.id_contact == $contact.id_contact} selected="selected"{/if}>{$contact.name|escape:'html':'UTF-8'}
+											</li>
+										{/foreach}
+										{if isset($all_hotels_info) && $all_hotels_info}
+											{foreach from=$all_hotels_info key=htl_k item=htl_v}
 											{/foreach}
-
-											{if isset($all_hotels_info) && $all_hotels_info}
-												{foreach from=$all_hotels_info key=htl_k item=htl_v}
-												{/foreach}
-											{/if}
-										</ul>
-									</div>
+										{/if}
+									</ul>
 								</div>
 							</div>
 						{elseif isset($customerThread.id_contact) && isset($allowContactSelection) && $allowContactSelection}
 							<input type="hidden" id="id_contact" name="id_contact" value="{$customerThread.id_contact|escape:'html':'UTF-8'}"/>
 						{/if}
-						<div class="form-group row">
-							<div class="col-sm-12">
-								<label for="message" class="control-label">
-									{l s='Message/Query'}*
-								</label>
-								<textarea class="form-control contact_textarea" id="message" name="message">{if isset($message)}{$message|escape:'html':'UTF-8'|stripslashes}{/if}</textarea>
-							</div>
+						<div class="fh-field form-group">
+							<label for="message" class="fh-field__label">
+								{l s='Message/Query'}*
+							</label>
+							<textarea class="fh-field__input contact_textarea" id="message" name="message">{if isset($message)}{$message|escape:'html':'UTF-8'|stripslashes}{/if}</textarea>
 						</div>
 						{if $fileupload == 1}
-							<div class="form-group row">
-								<div class="col-sm-12">
-									<label for="fileUpload" class="control-label">
-										{l s='Attach File'}
-									</label>
-									<input type="hidden" name="MAX_FILE_SIZE" value="{if isset($max_upload_size) && $max_upload_size}{$max_upload_size|intval}{else}2000000{/if}" />
-									<input type="file" name="fileUpload" id="fileUpload" class="form-control" />
-								</div>
+							<div class="fh-field form-group">
+								<label for="fileUpload" class="fh-field__label">
+									{l s='Attach File'}
+								</label>
+								<input type="hidden" name="MAX_FILE_SIZE" value="{if isset($max_upload_size) && $max_upload_size}{$max_upload_size|intval}{else}2000000{/if}" />
+								<input type="file" name="fileUpload" id="fileUpload" class="fh-field__input" />
 							</div>
 						{/if}
-						<div class="form-group">
-							{l s='* Required fields'}
-						</div>
+						<p class="fh-field__hint">{l s='* Required fields'}</p>
 						{hook h='displayGDPRConsent' moduleName='contactform'}
 						{hook h='displayContactFormFieldsAfter'}
-						<div class="form-group">
+						<div class="fh-form__actions">
 							<input type="text" name="url" value="" class="hidden" />
 							<input type="hidden" name="contactKey" value="{$contactKey}" />
-							<button class="btn button button-medium contact_btn" type="submit" name="submitMessage" id="submitMessage" ><span>{l s='Send Message'}</span></button>
+							<button class="fh-btn fh-btn--primary" type="submit" name="submitMessage" id="submitMessage">{l s='Send Message'}</button>
 						</div>
 					</form>
-				{/block}
-			</div>
+				</section>
+			{/block}
 		</div>
+
 		{block name='displayBeforeHotelBranchInformation'}
 			{hook h='displayBeforeHotelBranchInformation'}
 		{/block}
 		{block name='contact_form_hotel_branches'}
 			{if isset($displayHotels) && $displayHotels && isset($hotelsInfo) && $hotelsInfo}
-				<div class="row hotels-container">
-					<div class="col-sm-12 hotel-header">
-						<span>{l s='Our Hotels'}</span>
+				<div class="fh-contact__hotels">
+					<p class="fh-eyebrow">{l s='Our Hotels'}</p>
+					<div class="fh-address-grid">
+						{foreach $hotelsInfo as $hotel}
+							<div class="fh-card fh-contact__hotel">
+								<p class="fh-contact__city"><svg class="fh-ic" aria-hidden="true"><use href="#fh-ic-pin"/></svg>{$hotel['city']}</p>
+								<div class="fh-contact__hotel-main">
+									<img class="fh-contact__hotel-img" src="{$hotel['image_url']}" alt="{$hotel['hotel_name']|escape:'html':'UTF-8'}">
+									<div class="fh-contact__hotel-body">
+										<p class="fh-address-card__alias">{$hotel['hotel_name']}</p>
+										<p class="fh-contact__value">{$hotel['address']}, {$hotel['city']}, {if isset($hotel['state_name']) && $hotel['state_name']}{$hotel['state_name']},{/if} {$hotel['country_name']}, {$hotel['postcode']}</p>
+										{if ($hotel['latitude'] != 0 || $hotel['longitude'] != 0) && $viewOnMap}
+											<p>
+												<a class="fh-btn fh-btn--ghost fh-btn--sm" href="http://maps.google.com/maps?daddr=({$hotel['latitude']},{$hotel['longitude']})" target="_blank">
+													{l s='View on map'}
+												</a>
+											</p>
+										{/if}
+										<p class="fh-contact__value"><a href="tel:{$hotel['phone']}">{$hotel['phone']}</a></p>
+										<p class="fh-contact__value"><a href="mailto:{$hotel['email']}">{$hotel['email']}</a></p>
+									</div>
+								</div>
+							</div>
+						{/foreach}
 					</div>
-					{foreach $hotelsInfo as $hotel}
-						<div class="col-sm-6 margin-bottom-50">
-							<div class="hotel-city-container">
-								<span class="htl-map-icon"></span><span>{$hotel['city']}</span>
-							</div>
-							<div class="hotel-address-container">
-								<div class="col-xs-4">
-									<img class="htl-img" style="width:100%" src="{$hotel['image_url']}">
-								</div>
-								<div class="col-xs-8">
-									<p class="hotel-name"><span>{$hotel['hotel_name']}</span></p>
-									<p class="hotel-branch-info-value">{$hotel['address']}, {$hotel['city']}, {if {$hotel['state_name']}}{$hotel['state_name']},{/if} {$hotel['country_name']}, {$hotel['postcode']}</p>
-									{if ($hotel['latitude'] != 0 || $hotel['longitude'] != 0) && $viewOnMap}
-										<p class="hotel-branch-info-value">
-											<a class="btn htl-map-direction-btn" href="http://maps.google.com/maps?daddr=({$hotel['latitude']},{$hotel['longitude']})" target="_blank">
-												<span class="">{l s='View on map'}</span>
-											</a>
-										</p>
-									{/if}
-									<p class="hotel-branch-info-value">
-										<span class="htl-address-icon htl-phone-icon"></span>{$hotel['phone']}
-									</p>
-									<p class="hotel-branch-info-value">
-										<span class="htl-address-icon htl-email-icon"></span>{$hotel['email']}
-									</p>
-								</div>
-							</div>
-						</div>
-					{/foreach}
 				</div>
 			{/if}
 		{/block}
@@ -241,13 +187,10 @@
 		{/block}
 		{block name='contact_form_hotel_locations'}
 			{if isset($displayHotelMap) && $displayHotelMap && isset($hotelLocationArray)}
-				<div class="row {if !(isset($displayHotels) && $displayHotels && isset($hotelsInfo) && $hotelsInfo)} margin-top-20{/if}">
-					<div class="col-xs-12 col-sm-12" id="googleMapWrapper">
-						<div id="map"></div>
-					</div>
+				<div id="googleMapWrapper">
+					<div id="map"></div>
 				</div>
 			{/if}
-			<div style="clear:both;"></div>
 		{/block}
 	</div>
 

@@ -2236,3 +2236,29 @@ header #nav-main nav > div {
   display: inline-flex;
   margin-right: 18px;
 }
+
+/* Error alert */
+.fh-alert--error {
+  background: rgba(163, 69, 47, .08);
+  border-color: rgba(163, 69, 47, .35);
+  color: #8c3a28;
+}
+
+.fh-alert__title {
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.fh-alert__list {
+  margin: 0 0 8px 18px;
+  padding: 0;
+}
+
+.fh-alert__back {
+  margin: 8px 0 0;
+}
+
+.fh-alert__back a {
+  color: var(--fh-primary);
+  font-size: 14px;
+}

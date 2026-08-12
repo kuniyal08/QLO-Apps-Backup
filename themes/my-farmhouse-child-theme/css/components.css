@@ -2118,3 +2118,56 @@ header #nav-main nav > div {
   font-weight: 600;
   color: var(--fh-ink);
 }
+
+/* --------------------------------------------------------------------------
+   Legacy chrome polish — stock classes on redesigned surfaces
+   -------------------------------------------------------------------------- */
+.btn-default {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--fh-border, rgba(31, 27, 22, .16));
+  background: var(--fh-card, #fff);
+  color: var(--fh-primary, #2F4A3C);
+  font-weight: 600;
+  font-size: 14px;
+  transition: border-color .15s ease, color .15s ease, transform .15s ease;
+}
+
+.btn-default:hover,
+.btn-default:focus {
+  border-color: var(--fh-primary, #2F4A3C);
+  color: var(--fh-primary, #2F4A3C);
+}
+
+.btn-default .icon-chevron-left {
+  margin-right: 2px;
+}
+
+.occupancy_quantity_up,
+.occupancy_quantity_down {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--fh-border, rgba(31, 27, 22, .16));
+  background: #fff;
+  color: var(--fh-primary, #2F4A3C);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.occupancy_quantity_up:hover,
+.occupancy_quantity_down:hover {
+  border-color: var(--fh-primary, #2F4A3C);
+}
+
+.dropdown-toggle.btn-default {
+  border-radius: 999px;
+}

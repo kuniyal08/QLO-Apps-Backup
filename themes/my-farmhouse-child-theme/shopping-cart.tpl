@@ -25,16 +25,8 @@
 
 {capture name=path}{l s='Your shopping cart'}{/capture}
 
-{* <h1 id="cart_title" class="page-heading">{l s='Shopping-cart summary'}
-	{if !isset($empty) && !$PS_CATALOG_MODE}
-		<span class="heading-counter">{l s='Your shopping cart contains:'}
-			<span id="summary_products_quantity">{$productNumber} {if $productNumber == 1}{l s='product'}{else}{l s='products'}{/if}</span>
-		</span>
-	{/if}
-</h1> *}
-
 {if isset($account_created)}
-	<p class="alert alert-success">
+	<p class="alert alert-success fh-alert fh-alert--success">
 		{l s='Your account has been created.'}
 	</p>
 {/if}
@@ -45,11 +37,11 @@
 {/block}
 
 {if isset($empty)}
-	<p class="alert alert-warning">{l s='Your shopping cart is empty.'}</p>
+	<p class="alert alert-warning fh-alert fh-alert--warn">{l s='Your shopping cart is empty.'}</p>
 {elseif $PS_CATALOG_MODE}
-	<p class="alert alert-warning">{l s='This store has not accepted your new order.'}</p>
+	<p class="alert alert-warning fh-alert fh-alert--warn">{l s='This store has not accepted your new order.'}</p>
 {else}
-	<p id="emptyCartWarning" class="alert alert-warning unvisible">{l s='Your shopping cart is empty.'}</p>
+	<p id="emptyCartWarning" class="alert alert-warning unvisible fh-alert fh-alert--warn">{l s='Your shopping cart is empty.'}</p>
 	{* eu-legal *}
 	{block name='displayBeforeShoppingCartBlock'}
 		{hook h="displayBeforeShoppingCartBlock"}
@@ -60,7 +52,7 @@
 	{/block}
 
 	{if $show_option_allow_separate_package}
-	<p>
+	<p class="fh-check fh-check--sm">
 		<label for="allow_seperated_package" class="checkbox inline">
 			<input type="checkbox" name="allow_seperated_package" id="allow_seperated_package" {if $cart->allow_seperated_package}checked="checked"{/if} autocomplete="off"/>
 			{l s='Send available products first'}
@@ -73,7 +65,7 @@
 	{/block}
 
 	<div class="clear"></div>
-	<div class="cart_navigation_extra">
+	<div class="cart_navigation_extra fh-oc-actions">
 		{block name='displayShoppingCart'}
 			<div id="HOOK_SHOPPING_CART_EXTRA">{if isset($HOOK_SHOPPING_CART_EXTRA)}{$HOOK_SHOPPING_CART_EXTRA}{/if}</div>
 		{/block}

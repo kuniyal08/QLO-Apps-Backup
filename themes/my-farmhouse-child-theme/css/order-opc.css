@@ -1007,3 +1007,247 @@
     display: none;
   }
 }
+
+/* ==========================================
+   Farmhouse checkout shell (fh-oc)
+   ========================================== */
+
+.fh-oc-main,
+.fh-oc-aside {
+    padding-top: .5rem;
+}
+
+/* Step accordion cards */
+.fh-oc-steps .fh-oc-card {
+    background: #fff;
+    border: 1px solid var(--fh-border);
+    border-radius: var(--fh-radius-lg);
+    box-shadow: 0 1px 0 rgba(31, 27, 22, .05);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+}
+.fh-oc-steps .fh-oc-card .card-header {
+    background: transparent;
+    border-bottom: 1px solid var(--fh-border);
+    padding: 1.1rem 1.4rem;
+}
+.fh-oc-steps .fh-oc-card .accordion-header {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-family: var(--fh-font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--fh-ink);
+    margin: 0;
+    cursor: pointer;
+}
+.fh-oc-card__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--fh-radius-pill);
+    background: var(--fh-accent);
+    color: #fff;
+    font-family: var(--fh-font-body);
+    font-size: .8rem;
+    font-weight: 700;
+    flex: 0 0 auto;
+}
+.fh-oc-steps .fh-oc-card .card-header .accordion-left-arrow {
+    margin-left: auto;
+    font-size: 1.1rem;
+    color: var(--fh-muted);
+}
+.fh-oc-steps .fh-oc-card .card-body {
+    background: var(--fh-bg);
+    padding: 1.5rem;
+}
+
+/* Guest info detail rows */
+.fh-gd-label {
+    color: var(--fh-muted);
+    font-size: .85rem;
+}
+.fh-gd-value {
+    font-weight: 600;
+    color: var(--fh-ink);
+}
+
+/* Proceed / action rows */
+.fh-oc-actions a[class*="submit-guest-details"] {
+    margin-right: .5rem;
+}
+@media (max-width: 575px) {
+    .fh-oc-actions .btn {
+        float: none !important;
+        width: 100%;
+        margin-bottom: .5rem;
+    }
+}
+
+/* Legacy 5-step wizard */
+.fh-ow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+}
+.fh-ow .fh-ow__step {
+    flex: 1 1 auto;
+    min-width: 130px;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border: 1px solid var(--fh-border);
+    border-radius: var(--fh-radius-md);
+    text-align: center;
+    transition: border-color .2s ease, background .2s ease;
+}
+.fh-ow .fh-ow__step a,
+.fh-ow .fh-ow__step span {
+    display: block;
+    padding: .6rem .75rem;
+    font-size: .82rem;
+    color: var(--fh-muted);
+    text-decoration: none;
+}
+.fh-ow .fh-ow__step em {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--fh-muted);
+    margin-right: .2rem;
+}
+.fh-ow .fh-ow__step.step_current {
+    border-color: var(--fh-accent);
+    background: #fff;
+}
+.fh-ow .fh-ow__step.step_current a,
+.fh-ow .fh-ow__step.step_current span,
+.fh-ow .fh-ow__step.step_current em {
+    color: var(--fh-accent);
+    font-weight: 700;
+}
+.fh-ow .fh-ow__step.step_done {
+    border-color: var(--fh-border);
+    background: var(--fh-bg);
+}
+.fh-ow .fh-ow__step.step_done a,
+.fh-ow .fh-ow__step.step_done span,
+.fh-ow .fh-ow__step.step_done em {
+    color: var(--fh-ink);
+}
+
+/* Payment block */
+.fh-oc-pay .fh-oc-pay__title {
+    font-family: var(--fh-font-display);
+    font-size: 1.1rem;
+    color: var(--fh-ink);
+    margin: 0 0 .75rem;
+}
+
+/* TOS block */
+.fh-check-cont {
+    background: #fff;
+    border: 1px solid var(--fh-border);
+    border-radius: var(--fh-radius-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+}
+.fh-check-cont .fh-check {
+    margin: 0;
+}
+.fh-check-cont__link {
+    color: var(--fh-accent);
+    text-decoration: underline;
+    margin-left: .35rem;
+}
+
+/* Cart total card */
+.fh-cart-total {
+    background: #fff;
+    border: 1px solid var(--fh-border);
+    border-radius: var(--fh-radius-lg);
+    padding: 1.25rem 1.4rem;
+    box-shadow: 0 1px 0 rgba(31, 27, 22, .05);
+}
+.fh-cart-total__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: .25rem 1rem;
+    margin: 0 0 .6rem;
+    font-size: .9rem;
+}
+.fh-cart-total__label {
+    color: var(--fh-ink);
+}
+.fh-cart-total__row--muted .fh-cart-total__label {
+    color: var(--fh-muted);
+    font-size: .84rem;
+}
+.fh-cart-total__value {
+    font-weight: 600;
+    color: var(--fh-ink);
+    white-space: nowrap;
+}
+.fh-cart-total__row--total {
+    margin-top: .25rem;
+    margin-bottom: 0;
+    font-size: 1.05rem;
+}
+.fh-cart-total__row--total .fh-cart-total__label,
+.fh-cart-total__row--total .fh-cart-total__value {
+    font-weight: 700;
+    color: var(--fh-ink);
+}
+.fh-cart-total__value--total {
+    font-size: 1.15rem;
+    color: var(--fh-accent);
+}
+.fh-cart-total__hr {
+    border: 0;
+    border-top: 1px solid var(--fh-border);
+    margin: .85rem 0;
+}
+@media (max-width: 575px) {
+    .fh-cart-total {
+        padding: 1rem;
+    }
+}
+
+/* Voucher card */
+.fh-oc-voucher-head {
+    font-family: var(--fh-font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--fh-ink);
+    margin-bottom: .5rem !important;
+}
+.fh-oc-voucher-sub {
+    color: var(--fh-muted);
+    font-size: .85rem;
+    margin-bottom: .75rem;
+}
+
+/* Page titles used in order flow */
+.fh-title--page {
+    font-family: var(--fh-font-display);
+    font-size: 1.6rem;
+    color: var(--fh-ink);
+    margin: .5rem 0 1rem;
+    border: 0;
+}
+.fh-title__meta {
+    display: block;
+    font-family: var(--fh-font-body);
+    font-size: .85rem;
+    color: var(--fh-muted);
+    font-weight: 400;
+    margin-top: .25rem;
+}

@@ -36,6 +36,7 @@ COPY docker/php/php.ini /usr/local/etc/php/conf.d/zz-qloapps.ini
 COPY docker/apache/qloapps.conf /etc/apache2/sites-available/000-default.conf
 COPY docker/apache/servername.conf /etc/apache2/conf-available/qloapps-servername.conf
 COPY docker/php/generate-settings.php docker/php/configure-database.php /usr/local/lib/qloapps/
+COPY scripts/seed-rural-up-demo.php /usr/local/bin/seed-rural-up-demo
 
 RUN a2enconf qloapps-servername
 
@@ -60,7 +61,7 @@ RUN mkdir -p \
     && rm -rf /var/www/html/docker /var/www/html/scripts
 
 COPY docker/php/entrypoint.sh /usr/local/bin/qloapps-entrypoint
-RUN chmod +x /usr/local/bin/qloapps-entrypoint
+RUN chmod +x /usr/local/bin/qloapps-entrypoint /usr/local/bin/seed-rural-up-demo
 
 EXPOSE 80
 

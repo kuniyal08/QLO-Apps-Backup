@@ -1251,3 +1251,77 @@
     font-weight: 400;
     margin-top: .25rem;
 }
+
+/* Checkout account forms (order-opc-new-account / edit-guest-info) */
+.fh-oc-newacc__intro {
+    background: var(--fh-bg);
+    border: 1px solid var(--fh-border);
+    border-radius: var(--fh-radius-md);
+    padding: .9rem 1.1rem;
+    margin-bottom: 1.25rem;
+    color: var(--fh-muted);
+    font-size: .9rem;
+}
+.fh-oc-newacc__intro p {
+    margin: 0;
+}
+.fh-oc-newacc__intro a {
+    color: var(--fh-accent);
+    font-weight: 700;
+    text-decoration: underline;
+}
+.fh-oc-newacc__choice {
+    display: flex;
+    gap: .75rem;
+    margin: 0 0 1.25rem;
+    flex-wrap: wrap;
+}
+.fh-oc-newacc__choice > span {
+    flex: 1 1 auto;
+    min-width: 200px;
+}
+.fh-oc-newacc__choice .opc-button-small {
+    width: 100%;
+    height: 48px;
+    border-radius: var(--fh-radius-pill);
+    font-size: .95rem;
+}
+.fh-oc-newacc .lost_password {
+    color: var(--fh-accent);
+    text-decoration: underline;
+}
+.fh-field-head {
+    font-family: var(--fh-font-display);
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--fh-ink);
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--fh-border);
+    padding-bottom: .4rem;
+}
+
+/* Generic checkout card (also used outside the step accordion: cart rows, partials) */
+.fh-oc-card {
+    background: #fff;
+    border: 1px solid var(--fh-border);
+    border-radius: var(--fh-radius-lg);
+    box-shadow: 0 1px 0 rgba(31, 27, 22, .05);
+    overflow: hidden;
+}
+.fh-oc-card__head {
+    background: transparent;
+    border-bottom: 1px solid var(--fh-border);
+    padding: .95rem 1.25rem;
+}
+.fh-oc-card__title {
+    font-family: var(--fh-font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--fh-ink);
+    margin: 0;
+}
+.fh-oc-card__body {
+    background: var(--fh-bg);
+    padding: 1.25rem;
+}

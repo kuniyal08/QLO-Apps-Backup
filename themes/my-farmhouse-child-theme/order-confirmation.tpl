@@ -26,7 +26,10 @@
 {block name='order_confirmation'}
 	{capture name=path}{l s='Order confirmation'}{/capture}
 	{block name='order_confirmation_heading'}
-		<h1 class="page-heading">{l s='Booking confirmation'} : <span class="bold">{$order->reference}</span></h1>
+		<div class="fh-account">
+			<p class="fh-eyebrow">{l s='Your stay'}</p>
+			<h1 class="fh-title fh-title--page fh-account__title">{l s='Booking confirmation'} <span class="fh-title__meta">{l s='Reference'} : {$order->reference}</span></h1>
+		</div>
 	{/block}
 
 	{assign var='current_step' value='payment'}
@@ -43,31 +46,48 @@
 	{/block}
 
 	<div class="order-confirmation-column">
-        {if $HOOK_PAYMENT_RETURN}
-            <div class="card">
-                <div class="card-body">
-                {block name='displayPaymentReturn'}
-                    {$HOOK_PAYMENT_RETURN}
-                {/block}
-                </div>
-            </div>
-        {/if}
+		<div class="fh-stack">
+		{if $HOOK_PAYMENT_RETURN}
+			<div class="card fh-card">
+				<div class="card-body">
+					{block name='displayPaymentReturn'}
+						{$HOOK_PAYMENT_RETURN}
+					{/block}
+				</div>
+			</div>
+		{/if}
+
 		{if isset($order->id) && $order->id}
+			<div class="card fh-card">
+				<div class="card-body">
+					<div class="fh-alert fh-alert--success">
+						<p class="fh-alert__title">{l s='Thank you, your booking is confirmed!'}</p>
+						{l s='A confirmation email with all the details of your stay is on its way to you.'}
+					</div>
+					<div class="fh-order-ref">
+						<span class="fh-order-ref__label">{l s='Booking reference'}</span>
+						<span class="fh-order-ref__code">{$order->reference}</span>
+					</div>
+				</div>
+			</div>
 			{if $is_guest}
 				<p class="cart_navigation exclusive">
-				<a class="button-exclusive btn btn-default" href="{$link->getPageLink('guest-tracking', true, NULL, "id_order={$reference_order|urlencode}&email={$email|urlencode}")|escape:'html':'UTF-8'}" title="{l s='Follow my order'}"><i class="icon-chevron-left"></i>{l s='Follow my order'}</a>
+					<a class="fh-btn fh-btn--primary" href="{$link->getPageLink('guest-tracking', true, NULL, "id_order={$reference_order|urlencode}&email={$email|urlencode}")|escape:'html':'UTF-8'}" title="{l s='Follow my order'}"><i class="icon-chevron-left"></i>{l s='Follow my order'}</a>
 				</p>
 			{else}
 				{if isset($is_free_order) && $is_free_order}
-					<p class="alert alert-success">{l s='Your'} {if $total_rooms_booked > 1}{l s='bookings have'}{else}{l s='booking has'}{/if} {l s='been created successfully!'}</p><br />
+					<div class="fh-alert fh-alert--success">
+						<p class="fh-alert__title">{l s='Your'} {if $total_rooms_booked > 1}{l s='bookings have'}{else}{l s='booking has'}{/if} {l s='been created successfully!'}</p>
+					</div>
 				{/if}
 				{if $any_back_order}
 					{if $shw_bo_msg}
-						<br>
-						<p class="back_o_msg"><strong><sup>*</sup>{l s='Some of your rooms are on back order. Please read the following message for rooms with status on backorder'}</strong></p>
-						<p>
-							-&nbsp;&nbsp;{$back_ord_msg}
-						</p>
+						<div class="fh-alert fh-alert--warn">
+							<p class="fh-alert__title"><strong><sup>*</sup>{l s='Some of your rooms are on back order. Please read the following message for rooms with status on backorder'}</strong></p>
+							<p>
+								-&nbsp;&nbsp;{$back_ord_msg}
+							</p>
+						</div>
 					{/if}
 				{/if}
 				{block name='order_details'}
@@ -75,10 +95,9 @@
 						<div class="row">
 							<div class="col-md-8 order-product-summary">
 								{if isset($cart_htl_data)}
-									<div class="card">
-										<div class="card-header">{l s='Room Details'}</div>
-										<div class="card-body">
-											{foreach from=$cart_htl_data key=data_k item=data_v}
+									{foreach from=$cart_htl_data key=data_k item=data_v}
+										<div class="card fh-card">
+											<div class="card-body">
 												{foreach from=$data_v['date_diff'] key=rm_k item=rm_v}
 													<div class="product-detail" data-id-product="{$data_v.id_product}" data-date-diff="{$rm_k}">
 														<div class="row">
@@ -203,12 +222,12 @@
 														</div>
 													</div>
 												{/foreach}
-											{/foreach}
+											</div>
 										</div>
-									</div>
+									{/foreach}
 								{/if}
 								{if isset($cart_standalone_service_products) || isset($cart_hotel_service_products)}
-									<div class="card">
+									<div class="card fh-card">
 										<div class="card-header">{l s='Product Details'}</div>
 										<div class="card-body">
 											{if isset($cart_hotel_service_products)}
@@ -231,11 +250,11 @@
 																					{$product.product_name|escape:'html':'UTF-8'}{if isset($product.option_name) && $product.option_name} : {$product.option_name|escape:'html':'UTF-8'}{/if}
 																				</a>
 																			</p>
-                                                                            {if isset($product['hotel_location'])}
-                                                                                <p class="hotel-location">
-                                                                                    <i class="icon-map-marker"></i> &nbsp;{$product['hotel_location']}
-                                                                                </p>
-                                                                            {/if}
+																			{if isset($product['hotel_location'])}
+																				<p class="hotel-location">
+																					<i class="icon-map-marker"></i> &nbsp;{$product['hotel_location']}
+																				</p>
+																			{/if}
 																		</div>
 																		<div class="col-xs-12">
 																			<div class="description-list">
@@ -370,7 +389,7 @@
 							</div>
 							<div class="col-md-4">
 								{block name='order_detail_payment_details'}
-									<div class="card">
+									<div class="card fh-card">
 										<div class="card-header">
 											{l s='Payment Details'}
 										</div>
@@ -393,7 +412,7 @@
 												<label class="col-xs-6 title">{l s='Status'}</label>
 												<div class="col-xs-6 text-right value status">
 													{if isset($order_history[0]) && $order_history[0]}
-														<span{if isset($order_history[0].color) && $order_history[0].color} style="background-color:{$order_history[0].color|escape:'html':'UTF-8'}30; border: 1px solid {$order_history[0].color|escape:'html':'UTF-8'};" {/if} class="label">
+														<span{if isset($order_history[0].color) && $order_history[0].color} style="background-color:{$order_history[0].color|escape:'html':'UTF-8'}30; border: 1px solid {$order_history[0].color|escape:'html':'UTF-8'};" {/if} class="label fh-badge">
 															{if $order_history[0].id_order_state|in_array:$overbooking_order_states}
 																{l s='Order Not Confirmed'}
 															{else}
@@ -401,7 +420,7 @@
 															{/if}
 														</span>
 													{else}
-														<span class="processing">{l s='Processing'}</span>
+														<span class="processing fh-badge">{l s='Processing'}</span>
 													{/if}
 												</div>
 											</div>
@@ -413,7 +432,7 @@
 									</div>
 								{/block}
 								{block name='order_detail_payment_summary'}
-									<div class="card">
+									<div class="card fh-card">
 										<div class="card-header">
 											{l s='Payment Summary'}
 										</div>
@@ -525,15 +544,16 @@
 						</div>
 					</div>
 				{/block}
-				<p>{l s='An email has been sent with this information.'}
+				<p class="fh-account__copy">{l s='An email has been sent with this information.'}
 					<br /><strong>{l s='Your booking has been received successfully and we are looking forward to welcoming you.'}</strong>
-					<br />{l s='If you have questions, comments or concerns, please contact our'} <a class="cust_serv_lnk" href="{$link->getPageLink('contact', true)|escape:'html'}">{l s='expert customer support team.'}</a>
+					<br />{l s='If you have questions, comments or concerns, please contact our'} <a class="cust_serv_lnk fh-link" href="{$link->getPageLink('contact', true)|escape:'html'}">{l s='expert customer support team.'}</a>
 				</p>
 				<p class="cart_navigation exclusive">
-					<a class="btn" href="{$link->getPageLink('history', true)|escape:'html':'UTF-8'}" title="{l s='Go to your order history page'}"><i class="icon-chevron-left"></i>{l s='View your order history'}</a>
+					<a class="fh-btn fh-btn--primary" href="{$link->getPageLink('history', true)|escape:'html':'UTF-8'}" title="{l s='Go to your order history page'}"><i class="icon-chevron-left"></i>{l s='View your order history'}</a>
 				</p>
 			{/if}
 		{/if}
+		</div>
 	</div>
 
 	{* Fancybox for extra demands*}

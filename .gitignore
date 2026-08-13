@@ -4,11 +4,6 @@
 /var/log/
 /var/sessions/
 
-# Uploaded media (images, downloads)
-/img/
-/upload/
-/download/
-
 # Configuration files with sensitive data
 /config/settings.inc.php
 /config/xml/
@@ -28,7 +23,6 @@
 Thumbs.db
 
 # Backups
-*.sql
 *.zip
 *.tar.gz
 

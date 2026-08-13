@@ -61,5 +61,16 @@ if ($shopDomain !== '') {
     );
     $configurationUpdate->execute(array($shopDomain));
 
-    fwrite(STDOUT, "[qloapps] canonical domain set to ".$shopDomain."\n");
+    // Behind the Codespaces TLS-terminating proxy requests arrive with
+    // X-Forwarded-Proto: https, so canonical URLs must be https too or
+    // canonicalRedirection 302s between https request and http canonical
+    // forever. Local http-only stacks keep SSL disabled.
+    $sslEnabled = strpos($shopDomain, '.app.github.dev') !== false ? '1' : '0';
+    $sslUpdate = $pdo->prepare(
+        'UPDATE `'.$configurationTable.'` SET `value` = ? '
+        .'WHERE `name` IN (\'PS_SSL_ENABLED\', \'PS_SSL_ENABLED_EVERYWHERE\')'
+    );
+    $sslUpdate->execute(array($sslEnabled));
+
+    fwrite(STDOUT, "[qloapps] canonical domain set to ".$shopDomain." (ssl=".$sslEnabled.")\n");
 }

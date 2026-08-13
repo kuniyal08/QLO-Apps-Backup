@@ -1,0 +1,20 @@
+# GitHub Codespaces demo override. Local-only artifact and NOT for production.
+# Use: docker compose -f docker-compose.yml -f docker-compose.codespaces.yml up -d --build
+#
+# - db: mounts the collation-converted seed dump (created by scripts/deploy-codespaces.sh)
+#   so a fresh MariaDB 10.11 volume can import the MariaDB 11.x dump.
+# - web: bind-mounts the theme + controllers sources so frontend edits made via
+#   `git pull` apply without rebuilding the image.
+name: qloapps-demo
+
+services:
+  db:
+    volumes:
+      - /tmp/qlo-init-converted:/docker-entrypoint-initdb.d:ro
+
+  web:
+    environment:
+      SHOP_DOMAIN: localhost:8080
+    volumes:
+      - ./themes:/var/www/html/themes
+      - ./controllers:/var/www/html/controllers

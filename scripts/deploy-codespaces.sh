@@ -75,6 +75,7 @@ DB_PREFIX=qlo_
 HTTP_PORT=8080
 SHOP_DOMAIN=${SHOP_DOMAIN}
 THEME_NAME=rural-up-theme
+ADMIN_PASSWORD=$(openssl rand -hex 6)
 EOF
     if [ "$HAS_PHP" -eq 1 ]; then
         cat >> .env <<EOF
@@ -98,6 +99,16 @@ if ! grep -qxF 'THEME_NAME=rural-up-theme' .env; then
         sed -i 's|^THEME_NAME=.*|THEME_NAME=rural-up-theme|' .env
     else
         printf 'THEME_NAME=rural-up-theme\n' >> .env
+    fi
+fi
+
+# Ensure an admin password exists for the demo login.
+if ! grep -qE '^ADMIN_PASSWORD=.+' .env; then
+    echo "Generating ADMIN_PASSWORD"
+    if grep -qE '^ADMIN_PASSWORD=' .env; then
+        sed -i "s|^ADMIN_PASSWORD=.*|ADMIN_PASSWORD=$(openssl rand -hex 6)|" .env
+    else
+        printf 'ADMIN_PASSWORD=%s\n' "$(openssl rand -hex 6)" >> .env
     fi
 fi
 
@@ -157,6 +168,7 @@ fi
 
 echo "Demo ready: ${DEMO_URL}"
 echo "Admin:      ${DEMO_URL}/hotel-admin"
+echo "Admin login: admin@example.com / $(grep -E '^ADMIN_PASSWORD=' .env | cut -d= -f2-)"
 echo
 echo "To share: open the Ports panel in Codespaces, hover port 8080 and set it to Public."
 echo "To refresh after 'git pull': re-run this script (rebuilds the image with new code)."

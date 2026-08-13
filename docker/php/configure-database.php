@@ -105,3 +105,17 @@ if ($themeName !== '' && is_dir('/var/www/html/themes/'.$themeName)) {
 } elseif ($themeName !== '') {
     fwrite(STDERR, "[qloapps] THEME_NAME ".$themeName." has no themes/ directory; keeping current theme.\n");
 }
+
+// Reset the demo admin password at boot. The seeded hash is bound to the
+// original site's cookie key and can never validate against a freshly
+// generated COOKIE_KEY, so the demo needs a deterministic login. Only
+// applies when ADMIN_PASSWORD is explicitly provided (deploy script).
+$adminPassword = trim((string) getenv('ADMIN_PASSWORD'));
+$cookieKey = (string) getenv('COOKIE_KEY');
+if ($adminPassword !== '' && $cookieKey !== '') {
+    $adminUpdate = $pdo->prepare(
+        'UPDATE `'.$dbPrefix.'employee` SET `passwd` = ? WHERE `email` = ?'
+    );
+    $adminUpdate->execute(array(md5($cookieKey.$adminPassword), 'admin@example.com'));
+    fwrite(STDOUT, "[qloapps] admin password reset for admin@example.com\n");
+}

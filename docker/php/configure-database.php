@@ -77,30 +77,43 @@ if ($shopDomain !== '') {
     fwrite(STDOUT, "[qloapps] canonical domain set to ".$shopDomain."\n");
 }
 
-// Switch the front theme via qlo_theme + qlo_shop.id_theme (PS 1.7 model).
+// Keep the front theme in sync with THEME_NAME (qlo_theme + qlo_shop.id_theme,
+// PS 1.7 model). Only self-heals: if the shop's current theme directory still
+// exists on disk, a theme chosen manually in the admin is left untouched.
 $themeName = trim((string) getenv('THEME_NAME'));
 if ($themeName !== '' && is_dir('/var/www/html/themes/'.$themeName)) {
     $themeTable = $dbPrefix.'theme';
-    $themeSelect = $pdo->prepare('SELECT `id_theme` FROM `'.$themeTable.'` WHERE `directory` = ?');
-    $themeSelect->execute(array($themeName));
-    $idTheme = (int) $themeSelect->fetchColumn();
-    if (!$idTheme) {
-        $themeInsert = $pdo->prepare(
-            'INSERT INTO `'.$themeTable.'` '
-            .'(`name`, `directory`, `responsive`, `default_left_column`, `default_right_column`, `product_per_page`) '
-            .'VALUES (?, ?, 1, 1, 0, 12)'
-        );
-        $themeInsert->execute(array($themeName, $themeName));
-        $idTheme = (int) $pdo->lastInsertId();
-        fwrite(STDOUT, "[qloapps] registered theme ".$themeName." (id_theme=".$idTheme.")\n");
-    }
     $shopSelect = $pdo->prepare('SELECT MIN(`id_shop`) FROM `'.$dbPrefix.'shop` WHERE `active` = 1');
     $shopSelect->execute();
     $idShop = (int) $shopSelect->fetchColumn();
     if ($idShop) {
-        $shopUpdate = $pdo->prepare('UPDATE `'.$dbPrefix.'shop` SET `id_theme` = ? WHERE `id_shop` = ?');
-        $shopUpdate->execute(array($idTheme, $idShop));
-        fwrite(STDOUT, "[qloapps] front theme set to ".$themeName."\n");
+        $currentSelect = $pdo->prepare(
+            'SELECT t.`directory` FROM `'.$themeTable.'` t '
+            .'JOIN `'.$dbPrefix.'shop` s ON s.`id_theme` = t.`id_theme` '
+            .'WHERE s.`id_shop` = ?'
+        );
+        $currentSelect->execute(array($idShop));
+        $currentDir = (string) $currentSelect->fetchColumn();
+        if ($currentDir !== '' && is_dir('/var/www/html/themes/'.$currentDir)) {
+            fwrite(STDOUT, "[qloapps] keeping manually selected theme: ".$currentDir."\n");
+        } else {
+            $themeSelect = $pdo->prepare('SELECT `id_theme` FROM `'.$themeTable.'` WHERE `directory` = ?');
+            $themeSelect->execute(array($themeName));
+            $idTheme = (int) $themeSelect->fetchColumn();
+            if (!$idTheme) {
+                $themeInsert = $pdo->prepare(
+                    'INSERT INTO `'.$themeTable.'` '
+                    .'(`name`, `directory`, `responsive`, `default_left_column`, `default_right_column`, `product_per_page`) '
+                    .'VALUES (?, ?, 1, 1, 0, 12)'
+                );
+                $themeInsert->execute(array($themeName, $themeName));
+                $idTheme = (int) $pdo->lastInsertId();
+                fwrite(STDOUT, "[qloapps] registered theme ".$themeName." (id_theme=".$idTheme.")\n");
+            }
+            $shopUpdate = $pdo->prepare('UPDATE `'.$dbPrefix.'shop` SET `id_theme` = ? WHERE `id_shop` = ?');
+            $shopUpdate->execute(array($idTheme, $idShop));
+            fwrite(STDOUT, "[qloapps] front theme set to ".$themeName."\n");
+        }
     }
 } elseif ($themeName !== '') {
     fwrite(STDERR, "[qloapps] THEME_NAME ".$themeName." has no themes/ directory; keeping current theme.\n");

@@ -39,13 +39,15 @@ fi
 
 # 2. Generate .env on first run. Never commit it.
 DEFUSE_PHAR=tools/defuse/php-encryption/defuse-crypto.phar
-if ! command -v php >/dev/null 2>&1; then
-    echo "php is not available in this Codespace; cannot generate a valid Defuse NEW_COOKIE_KEY." >&2
-    exit 1
-fi
-if [ ! -f "$DEFUSE_PHAR" ]; then
-    echo "Missing $DEFUSE_PHAR; cannot generate a valid Defuse NEW_COOKIE_KEY." >&2
-    exit 1
+
+if command -v php >/dev/null 2>&1 && [ -f "$DEFUSE_PHAR" ]; then
+    HAS_PHP=1
+else
+    # php is not on the Codespace PATH (it lives only inside the web image), so
+    # cookie keys cannot be generated here. That is fine: the entrypoint
+    # generates and persists valid keys in the secrets volume on first boot.
+    echo "php not found; cookie keys will be generated inside the web container (secrets volume)." >&2
+    HAS_PHP=0
 fi
 
 make_cookie_key() {
@@ -62,18 +64,31 @@ MARIADB_ROOT_PASSWORD=$(openssl rand -hex 12)
 DB_PREFIX=qlo_
 HTTP_PORT=8080
 SHOP_DOMAIN=localhost:8080
+EOF
+    if [ "$HAS_PHP" -eq 1 ]; then
+        cat >> .env <<EOF
 COOKIE_KEY=$(openssl rand -hex 24)
 COOKIE_IV=$(openssl rand -hex 4)
 NEW_COOKIE_KEY=$(make_cookie_key)
 EOF
+    fi
 fi
 
-# Self-heal: .env files written by older versions of this script hold a random
-# hex NEW_COOKIE_KEY that the entrypoint (and Defuse) rejects.
-if ! php -r 'require $argv[1]; Defuse\Crypto\Key::loadFromAsciiSafeString($argv[2]);' \
-    "$DEFUSE_PHAR" "$(grep -E '^NEW_COOKIE_KEY=' .env | cut -d= -f2-)" 2>/dev/null; then
-    echo "Regenerating invalid NEW_COOKIE_KEY in .env"
-    sed -i "s|^NEW_COOKIE_KEY=.*|NEW_COOKIE_KEY=$(make_cookie_key)|" .env
+if [ "$HAS_PHP" -eq 1 ]; then
+    # Self-heal: .env files written by older versions of this script hold a
+    # random hex NEW_COOKIE_KEY that the entrypoint (and Defuse) rejects.
+    if ! php -r 'require $argv[1]; Defuse\Crypto\Key::loadFromAsciiSafeString($argv[2]);' \
+        "$DEFUSE_PHAR" "$(grep -E '^NEW_COOKIE_KEY=' .env | cut -d= -f2-)" 2>/dev/null; then
+        echo "Regenerating invalid NEW_COOKIE_KEY in .env"
+        sed -i "s|^NEW_COOKIE_KEY=.*|NEW_COOKIE_KEY=$(make_cookie_key)|" .env
+    fi
+else
+    # php is missing, so drop stale cookie keys (e.g. from an older broken
+    # version of this script); the entrypoint will generate valid ones.
+    if grep -qE '^(COOKIE_KEY|COOKIE_IV|NEW_COOKIE_KEY)=' .env; then
+        echo "Removing stale cookie keys from .env (entrypoint will generate them)." >&2
+        sed -i '/^\(COOKIE_KEY\|COOKIE_IV\|NEW_COOKIE_KEY\)=/d' .env
+    fi
 fi
 
 # 3. Validate, build and start the stack.

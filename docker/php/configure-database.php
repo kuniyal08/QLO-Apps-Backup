@@ -61,16 +61,18 @@ if ($shopDomain !== '') {
     );
     $configurationUpdate->execute(array($shopDomain));
 
-    // Behind the Codespaces TLS-terminating proxy requests arrive with
-    // X-Forwarded-Proto: https, so canonical URLs must be https too or
-    // canonicalRedirection 302s between https request and http canonical
-    // forever. Local http-only stacks keep SSL disabled.
-    $sslEnabled = strpos($shopDomain, '.app.github.dev') !== false ? '1' : '0';
-    $sslUpdate = $pdo->prepare(
-        'UPDATE `'.$configurationTable.'` SET `value` = ? '
-        .'WHERE `name` IN (\'PS_SSL_ENABLED\', \'PS_SSL_ENABLED_EVERYWHERE\')'
-    );
-    $sslUpdate->execute(array($sslEnabled));
+    // Behind the Codespaces TLS-terminating proxy the forwarded Host carries
+    // its port and X-Forwarded-Proto is unreliable, so https/http canonical
+    // checks never settle (302 and 301 loops). Disable both app-level
+    // redirection mechanisms for forwarded hosts; the proxy handles the
+    // public https face. Local http-only stacks keep their seeded behaviour.
+    if (strpos($shopDomain, '.app.github.dev') !== false) {
+        $redirectOff = $pdo->prepare(
+            'UPDATE `'.$configurationTable.'` SET `value` = \'0\' '
+            .'WHERE `name` IN (\'PS_SSL_ENABLED\', \'PS_SSL_ENABLED_EVERYWHERE\', \'PS_CANONICAL_REDIRECT\')'
+        );
+        $redirectOff->execute();
+    }
 
-    fwrite(STDOUT, "[qloapps] canonical domain set to ".$shopDomain." (ssl=".$sslEnabled.")\n");
+    fwrite(STDOUT, "[qloapps] canonical domain set to ".$shopDomain."\n");
 }

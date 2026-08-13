@@ -74,6 +74,7 @@ MARIADB_ROOT_PASSWORD=$(openssl rand -hex 12)
 DB_PREFIX=qlo_
 HTTP_PORT=8080
 SHOP_DOMAIN=${SHOP_DOMAIN}
+THEME_NAME=rural-up-theme
 EOF
     if [ "$HAS_PHP" -eq 1 ]; then
         cat >> .env <<EOF
@@ -88,6 +89,16 @@ fi
 if grep -qE '^SHOP_DOMAIN=' .env && ! grep -qxF "SHOP_DOMAIN=${SHOP_DOMAIN}" .env; then
     echo "Updating SHOP_DOMAIN to ${SHOP_DOMAIN}"
     sed -i "s|^SHOP_DOMAIN=.*|SHOP_DOMAIN=${SHOP_DOMAIN}|" .env
+fi
+
+# Ensure the front theme is pinned (add when missing, fix when changed).
+if ! grep -qxF 'THEME_NAME=rural-up-theme' .env; then
+    echo "Pinning THEME_NAME=rural-up-theme"
+    if grep -qE '^THEME_NAME=' .env; then
+        sed -i 's|^THEME_NAME=.*|THEME_NAME=rural-up-theme|' .env
+    else
+        printf 'THEME_NAME=rural-up-theme\n' >> .env
+    fi
 fi
 
 if [ "$HAS_PHP" -eq 1 ]; then
@@ -138,8 +149,14 @@ fi
 
 "${COMPOSE[@]}" ps
 
-echo "Demo ready: http://localhost:8080"
-echo "Admin:      http://localhost:8080/hotel-admin"
+if [ -n "${CODESPACE_NAME:-}" ]; then
+    DEMO_URL="https://${SHOP_DOMAIN}"
+else
+    DEMO_URL="http://${SHOP_DOMAIN}"
+fi
+
+echo "Demo ready: ${DEMO_URL}"
+echo "Admin:      ${DEMO_URL}/hotel-admin"
 echo
 echo "To share: open the Ports panel in Codespaces, hover port 8080 and set it to Public."
 echo "To refresh after 'git pull': re-run this script (rebuilds the image with new code)."

@@ -29,6 +29,11 @@ mkdir -p \
     "$APP_DIR/var/sessions" \
     "$SECRET_DIR"
 
+# Stale compiled templates can pin the previous theme/config; rebuild them.
+rm -rf \
+    "$APP_DIR/cache/smarty/compile"/* \
+    "$APP_DIR/cache/smarty/cache"/*
+
 # Add image-provided media to new volumes without overwriting user uploads.
 cp -a -n "$MEDIA_SEED_DIR/img"/. "$APP_DIR/img"/
 cp -a -n "$MEDIA_SEED_DIR/upload"/. "$APP_DIR/upload"/

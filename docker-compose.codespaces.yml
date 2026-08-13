@@ -10,7 +10,7 @@ name: qloapps-demo
 services:
   db:
     volumes:
-      - /tmp/qlo-init-converted:/docker-entrypoint-initdb.d:ro
+      - ./db/init-converted:/docker-entrypoint-initdb.d:ro
 
   web:
     environment:

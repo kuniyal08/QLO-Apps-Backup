@@ -16,9 +16,10 @@ fi
 
 # 1. Make the MariaDB 11.x seed dump compatible with the pinned mariadb:10.11
 #    image (utf8mb3_uca1400_ai_ci does not exist on 10.11). The tracked
-#    db/init file is left untouched; the converted copy lives in /tmp.
+#    db/init file is left untouched; the converted copy lives in the
+#    gitignored db/init-converted dir that the compose override mounts.
 INIT_SRC=db/init/01-init.sql
-INIT_DST=/tmp/qlo-init-converted/01-init.sql
+INIT_DST=db/init-converted/01-init.sql
 if [ ! -f "$INIT_SRC" ]; then
     echo "Missing seed dump: $INIT_SRC. Push it to the repo first." >&2
     exit 1
@@ -29,6 +30,10 @@ sed -e 's/utf8mb4_uca1400_ai_ci/utf8mb4_general_ci/g' \
     "$INIT_SRC" > "$INIT_DST"
 if grep -q uca1400 "$INIT_DST"; then
     echo "Collation conversion incomplete; aborting." >&2
+    exit 1
+fi
+if [ ! -s "$INIT_DST" ]; then
+    echo "Converted seed dump is empty; aborting." >&2
     exit 1
 fi
 
@@ -53,6 +58,20 @@ fi
 "${COMPOSE[@]}" config -q
 "${COMPOSE[@]}" up -d --build
 
+# 4. Verify the seed data actually imported (db healthcheck only proves
+#    connectivity, not data). If tables are missing, the seed was mounted
+#    empty (e.g. a prior boot created the db volume before this script ran).
+DB_PASSWD=$(grep -E '^DB_PASSWD=' .env | cut -d= -f2-)
+if [ -n "$DB_PASSWD" ] && ! "${COMPOSE[@]}" exec -T db \
+    mariadb -u"${DB_NAME:-qloapps}" -p"$DB_PASSWD" "${DB_NAME:-qloapps}" \
+    -e "SHOW TABLES LIKE '${DB_PREFIX:-qlo_}shop_url'" 2>/dev/null | grep -q shop_url; then
+    echo "WARNING: seed data is missing from the database." >&2
+    echo "A pre-existing empty db volume is shadowing the init mount. Fix with:" >&2
+    echo "  docker compose -f docker-compose.yml -f docker-compose.codespaces.yml down -v" >&2
+    echo "  bash scripts/deploy-codespaces.sh" >&2
+    exit 1
+fi
+
 # 4. Wait for the web service to become healthy.
 WEB_ID=$("${COMPOSE[@]}" ps -q web 2>/dev/null || true)
 if [ -n "$WEB_ID" ]; then
@@ -66,7 +85,6 @@ fi
 
 "${COMPOSE[@]}" ps
 
-echo
 echo "Demo ready: http://localhost:8080"
 echo "Admin:      http://localhost:8080/hotel-admin"
 echo

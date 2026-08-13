@@ -29,6 +29,22 @@ class FhregionsRegiondetailModuleFrontController extends ModuleFrontController
         }
 
         $hotels = FhRegion::getHotels($idRegion, $idLang);
+        foreach ($hotels as &$hotel) {
+            if (!empty($hotel['id_cover_img'])) {
+                $image = new HotelImage((int) $hotel['id_cover_img']);
+                $hotel['image_url'] = $this->context->link->getMediaLink(
+                    $image->getImageLink((int) $hotel['id_cover_img'], ImageType::getFormatedName('medium'))
+                );
+            }
+            if (!empty($hotel['id_category'])) {
+                $hotel['property_link'] = $this->context->link->getCategoryLink(
+                    new Category((int) $hotel['id_category'], $idLang),
+                    null,
+                    $idLang
+                );
+            }
+        }
+        unset($hotel);
         $hotelIds = FhRegion::getHotelIds($idRegion);
         $activities = FhRegion::getActivities($idRegion, $idLang, 12);
         $adjacent = FhRegion::getAdjacent($idRegion, (int) $region->position, $idLang);

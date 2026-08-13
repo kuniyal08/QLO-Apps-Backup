@@ -36,6 +36,14 @@ if [ ! -s "$INIT_DST" ]; then
     echo "Converted seed dump is empty; aborting." >&2
     exit 1
 fi
+INIT_SRC2=db/init/02-module-content.sql
+INIT_DST2=db/init-converted/02-module-content.sql
+if [ -f "$INIT_SRC2" ]; then
+    mkdir -p "$(dirname "$INIT_DST2")"
+    sed -e 's/utf8mb4_uca1400_ai_ci/utf8mb4_general_ci/g' \
+        -e 's/utf8mb3_uca1400_ai_ci/utf8mb3_general_ci/g' \
+        "$INIT_SRC2" > "$INIT_DST2"
+fi
 
 # 2. Generate .env on first run. Never commit it.
 DEFUSE_PHAR=tools/defuse/php-encryption/defuse-crypto.phar

@@ -14,7 +14,10 @@ services:
 
   web:
     environment:
-      SHOP_DOMAIN: localhost:8080
+      # The GitHub forwarded URL (<CODESPACE_NAME>-8080.app.github.dev) is set
+      # by scripts/deploy-codespaces.sh in .env; fall back to localhost outside
+      # Codespaces.
+      SHOP_DOMAIN: ${SHOP_DOMAIN:-localhost:8080}
     volumes:
       - ./themes:/var/www/html/themes
       - ./controllers:/var/www/html/controllers

@@ -105,7 +105,7 @@ class AdminFhBlogPostController extends ModuleAdminController
             }
 
             $fileName = 'post-'.(int) $object->id.'-'.date('YmdHis').'.'.strtolower($extension);
-            $dest = _PS_IMG_.'fhblog'.DIRECTORY_SEPARATOR.$fileName;
+            $dest = _PS_IMG_DIR_.'fhblog'.DIRECTORY_SEPARATOR.$fileName;
             if (ImageManager::resize($_FILES['cover']['tmp_name'], $dest, 1200, 675)) {
                 $object->cover = $fileName;
                 if ($object->update()) {

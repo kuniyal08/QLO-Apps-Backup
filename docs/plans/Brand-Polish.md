@@ -1,0 +1,25 @@
+---
+plan name: Brand-Polish
+plan description: Unify visual identity everywhere
+plan status: active
+---
+
+## Idea
+Supersede the narrow `Header-Polish` scope with an exhaustive Rural UP customer-facing brand-consistency pass. Audit and replace every visible legacy logo treatment, Font Awesome glyph, Unicode pseudo-icon, stock blue control, mismatched icon family, generic fallback font, inconsistent font weight/size/line-height, and unbranded visual mark across homepage, header, drawer, mobile bottom navigation, search, discovery, property/results, room detail, booking widget, cart, OPC/payment/confirmation, account/auth, CMS/help/system pages, footer, and visible module output. Establish one self-hosted Rural UP typography system and one theme-owned SVG stroke icon system, then migrate visible surfaces without breaking QloApps hooks, JavaScript selectors, accessibility labels, cart quantities, payment controls, or booking flows. Keep functional legacy icon fonts loaded only where hidden/third-party runtime elements still require them until verified replacements exist; do not use them for visible Rural UP UI. Include a controlled homepage spacing cleanup so the visual system feels intentional rather than pieced together. Validate every page family at phone, tablet, and desktop widths and preserve translation readiness.
+
+## Implementation
+- Create a complete visible-UI inventory across all active customer routes and theme/module overrides: record every logo/wordmark, font family/weight, Font Awesome/icon-font glyph, CSS pseudo-icon, Unicode icon, stock blue control, image mark, and third-party payment/logo exception; classify each as replace, retain temporarily for hidden runtime behavior, or provider-owned exception.
+- Define the Rural UP brand foundation in theme-owned assets: self-hosted display serif and UI sans, font fallback metrics, type scale, semantic text styles, one SVG 24px stroke icon sprite, a documented icon/license source, and tokenized colors/spacing/radii/focus states; establish rules for logo lockups, support/contact marks, cart/account/menu controls, and no mixed icon families.
+- Replace shared shell branding comprehensively: restructure header layout, brand lockup, contact bar, help, account/sign-in, cart, cart quantity badge, drawer/menu, mobile bottom navigation, footer, and consent/support controls using one icon and typography system while preserving all module hooks and cart/account behavior.
+- Replace the visible cart and navigation icon implementation at theme-template level: remove CSS-generated Font Awesome cart/caret from the active header only after semantic SVG markup preserves cart URL, AJAX quantity/total selectors, cart-dropdown/layer behavior, keyboard access, and indicator state; align menu, close, account, contact, and mobile-nav icons to the same SVG system.
+- Normalize typography and iconography throughout homepage and discovery pages: hero/search, feature cards, regions, activities, stories, testimonials, property directory, availability results, filters, pagination, room cards, and empty states. Remove generic Arial/Georgia/stock Oxygen and visible Font Awesome/Unicode treatment where Rural UP components render.
+- Normalize typography and iconography throughout booking and account flows: property gallery/booking widget, occupancy and quantity controls, cart/review, OPC steps/forms/payment cards, enabled payment execution/return states, confirmation, authentication, password recovery, dashboard, booking history/detail, address/identity, contact/help, CMS/legal, newsletter, errors, 404, maintenance, and restricted-country states.
+- Respect provider exceptions: payment gateway logos/hosted UI and externally owned widget marks remain recognizable and functional; wrap and align them without redrawing trademarks. Hidden legacy icon-font requirements are documented and retired only after their runtime path is tested.
+- Correct homepage visual rhythm by removing legacy cumulative scaffolding gaps and using intentional responsive spacing tokens; ensure full-width content surfaces, header/search transitions, card spacing, and footer closure remain consistent without overflow hacks.
+- Clear caches and conduct route-family QA at 375/768/1440: inspect font network usage, no missing SVG references, visual alignment, contrast, focus, touch targets, cart/account/search interactions, booking form refresh, payment hook rendering, no horizontal overflow, and no frontend console/Smarty/PHP errors.
+- Document the Rural UP brand inventory, typography and icon rules, asset provenance, provider exceptions, migration checklist, and remaining non-customer/admin exclusions. Present an approval summary before making further product-scope changes.
+
+## Required Specs
+<!-- SPECS_START -->
+- Unified-Brand
+<!-- SPECS_END -->

@@ -254,10 +254,13 @@ class FhRegion extends ObjectModel
         }
 
         return Db::getInstance()->executeS(
-            'SELECT hb.`id`, hbl.`hotel_name`, hb.`rating`
+            'SELECT hb.`id`, hb.`id_category`, hbl.`hotel_name`, hbl.`short_description`, hb.`rating`,
+                hi.`id` AS `id_cover_img`, a.`city`
             FROM `'._DB_PREFIX_.'htl_branch_info` hb
             INNER JOIN `'._DB_PREFIX_.'htl_branch_info_lang` hbl
                 ON hbl.`id` = hb.`id` AND hbl.`id_lang` = '.(int) $idLang.'
+            LEFT JOIN `'._DB_PREFIX_.'htl_image` hi ON hi.`id_hotel` = hb.`id` AND hi.`cover` = 1
+            LEFT JOIN `'._DB_PREFIX_.'address` a ON a.`id_hotel` = hb.`id` AND a.`deleted` = 0
             WHERE hb.`active` = 1 AND hb.`id` IN ('.implode(',', $ids).')
             ORDER BY hb.`id` ASC'
         );

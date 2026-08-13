@@ -88,6 +88,34 @@ class WkHotelRoom extends Module
                 }
 
                 $product_price = Product::getPriceStatic($idProduct, $useTax);
+                $roomType = new HotelRoomType();
+                $roomTypeInfo = $roomType->getRoomTypeInfoByIdProduct($idProduct);
+                if (!empty($roomTypeInfo['id_hotel'])
+                    && Validate::isLoadedObject($hotel = new HotelBranchInformation((int) $roomTypeInfo['id_hotel'], $idLang))
+                ) {
+                    $htlRoom['hotel_name'] = $hotel->hotel_name;
+                    $htlRoom['hotel_description'] = $hotel->short_description;
+                    $htlRoom['id_hotel'] = (int) $hotel->id;
+                    $htlRoom['property_link'] = $this->context->link->getCategoryLink(
+                        new Category((int) $hotel->id_category, $idLang),
+                        null,
+                        $idLang
+                    );
+
+                    if ($hotelCover = HotelImage::getCover((int) $hotel->id)) {
+                        $htlRoom['property_image'] = $this->context->link->getMediaLink(
+                            (new HotelImage((int) $hotelCover['id']))->getImageLink(
+                                (int) $hotelCover['id'],
+                                ImageType::getFormatedName('large')
+                            )
+                        );
+                    }
+
+                    $hotelAddress = HotelBranchInformation::getAddress((int) $hotel->id);
+                    if (!empty($hotelAddress['city'])) {
+                        $htlRoom['property_location'] = $hotelAddress['city'];
+                    }
+                }
                 $htlRoom['image'] = $prodImg;
                 $htlRoom['description'] = $product->description_short;
                 $htlRoom['name'] = $product->name;

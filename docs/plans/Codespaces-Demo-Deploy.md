@@ -1,0 +1,22 @@
+---
+plan name: Codespaces-Demo-Deploy
+plan description: Codespaces demo dry-run deploy
+plan status: active
+---
+
+## Idea
+Deploy the QloApps farmstay demo inside a GitHub Codespace using the project's own Docker stack (docker-compose.yml: Apache+PHP 8.3 + MariaDB 10.11) to (1) prove the deployment works end-to-end and (2) produce a shareable live demo URL via Codespaces port forwarding — without any credit card, since the user has none. The repo already exists on GitHub (kuniyal08/QLO-Apps-Backup, branch feature/rural-marketplace-alpha). Key constraint discovered: db/init/01-init.sql is a MariaDB 11.8.8 dump using utf8mb3_uca1400_ai_ci collations, which mariadb:10.11 (the pinned image) does not support, so a fresh volume boot on a new Codespace will fail to import seed data unless the dump is converted to utf8mb3_general_ci first. The stack otherwise transfers as-is: Dockerfile + entrypoint seed media, generate settings.inc.php, and SQL mode is already cleared per-connection in DbPDO. Codespaces gives 120 core-hours/month free (no payment method needed; usage blocks at quota), port 8080 can be made public for a shareable demo link, and the environment suspends after ~30 min idle, so it suits verification + short demos, not 24/7 hosting. Always-on cardless alternatives: Azure for Students (user has .edu email, $100 credit/12 months) and the existing InfinityFree fallback plan. The demo should use the pushed branch state, so pending local changes must be committed/pushed first.
+
+## Implementation
+- Step 1 - Push the demo state to GitHub: ensure the working tree changes (modified Dockerfile, fhblog/fhregions module files) are reviewed, committed atomically on feature/rural-marketplace-alpha, and pushed to origin so the Codespace clones exactly what the demo shows; verify the remote branch exists and themes/ work is committed.
+- Step 2 - Create and prepare the Codespace: open github.com -> the QLO-Apps-Backup repo -> Code -> Codespaces on feature/rural-marketplace-alpha (default dev container includes Docker + compose); confirm 'docker compose version', disk (>=32GB), and that ports can be made public.
+- Step 3 - Make the seed dump compatible with mariadb:10.11: copy db/init/01-init.sql to a scratch dir (e.g. .codespaces/db-init-converted/) and convert all utf8mb3_uca1400_ai_ci (and any other uca1400) collations to utf8mb3_general_ci via sed; grep to confirm no uca1400 remains and no other MariaDB-11-specific syntax breaks; leave the tracked db/init file untouched.
+- Step 4 - Write Codespace-only env + compose override: create a .env (DB creds, SHOP_DOMAIN=localhost:8080, generated cookie keys following the .env.example pattern) and a docker-compose.codespaces.yml override that (a) mounts the converted init dir to /docker-entrypoint-initdb.d and (b) drops no-op SELinux :Z/:z flags; do not touch docker-compose.yml or .env committed state.
+- Step 5 - Bring the stack up: run 'docker compose -f docker-compose.yml -f docker-compose.codespaces.yml up -d --build', wait for both healthchecks (db healthy, web curl via Host localhost:8080), and confirm the entrypoint seeded media into img/upload/download and generated config/settings.inc.php with the codespace DB creds.
+- Step 6 - Verify the deployment properly: curl the homepage (expect 200 + rendered custom theme), spot-check asset URLs (css/js/img/p, modules hotel_img), exercise a room-search/booking-flow request, load hotel-admin login, and tail apache/PHP logs for warnings or errors; fix any issues surfaced (this is the 'does it deploy properly' gate).
+- Step 7 - Publish the demo link: set the forwarded 8080 port to Public in the Codespaces Ports panel, open the forwarded URL in an incognito window to confirm the demo is shareable, and record the URL, hotel-admin path + seed admin credentials in a short DEMO.md (docs/ or /tmp, not committed if it contains secrets).
+- Step 8 - Document persistence options and wrap up: capture the Code- space free-quota facts (120 core-hrs/mo, ~30-min idle suspension, demo link dies while stopped) plus the two cardless always-on paths — Azure for Students VM ($100/12-mo with the .edu email) running the same stack, and the existing InfinityFree-Demo-Deploy plan as the no-server fallback — and note how to re-run this dry-run after future theme changes.
+
+## Required Specs
+<!-- SPECS_START -->
+<!-- SPECS_END -->

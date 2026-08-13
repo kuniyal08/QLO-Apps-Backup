@@ -1,0 +1,23 @@
+---
+plan name: InfinityFree-Demo-Deploy
+plan description: Free hosting demo deployment
+plan status: active
+---
+
+## Idea
+Deploy the QloApps site (custom farmhouse theme, hotel-reservation-system module, hotel-admin back office) to InfinityFree free hosting for a client-visible demo. The repo is a PrestaShop 1.6.1.23 / QloApps 1.7 fork developed inside a podman-compose stack (Apache+PHP 8.3+MariaDB 11.8). InfinityFree runs PHP 8.x + MySQL 8.0/MariaDB 11.4 with .htaccess, free SSL and subdomains, but has constraints: MariaDB-only collations in our DB dumps (utf8mb3_uca1400_ai_ci) break on MySQL 8.0, no outbound email, ~30k hits/day and ~30k inode caps, 5GB disk, 50MB per-DB cap. The deployment must: (1) assemble a clean upload package from the working tree + Docker-volume media + regenerated config/settings.inc.php, (2) convert the DB dump to MySQL 8-compatible collations, (3) generate the missing root .htaccess (friendly URLs + config/deny rules), (4) create the InfinityFree account/subdomain, (5) upload via FTP to htdocs, (6) import the DB via phpMyAdmin and repoint shop_url/domain rows, (7) smoke-test frontend, images, booking flow and admin login, and (8) document demo credentials and platform limitations. sql_mode is already neutralized by SET SESSION sql_mode='' in DbPDO. qlo_shop_url + qlo_configuration must be updated to the new subdomain.
+
+## Implementation
+- Step 1 - Verify local stack and export source data: ensure the podman-compose stack (docker-compose.yml + docker-compose.dev.yml) is up, run scripts/backup.sh to produce the live DB dump and media archive (img/upload/download from the web container volumes), and record the current qlo_shop_url + qlo_configuration (PS_SHOP_DOMAIN/PS_SSL_ENABLED) values from the running DB for later repointing.
+- Step 2 - Build a clean upload package on the host: rsync the working tree (excluding .git, cache/, var/, log/, qa-*.png, .playwright-mcp, docker/, scripts/, db/, backups/, *.sql, *.tar.gz, and other gitignored artifacts) into build/htdocs, then extract the media archive from Step 1 into it, and create writable empty cache/smarty/compile, cache/smarty/cache and log dirs.
+- Step 3 - Make the DB dump MySQL 8.0-compatible: convert db/init/01-init.sql + the Step 1 live dump by replacing utf8mb3_uca1400_ai_ci (and any other uca1400) collations with utf8mb3_general_ci via sed, verify no remaining MariaDB-only syntax, confirm dump size stays well under the 50MB per-DB cap, and commit the sanitized dump to the backups dir (do not commit secrets).
+- Step 4 - Generate deployment-specific config files into build/htdocs: config/settings.inc.php with InfinityFree DB host/user/pass/name (reusing the generate-settings.php format and existing cookie keys/version defines), a root .htaccess with standard PrestaShop 1.6 rewrite rules (friendly URLs, REWRITEBASE=/, image rewrites, index.php fallback, font MIME types, ErrorDocument 404) plus deny rules for config/, cache/, log/, settings.inc.php, and an hotel-admin/.htaccess security-token file.
+- Step 5 - Create the InfinityFree account: sign up at infinityfree.net, create the free subdomain (e.g. qlo-farmstay-demo.epizy.com) via VistaPanel, record FTP/DB credentials, enable free SSL (Let's Encrypt) and set the PHP version to 8.1 (fallback 8.3) in the control panel; keep these credentials out of the repo.
+- Step 6 - Upload and configure on the server: create the MySQL database in VistaPanel (note its exact host/user/dbname), FTP the build/htdocs tree to htdocs/ with FileZilla, chmod cache/smarty/* and log dirs writable, and set file ownership/permissions as required by the account user.
+- Step 7 - Import data and repoint URLs: import the converted dump via VistaPanel phpMyAdmin into the new DB, then run SQL to update qlo_shop_url (domain, domain_ssl, physical_uri='/', main=1) and qlo_configuration (PS_SHOP_DOMAIN, PS_SHOP_DOMAIN_SSL, PS_SSL_ENABLED, PS_REWRITING_SETTINGS) to the new subdomain; clear cache/smarty/compile if needed.
+- Step 8 - Smoke-test the live demo: verify homepage + custom theme rendering, room/property pages, image URLs (img/p, hotel_img), room search/booking flow, and hotel-admin login; check server logs and fix any PHP 8 warnings/errors or extension gaps (phpinfo probe for curl/gd/soap/zip/intl); confirm SSL redirect works.
+- Step 9 - Document and hand over: write a short DEMO.md (outside the repo or in docs/) with the demo URL, admin URL/credentials, known limitations (no outbound email so booking confirmations don't send, 30k hits/day + 30k inode caps, 30-day inactivity suspension, account re-activation requirement), and how to refresh the demo later via this same pipeline.
+
+## Required Specs
+<!-- SPECS_START -->
+<!-- SPECS_END -->

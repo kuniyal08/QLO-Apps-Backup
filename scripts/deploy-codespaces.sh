@@ -56,10 +56,10 @@ make_cookie_key() {
 
 # QloApps 404s any host that is not the registered shop URL, so bind it to the
 # GitHub forwarded domain instead of localhost. The proxy forwards the Host
-# WITH its port (…-8080.app.github.dev:8080), so the canonical domain must
-# carry the same port or canonical-redirection 302s forever.
+# WITHOUT its port (the port lives in the forwarded URL only), so the canonical
+# domain must match or canonical-redirection 301s forever.
 if [ -n "${CODESPACE_NAME:-}" ]; then
-    SHOP_DOMAIN="${CODESPACE_NAME}-8080.app.github.dev:8080"
+    SHOP_DOMAIN="${CODESPACE_NAME}-8080.app.github.dev"
 else
     SHOP_DOMAIN="localhost:8080"
 fi

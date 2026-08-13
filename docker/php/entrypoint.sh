@@ -57,9 +57,20 @@ elif [ "$provided_keys" -eq 0 ]; then
     NEW_COOKIE_KEY="$(php -r 'require "/var/www/html/tools/defuse/php-encryption/defuse-crypto.phar"; echo Defuse\Crypto\Key::createNewRandomKey()->saveToAsciiSafeString();')"
 fi
 
-if [[ ! "$NEW_COOKIE_KEY" =~ ^def00000[0-9a-f]{128}$ ]]; then
-    echo "[qloapps] NEW_COOKIE_KEY is not a valid Defuse key." >&2
-    exit 1
+# Validate the key the way the app does (Defuse checksum, not just shape):
+# a malformed-but-regex-matching key would boot fine but fatal on first page view.
+if ! php -r 'require "/var/www/html/tools/defuse/php-encryption/defuse-crypto.phar"; Defuse\Crypto\Key::loadFromAsciiSafeString($argv[1]);' "$NEW_COOKIE_KEY" 2>/dev/null; then
+    if [ "$provided_keys" -eq 0 ]; then
+        # Persisted key from a previous (buggy) boot: regenerate instead of crash-looping.
+        echo "[qloapps] persisted NEW_COOKIE_KEY is not a valid Defuse key; regenerating cookie keys" >&2
+        rm -f "$KEY_FILE"
+        COOKIE_KEY="$(php -r 'echo bin2hex(random_bytes(28));')"
+        COOKIE_IV="$(php -r 'echo bin2hex(random_bytes(8));')"
+        NEW_COOKIE_KEY="$(php -r 'require "/var/www/html/tools/defuse/php-encryption/defuse-crypto.phar"; echo Defuse\Crypto\Key::createNewRandomKey()->saveToAsciiSafeString();')"
+    else
+        echo "[qloapps] NEW_COOKIE_KEY is not a valid Defuse key (expected 'def00000' + 128 hex chars)." >&2
+        exit 1
+    fi
 fi
 
 if [ ! -f "$KEY_FILE" ]; then
